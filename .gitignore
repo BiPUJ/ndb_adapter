@@ -55,6 +55,9 @@ coverage.xml
 # Sphinx documentation
 docs/_build/
 
+# intelij
+.idea
+
 # PyBuilder
 target/
 
