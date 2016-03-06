@@ -1,3 +1,4 @@
+from NDB.html_parser import NDBHtmlParser
 
 
 def parse_to_table(text):
@@ -15,7 +16,7 @@ def parse_csv(table):
         values_len = len(values) - 1
 
         for i in range(headers_len + 1):
-            if headers[i] == 'Authors':
+            if 'Authors' in headers[i]:
                 after = headers_len - i
                 after = values_len - after + 1
             #     print(str(i) + " " + str(after))
@@ -35,7 +36,7 @@ def parse_csv(table):
     return result
 
 
-def parse_search_report(text):
+def parse_advanced_search_report(text):
     result = {}
 
     raw_table = parse_to_table(text)
@@ -44,6 +45,21 @@ def parse_search_report(text):
 
     result['count'] = int(count) if count != raw_table[1] else 0
     result['report'] = report
+
+    return result
+
+
+def parse_search_report(html):
+    result = {}
+    parser = NDBHtmlParser()
+
+    parser.analyze(html)
+
+    count = parser.get_data_by_attr('span', 'id', 'numRec')
+    count = 0 if not count else int(count)
+
+    result['count'] = count
+    result['report'] = ''
 
     return result
 
