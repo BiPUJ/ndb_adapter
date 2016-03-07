@@ -5,7 +5,7 @@ from AsyncNDB.asyncndb import NDB
 from NDB.enums import ReportType
 
 
-class SearchTests(unittest.TestCase):
+class AsyncNDBTest(unittest.TestCase):
     def setUp(self):
         self.main_loop = asyncio.get_event_loop()
 

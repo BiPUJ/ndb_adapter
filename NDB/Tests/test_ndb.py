@@ -3,7 +3,7 @@ from NDB.ndb import NDB
 from NDB.enums import ReportType
 
 
-class SearchTests(unittest.TestCase):
+class NDBTest(unittest.TestCase):
 
     def test_advanced_search(self):
         report = NDB.advanced_search()
@@ -36,7 +36,7 @@ class SearchTests(unittest.TestCase):
         self.assertGreater(count, 2950)
 
     def test_summary(self):
-        report = NDB.summary('NA3352')
+        report = NDB.summary('5F8K')
         print("Report: " + str(report))
 
         self.assertTrue(report)

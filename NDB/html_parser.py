@@ -1,9 +1,7 @@
 from html.parser import HTMLParser
-import unicodedata
 
 
 class NDBHtmlParser(HTMLParser):
-
     def __init__(self):
         HTMLParser.__init__(self)
         self.__tree = None
@@ -16,7 +14,6 @@ class NDBHtmlParser(HTMLParser):
         self.close()
 
         if self.__elementsStack:
-            #print("Last pop: " + str(self.__elementsStack[-1].name))
             self.__tree = self.__elementsStack.pop()
 
     def get_tree(self):
@@ -24,11 +21,11 @@ class NDBHtmlParser(HTMLParser):
 
     def find_one(self, name=None, after=None, before=None, params=None):
         if after and not isinstance(after, Tag):
-            raise Exception("After is not instance of Tag class")
+            raise TypeError("After is not instance of Tag class")
         if before and not isinstance(before, Tag):
-            raise Exception("Before is not instance of Tag class")
+            raise TypeError("Before is not instance of Tag class")
         if params and not isinstance(params, dict):
-            raise Exception("Params is not instance of dictionary class")
+            raise TypeError("Params is not instance of dictionary class")
 
         root = self.__tree if after is None else after
         next_tag = Tag(name="root", next_sib=root)
@@ -48,11 +45,11 @@ class NDBHtmlParser(HTMLParser):
 
     def find_all(self, name=None, after=None, before=None, params=None):
         if after and not isinstance(after, Tag):
-            raise Exception("After is not instance of Tag class")
+            raise TypeError("After is not instance of Tag class")
         if before and not isinstance(before, Tag):
-            raise Exception("Before is not instance of Tag class")
+            raise TypeError("Before is not instance of Tag class")
         if params and not isinstance(params, dict):
-            raise Exception("Params is not instance of dictionary class")
+            raise TypeError("Params is not instance of dictionary class")
 
         root = self.__tree if after is None else after
         next_tag = Tag(name="root", next_sib=root)
@@ -72,36 +69,28 @@ class NDBHtmlParser(HTMLParser):
                 return result
 
     def handle_starttag(self, tag, attrs):
-        #print("Start tag:", tag)
-        #for attr in attrs:
-            #print("     attr:", attr)
         to_add = Tag(tag, attrs=dict(attrs))
         self.__elementsStack.append(to_add)
 
     def handle_endtag(self, tag):
-        #print("End tag  :", tag)
-
-        poped = self.__elementsStack.pop()
-        #print("poped " + poped.name)
-        if not self.__elementsStack:
-            if not self.__tree:
-                #print("not tree " + poped.name + " " + poped.children[0].name)
-                self.__tree = poped
+        try:
+            poped = self.__elementsStack.pop()
+            if not self.__elementsStack:
+                if not self.__tree:
+                    self.__tree = poped
+                else:
+                    self.__tree.add_child(poped)
             else:
-                #print("add child tree " + poped.name)
-                self.__tree.add_child(poped)
-        else:
-            #print("add child stack " + poped.name)
-            self.__elementsStack[-1].add_child(poped)
+                self.__elementsStack[-1].add_child(poped)
+        except IndexError:
+            pass
 
     def handle_data(self, data):
         #   TO DO: rest unicode char to null
         data = data.translate({ord('\xa0'): '', ord('\n'): '', ord('\t'): '', ord('\r'): '', ord('\f'): ''})
         data = data.strip()
-        #print("Data: ", data)
         try:
-            if data:
-                self.__elementsStack[-1].data += data
+            self.__elementsStack[-1].data += data
         except IndexError:
             pass
 
@@ -130,12 +119,8 @@ class Tag(object):
 
     def add_child(self, child):
         child.parent = self
-        #print("count " + str(len(self.children)))
         if self.children:
-            #print("adding to " + self.children[-1].name)
-            #print("next " + child.name)
-            self.children[-1].next_sib = child
-            child.prev_sib = self.children[-1]
+            self.children[-1].next_sib, child.prev_sib = child, self.children[-1]
         self.children.append(child)
 
     def prev(self):
@@ -147,28 +132,23 @@ class Tag(object):
             raise StopIteration
 
     def __next__(self):
-        #print("curr: " + str(self.name))
-        #print("count " + str(len(self.children)))
         if self.children:
-            #print("child " + str(self.children[0].name))
             return self.children[0]
         elif self.next_sib:
-            #print("sib")
             return self.next_sib
 
         parent = self.parent
         while parent:
-            #print("try next parent")
             if parent.next_sib:
-                #print("parent")
                 return parent.next_sib
             parent = parent.parent
         else:
             raise StopIteration
+
     next = __next__
 
     def next_data(self):
-        next_tag = next(self)
+        next_tag = self.next()
         if next_tag:
             return next_tag.data
         return ''
