@@ -145,7 +145,7 @@ class NDB(NDBBase):
         }
 
         with requests.session() as session:
-            resp = session.post(NDBBase.advancedUrl, data=params)
+            resp = session.post(NDBBase._advancedUrl, data=params)
             text = resp.text
             report = parser.parse_advanced_search_report(text)
             return report
@@ -165,7 +165,7 @@ class NDB(NDBBase):
         }
 
         with requests.session() as session:
-            resp = session.post(NDBBase.dnaUrl, data=params)
+            resp = session.post(NDBBase._dnaUrl, data=params)
             text = resp.text
             report = parser.parse_search_report(text)
             return report
@@ -186,7 +186,19 @@ class NDB(NDBBase):
         }
 
         with requests.session() as session:
-            resp = session.post(NDBBase.rnaUrl, data=params)
+            resp = session.post(NDBBase._rnaUrl, data=params)
             text = resp.text
             report = parser.parse_search_report(text)
+            return report
+
+    @staticmethod
+    def summary(structure_id):
+        params = {
+            'searchTarget': structure_id
+        }
+
+        with requests.session() as session:
+            resp = session.post(NDBBase._summaryUrl, data=params)
+            text = resp.text
+            report = parser.parse_summary(text)
             return report

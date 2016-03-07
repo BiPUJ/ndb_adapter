@@ -1,6 +1,7 @@
-import unittest
 import asyncio
-from NDB.asyncndb import NDB
+import unittest
+
+from AsyncNDB.asyncndb import NDB
 from NDB.enums import ReportType
 
 

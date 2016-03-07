@@ -145,7 +145,7 @@ class NDB(NDBBase):
         }
 
         with aiohttp.ClientSession() as session:
-            async with session.post(NDBBase.advancedUrl, data=params) as resp:
+            async with session.post(NDBBase.__advancedUrl, data=params) as resp:
                 text = await resp.text()
                 report = parser.parse_advanced_search_report(text)
                 return report
@@ -165,7 +165,7 @@ class NDB(NDBBase):
         }
 
         with aiohttp.ClientSession() as session:
-            async with session.post(NDBBase.dnaUrl, data=params) as resp:
+            async with session.post(NDBBase._dnaUrl, data=params) as resp:
                 text = await resp.text()
                 report = parser.parse_search_report(text)
                 return report
@@ -186,7 +186,19 @@ class NDB(NDBBase):
         }
 
         with aiohttp.ClientSession() as session:
-            async with session.post(NDBBase.rnaUrl, data=params) as resp:
+            async with session.post(NDBBase._rnaUrl, data=params) as resp:
                 text = await resp.text()
                 report = parser.parse_search_report(text)
+                return report
+
+    @staticmethod
+    async def summary(structure_id):
+        params = {
+            'searchTarget': structure_id
+        }
+
+        with aiohttp.ClientSession() as session:
+            async with session.post(NDBBase._summaryUrl, data=params) as resp:
+                text = await resp.text()
+                report = parser.parse_summary(text)
                 return report

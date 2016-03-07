@@ -1,6 +1,8 @@
-from NDB.asyncndb import NDB
-from NDB.enums import ReportType
 import asyncio
+
+from AsyncNDB.asyncndb import NDB
+from NDB.enums import ReportType
+
 
 async def main():
     report = await NDB.advanced_search(rep_type=ReportType.Citation)
