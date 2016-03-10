@@ -9,25 +9,30 @@ def parse_to_table(text):
 def parse_csv(table):
     result = []
     headers = table[0].split(',')
-    headers_len = len(headers) - 1
 
     for elem in table[1:]:
-        record = {}; after = 0
+        before = 0
+        last = 0
+        record = {}
+        open_quotes = False
         values = elem.split(',')
-        values_len = len(values) - 1
+        values_len = len(values)
 
-        for i in range(headers_len + 1):
-            if 'Authors' in headers[i]:
-                after = headers_len - i
-                after = values_len - after + 1
-                record[headers[i]] = ",".join(values[i:after])
-            else:
-                if after > 0:
-                    val = after
-                    after += 1
-                else:
-                    val = i
-                record[headers[i]] = values[val]
+        for header in headers:
+            for i in range(last, values_len):
+                if '"' in values[i]:
+                    if not open_quotes:
+                        before = i
+                        open_quotes = True
+                    else:
+                        record[header] = ",".join(values[before:i+1]).replace('"', '')
+                        open_quotes = False
+                        last = i+1
+                        break
+                elif not open_quotes:
+                    record[header] = values[i]
+                    last = i+1
+                    break
 
         result.append(record)
 
