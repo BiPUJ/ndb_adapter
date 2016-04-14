@@ -1,7 +1,8 @@
 
 
 class NDBBase(object):
-    _advancedUrl = 'http://ndbserver.rutgers.edu/service/ndb/report/advSearchReport'
-    _summaryUrl = 'http://ndbserver.rutgers.edu/service/ndb/atlas/summary'
-    _dnaUrl = 'http://ndbserver.rutgers.edu/service/ndb/atlas/gallery/dna'
-    _rnaUrl = 'http://ndbserver.rutgers.edu/service/ndb/atlas/gallery/rna'
+    siteUrl = 'http://ndbserver.rutgers.edu'
+    _advancedUrl = siteUrl + '/service/ndb/report/advSearchReport'
+    _summaryUrl = siteUrl + '/service/ndb/atlas/summary'
+    _dnaUrl = siteUrl + '/service/ndb/atlas/gallery/dna'
+    _rnaUrl = siteUrl + '/service/ndb/atlas/gallery/rna'

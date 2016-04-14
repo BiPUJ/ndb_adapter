@@ -137,7 +137,7 @@ class NDB(NDBBase):
     # q_detal_rfc:
     # repType:
     @staticmethod
-    async def advanced_search(rep_type=ReportType.NDBStatus):
+    async def advanced_search(rep_type: ReportType=ReportType.NDBStatus) -> dict:
         params = {
             'search_report': rep_type.value,
             'chkAllStructure': 'on',
@@ -151,7 +151,7 @@ class NDB(NDBBase):
                 return report
 
     @staticmethod
-    async def dna_search():
+    async def dna_search() -> dict:
         params = {
             'strGalType': 'dna',
             'galType': 'table',
@@ -171,7 +171,7 @@ class NDB(NDBBase):
                 return report
 
     @staticmethod
-    async def rna_search():
+    async def rna_search() -> dict:
         params = {
             'strGalType': 'rna',
             'galType': 'table',
@@ -192,7 +192,7 @@ class NDB(NDBBase):
                 return report
 
     @staticmethod
-    async def summary(structure_id):
+    async def summary(structure_id: str) -> dict:
         params = {
             'searchTarget': structure_id
         }

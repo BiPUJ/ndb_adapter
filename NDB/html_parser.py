@@ -1,13 +1,98 @@
 from html.parser import HTMLParser
 
 
+class Tag(object):
+    def __init__(self, name, data='', attrs=None, parent=None, next_sib=None, prev_sib=None, children=None):
+        self.name = name
+        self.data = data
+        self.attrs = [] if attrs is None else attrs
+        self.parent = parent
+        self.next_sib = next_sib
+        self.prev_sib = prev_sib
+        self.children = [] if children is None else children
+        for child in self.children:
+            child.parent = self
+
+    def has_attr(self, params) -> bool:
+        if not params:
+            return True
+
+        for attr_key in self.attrs:
+            for par_key in params:
+                if par_key == attr_key and params[par_key] == self.attrs[attr_key]:
+                    return True
+        return False
+
+    def add_child(self, child) -> None:
+        child.parent = self
+        if self.children:
+            self.children[-1].next_sib, child.prev_sib = child, self.children[-1]
+        self.children.append(child)
+
+    def prev(self):
+        if self.prev_sib:
+            return self.prev_sib
+        elif self.parent:
+            return self.parent
+        else:
+            raise StopIteration
+
+    def __next__(self):
+        if self.children:
+            return self.children[0]
+        elif self.next_sib:
+            return self.next_sib
+
+        parent = self.parent
+        while parent:
+            if parent.next_sib:
+                return parent.next_sib
+            parent = parent.parent
+        else:
+            raise StopIteration
+
+    next = __next__
+
+    def next_data(self) -> str:
+        next_tag = self.next()
+        if next_tag:
+            return next_tag.data
+        return ''
+
+    def prev_data(self) -> str:
+        next_tag = self.prev()
+        if next_tag:
+            return next_tag.data
+        return ''
+
+    def __repr__(self) -> str:
+        return self.__str__()
+
+    def __str__(self) -> str:
+        result = "<" + str(self.name)
+
+        for key in self.attrs:
+            result += " " + str(key) + "=\"" + str(self.attrs[key]) + "\""
+        result += ">" + str(self.data)
+
+        for child in self.children:
+            result += str(child)
+
+        result += "</" + str(self.name) + ">"
+
+        return result
+
+
 class NDBHtmlParser(HTMLParser):
+    def error(self, message):
+        pass
+
     def __init__(self):
         HTMLParser.__init__(self)
         self.__tree = None
         self.__elementsStack = []
 
-    def analyze(self, data):
+    def analyze(self, data: str) -> None:
         self.__tree = None
         self.__elementsStack = []
         self.feed(data)
@@ -16,10 +101,10 @@ class NDBHtmlParser(HTMLParser):
         if self.__elementsStack:
             self.__tree = self.__elementsStack.pop()
 
-    def get_tree(self):
+    def get_tree(self) -> Tag:
         return self.__tree
 
-    def find_one(self, name=None, after=None, before=None, params=None):
+    def find_one(self, name: str =None, after: Tag =None, before: Tag=None, params: dict=None) -> Tag:
         if after and not isinstance(after, Tag):
             raise TypeError("After is not instance of Tag class")
         if before and not isinstance(before, Tag):
@@ -43,7 +128,7 @@ class NDBHtmlParser(HTMLParser):
             except StopIteration:
                 return None
 
-    def find_all(self, name=None, after=None, before=None, params=None):
+    def find_all(self, name: str=None, after: Tag=None, before: Tag=None, params: dict=None) -> list:
         if after and not isinstance(after, Tag):
             raise TypeError("After is not instance of Tag class")
         if before and not isinstance(before, Tag):
@@ -87,91 +172,10 @@ class NDBHtmlParser(HTMLParser):
 
     def handle_data(self, data):
         #   TO DO: rest unicode char to null
-        data = data.translate({ord('\xa0'): '', ord('\n'): '', ord('\t'): '', ord('\r'): '', ord('\f'): ''})
+        data = data.translate({ord('\xc5'): '', ord('\xa0'): '', ord('\n'): '',
+                               ord('\t'): '', ord('\r'): '', ord('\f'): ''})
         data = data.strip()
         try:
             self.__elementsStack[-1].data += data
         except IndexError:
             pass
-
-
-class Tag(object):
-    def __init__(self, name, data='', attrs=None, parent=None, next_sib=None, prev_sib=None, children=None):
-        self.name = name
-        self.data = data
-        self.attrs = [] if attrs is None else attrs
-        self.parent = parent
-        self.next_sib = next_sib
-        self.prev_sib = prev_sib
-        self.children = [] if children is None else children
-        for child in self.children:
-            child.parent = self
-
-    def has_attr(self, params):
-        if not params:
-            return True
-
-        for attr_key in self.attrs:
-            for par_key in params:
-                if par_key == attr_key and params[par_key] == self.attrs[attr_key]:
-                    return True
-        return False
-
-    def add_child(self, child):
-        child.parent = self
-        if self.children:
-            self.children[-1].next_sib, child.prev_sib = child, self.children[-1]
-        self.children.append(child)
-
-    def prev(self):
-        if self.prev_sib:
-            return self.prev_sib
-        elif self.parent:
-            return self.parent
-        else:
-            raise StopIteration
-
-    def __next__(self):
-        if self.children:
-            return self.children[0]
-        elif self.next_sib:
-            return self.next_sib
-
-        parent = self.parent
-        while parent:
-            if parent.next_sib:
-                return parent.next_sib
-            parent = parent.parent
-        else:
-            raise StopIteration
-
-    next = __next__
-
-    def next_data(self):
-        next_tag = self.next()
-        if next_tag:
-            return next_tag.data
-        return ''
-
-    def prev_data(self):
-        next_tag = self.prev()
-        if next_tag:
-            return next_tag.data
-        return ''
-
-    def __repr__(self):
-        return self.__str__()
-
-    def __str__(self):
-        result = "<" + str(self.name)
-
-        for key in self.attrs:
-            result += " " + str(key) + "=\"" + str(self.attrs[key]) + "\""
-        result += ">" + str(self.data)
-
-        for child in self.children:
-            result += str(child)
-
-        result += "</" + str(self.name) + ">"
-
-        return result
