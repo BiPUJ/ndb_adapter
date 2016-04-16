@@ -1,6 +1,8 @@
 from NDB.search_report import *
 from typing import List
 
+from NDB.statistics import Statistics
+
 
 class SearchResult(object):
     def __init__(self):
@@ -19,6 +21,9 @@ class SearchResult(object):
     def set_report(self, report: list) -> None:
         self._report = report
 
+    def __str__(self):
+        return "Count: " + str(self._count) + ", Report:" + str([str(x) for x in self._report])
+
 
 class SimpleResult(SearchResult):
     def __init__(self):
@@ -31,18 +36,17 @@ class SimpleResult(SearchResult):
 class AdvancedResult(SearchResult):
     def __init__(self):
         super().__init__()
+        self._statistics = Statistics()
 
     def report(self) -> List[AdvancedReport]:
         return self._report
 
-    def report_ndb_status(self) -> List[NDBStatusReport]:
-        return [NDBStatusReport(x) for x in self._report]
+    def set_statistics(self, report: list) -> None:
+        self._statistics.set_report(report)
 
-    def report_cell_dimensions(self) -> List[CellDimensionsReport]:
-        return [CellDimensionsReport(x) for x in self._report]
+    def statistics(self) -> Statistics:
+        return self._statistics
 
-    def report_citation(self) -> List[CitationReport]:
-        return [CitationReport(x) for x in self._report]
-
-    def report_refinement(self) -> List[RefinementDataReport]:
-        return [RefinementDataReport(x) for x in self._report]
+    def __str__(self):
+        return "Count: " + str(self._count) + ", Report:" + str([str(x) for x in self._report]) + \
+            "Statistics: " + str(self._statistics)

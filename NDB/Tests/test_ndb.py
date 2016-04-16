@@ -1,7 +1,5 @@
 import unittest
-
 from datetime import date
-
 from NDB.advanced_search_options import AdvancedSearchOptions
 from NDB.dna_search_options import DnaSearchOptions
 from NDB.ndb import NDB
@@ -11,40 +9,54 @@ from NDB.enums import *
 class NDBTest(unittest.TestCase):
 
     def test_advanced_search(self) -> None:
-        report = NDB.advanced_search()
-        count = report.count()
+        result = NDB.advanced_search()
+        count = result.count()
         print("Counted: " + str(count))
-        print("ReleaseDate: " + str(report.report_ndb_status()[0].release_date()))
+        print("ReleaseDate: " + str(result.report()[0].release_date()))
 
-        self.assertEquals(str(report.report_ndb_status()[0]), str(report.report()[0]))
         self.assertGreater(count, 7955)
+
+    def test_advanced_search_statistic(self) -> None:
+        opt = AdvancedSearchOptions(ReportType.RNABasePairRelFreq)
+        opt.set_hybrid(yes_no_ignore=YesNoIgnore.Yes)
+        result = NDB.advanced_search(opt)
+
+        count = result.count()
+        print("Counted: " + str(count))
+        print("Stats: " + str(result.statistics()))
+
+        self.assertGreaterEqual(count, 37)
+        self.assertIsNot(result.statistics().min, {})
 
     def test_advanced_search_citation(self) -> None:
         opt = AdvancedSearchOptions(report_type=ReportType.Citation)
 
-        report = NDB.advanced_search(opt)
-        count = report.count()
+        result = NDB.advanced_search(opt)
+        count = result.count()
+        first = result.report()[0]  # type: ReportType.Citation
         print("Counted: " + str(count))
 
         self.assertGreater(count, 8020)
+        self.assertTrue(isinstance(first.year(), int))
 
     def test_advanced_search_cell_dime(self) -> None:
         opt = AdvancedSearchOptions(report_type=ReportType.CellDimensions)
 
-        report = NDB.advanced_search(opt)
-        count = report.count()
+        result = NDB.advanced_search(opt)
+        count = result.count()
+        first = result.report()[0]  # type: ReportType.CellDimensions
         print("Counted: " + str(count))
-        print("First a: " + str(report.report_cell_dimensions()[0].cell_a()))
 
         self.assertGreaterEqual(count, 7349)
+        self.assertTrue(isinstance(first.cell_a(), float))
 
     def test_advanced_search_drug_binding(self) -> None:
         opt = AdvancedSearchOptions()
         opt.set_drug(yes_no_ignore=YesNoIgnore.Yes)
         opt.set_drug_binding(AndOr.Or, DrugBinding.Intercalation, DrugBinding.OutsideBinder)
 
-        report = NDB.advanced_search(opt)
-        count = report.count()
+        result = NDB.advanced_search(opt)
+        count = result.count()
         print("Counted: " + str(count))
 
         self.assertGreaterEqual(count, 250)
@@ -53,8 +65,8 @@ class NDBTest(unittest.TestCase):
         opt = AdvancedSearchOptions()
         opt.set_released(since_date=date(2015, 5, 1))
 
-        report = NDB.advanced_search(opt)
-        count = report.count()
+        result = NDB.advanced_search(opt)
+        count = result.count()
         print("Counted: " + str(count))
 
         self.assertGreaterEqual(count, 626)
@@ -63,8 +75,8 @@ class NDBTest(unittest.TestCase):
         opt = AdvancedSearchOptions()
         opt.set_cell_alpha(greater_lower_equal=GreaterLowerEqual.GreaterEqual, value=40.0)
 
-        report = NDB.advanced_search(opt)
-        count = report.count()
+        result = NDB.advanced_search(opt)
+        count = result.count()
         print("Counted: " + str(count))
 
         self.assertGreaterEqual(count, 6734)

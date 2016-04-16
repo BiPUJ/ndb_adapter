@@ -1,5 +1,6 @@
-from typing import List
-from NDB.search_report import AdvancedReport, SimpleReport
+from typing import List, Callable
+from NDB.enums import ReportType
+from NDB.search_report import AdvancedReport, SimpleReport, StatisticReport
 from NDB.search_result import SearchResult, SimpleResult, AdvancedResult
 from NDB.summary_result import SummaryResult
 from NDB.html_parser import NDBHtmlParser
@@ -14,35 +15,38 @@ def parse_to_table(text: str) -> List[str]:
     return [t.strip() for t in text.splitlines()]
 
 
-def parse_csv(table: List[str]) -> List[AdvancedReport]:
+def parse_csv(table: List[str], result_class: Callable[[], AdvancedReport]) -> List[AdvancedReport]:
     result = []
-    headers = table[0].split(',')
+    try:
+        headers = table[0].split(',')
 
-    for elem in table[1:]:
-        before = 0
-        last = 0
-        record = {}
-        open_quotes = False
-        values = elem.split(',')
-        values_len = len(values)
+        for elem in table[1:]:
+            before = 0
+            last = 0
+            record = {}
+            open_quotes = False
+            values = elem.split(',')
+            values_len = len(values)
 
-        for header in headers:
-            for i in range(last, values_len):
-                if '"' in values[i]:
-                    if not open_quotes:
-                        before = i
-                        open_quotes = True
-                    else:
-                        record[header] = ",".join(values[before:i+1]).replace('"', '')
-                        open_quotes = False
+            for header in headers:
+                for i in range(last, values_len):
+                    if '"' in values[i]:
+                        if not open_quotes:
+                            before = i
+                            open_quotes = True
+                        else:
+                            record[header] = ",".join(values[before:i+1]).replace('"', '')
+                            open_quotes = False
+                            last = i+1
+                            break
+                    elif not open_quotes:
+                        record[header] = values[i]
                         last = i+1
                         break
-                elif not open_quotes:
-                    record[header] = values[i]
-                    last = i+1
-                    break
 
-        result.append(AdvancedReport(record))
+            result.append(result_class(record))
+    except IndexError:
+        pass
 
     return result
 
@@ -63,12 +67,17 @@ def parse_xls(file: io.BytesIO) -> List[SimpleReport]:
     return result
 
 
-def parse_advanced_search_report(text: str) -> AdvancedResult:
+def parse_advanced_search_report(text: str, text_stats: str, report_type: ReportType) -> AdvancedResult:
     result = AdvancedResult()
-
+    result_class = report_type.value
     raw_table = parse_to_table(text)
     count = raw_table[1].rpartition(': ')[-1]
-    report = parse_csv(raw_table[2:])
+    report = parse_csv(raw_table[2:], result_class)
+
+    if text_stats:
+        raw_stats = parse_to_table(text_stats)
+        stats_list = parse_csv(raw_stats[2:], StatisticReport)
+        result.set_statistics(stats_list)
 
     try:
         result.set_count(int(count))

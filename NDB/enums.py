@@ -1,20 +1,21 @@
 from enum import Enum
+from NDB.search_report import *
 
 
 class ReportType(Enum):
-    NDBStatus = 'ndbStatus'
-    CellDimensions = 'cellDim'
-    Citation = 'citation'
-    RefinementData = 'ref'
-    NABackboneTorsion = 'nabt'
-    BasePairParameter = 'bpp'
-    BasePairStepParameter = 'bpsp'
-    Descriptor = 'desc'
-    Sequences = 'naSeq'
-    RNA3DBasePairRelFreq = 'bpFreq'
-    RNA3DBasePhosphateRelFreq = 'bphsFreq'
-    RNA3DBaseStackingRelFreq = 'stackFreq'
-    RNAMotif = 'motif'
+    NDBStatus = NDBStatusReport
+    CellDimensions = CellDimensionsReport
+    Citation = CitationReport
+    RefinementData = RefinementDataReport
+    NABackboneTorsion = NABackboneTorsionReport
+    BasePairParameter = BasePairParameterReport
+    BasePairStepParameter = BasePairStepParameterReport
+    Descriptor = DescriptorReport
+    Sequences = SequencesReport
+    RNABasePairRelFreq = RNA3DBasePairRelFreqReport
+    RNABasePhosphateRelFreq = RNA3DBasePhosphateRelFreqReport
+    RNABaseStackingRelFreq = RNA3DBaseStackingRelFreqReport
+    RNAMotif = RNA3DMotifReport
 
 
 class Polymer(Enum):

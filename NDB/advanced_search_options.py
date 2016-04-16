@@ -7,9 +7,11 @@ from typing import List, Optional
 
 
 class AdvancedSearchOptions(object):
-    def __init__(self, report_type: ReportType = ReportType.NDBStatus):
+    def __init__(self, report_type: ReportType = ReportType.NDBStatus, statistics: bool= True):
+        self._report_type = report_type.value
+        self._statistics = statistics
         self._options = {
-            'search_report': report_type.value,
+            'search_report': report_type.value.report_type(),
         }
         self.reset()
 
@@ -561,12 +563,22 @@ class AdvancedSearchOptions(object):
     def get_conformation(self) -> (AndOr, ConformationType):
         return AndOr(self._options['c_nasct_typ']), ConformationType(self._options['q_nasct_typ'])
 
-    def get(self) -> dict:
+    def get_report_type(self) -> ReportType:
+        return ReportType(self._report_type)
+
+    def set_statistics(self, statistics: bool= True) -> bool:
+        self._statistics = statistics
+
+    def get_statistics(self) -> bool:
+        return self._statistics
+
+    def get(self, stats: bool= False) -> dict:
         """Method to get dictionary of advanced search options.
 
         :return: dictionary with options
         :rtype: dict
         """
+        self._options["repType"] = 'csvStat' if stats else 'csv'
         return self._options
 
     def __str__(self) -> str:

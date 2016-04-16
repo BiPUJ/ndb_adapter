@@ -18,9 +18,14 @@ class NDB(NDBBase):
             options = AdvancedSearchOptions()
 
         with requests.session() as session:
+            text_stats = ""
+            if options.get_statistics():
+                resp = session.post(NDBBase._advancedUrl, data=options.get(stats=True))
+                text_stats = resp.text
+
             resp = session.post(NDBBase._advancedUrl, data=options.get())
             text = resp.text
-            report = parser.parse_advanced_search_report(text)
+            report = parser.parse_advanced_search_report(text, text_stats, options.get_report_type())
             return report
 
     @staticmethod
