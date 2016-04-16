@@ -1,5 +1,6 @@
-from NDB.search_report import SearchReport
-from NDB.search_result import SearchResult
+from typing import List
+from NDB.search_report import AdvancedReport, SimpleReport
+from NDB.search_result import SearchResult, SimpleResult, AdvancedResult
 from NDB.summary_result import SummaryResult
 from NDB.html_parser import NDBHtmlParser
 from NDB.ndb import NDBBase
@@ -9,11 +10,11 @@ import xlrd
 import io
 
 
-def parse_to_table(text: str) -> list:
+def parse_to_table(text: str) -> List[str]:
     return [t.strip() for t in text.splitlines()]
 
 
-def parse_csv(table: list) -> list:
+def parse_csv(table: List[str]) -> List[AdvancedReport]:
     result = []
     headers = table[0].split(',')
 
@@ -41,12 +42,12 @@ def parse_csv(table: list) -> list:
                     last = i+1
                     break
 
-        result.append(record)
+        result.append(AdvancedReport(record))
 
     return result
 
 
-def parse_xls(file: io.BytesIO) -> list:
+def parse_xls(file: io.BytesIO) -> List[SimpleReport]:
     result = []
     try:
         book = xlrd.open_workbook(file_contents=file.read())
@@ -55,15 +56,15 @@ def parse_xls(file: io.BytesIO) -> list:
 
         for row in range(1, sheet.nrows):
             record = dict(zip(headers, sheet.row_values(row)))
-            result.append(SearchReport(record))
+            result.append(SimpleReport(record))
     except TypeError:
         pass
 
     return result
 
 
-def parse_advanced_search_report(text: str) -> SearchResult:
-    result = SearchResult()
+def parse_advanced_search_report(text: str) -> AdvancedResult:
+    result = AdvancedResult()
 
     raw_table = parse_to_table(text)
     count = raw_table[1].rpartition(': ')[-1]
@@ -79,7 +80,7 @@ def parse_advanced_search_report(text: str) -> SearchResult:
     return result
 
 
-def parse_search_report(html: str) -> SearchResult:
+def parse_search_report(html: str) -> SimpleResult:
     result = SearchResult()
     parser = NDBHtmlParser()
 

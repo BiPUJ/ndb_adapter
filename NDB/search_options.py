@@ -17,19 +17,19 @@ class SearchOptions(object):
     def _update(self, options) -> None:
         self._options.update(options)
 
-    def set_polymer(self, polymer: Polymer) -> None:
+    def set_polymer(self, polymer: Polymer= Polymer.All) -> None:
         self._options['polType'] = polymer.value
 
     def get_polymer(self) -> Polymer:
         return Polymer(self._options['polType'])
 
-    def set_protein_func(self, protein: ProteinFunc) -> None:
+    def set_protein_func(self, protein: ProteinFunc= ProteinFunc.All) -> None:
         self._options['protFunc'] = protein.value
 
     def get_protein_func(self) -> ProteinFunc:
         return ProteinFunc(self._options['protFunc'])
 
-    def set_experimental_method(self, method: ExpMethod) -> None:
+    def set_experimental_method(self, method: ExpMethod= ExpMethod.All) -> None:
         self._options['expMeth'] = method.value
 
     def get_experimental_method(self) -> ExpMethod:
@@ -44,5 +44,5 @@ class SearchOptions(object):
     def get(self) -> dict:
         return self._options
 
-    def __str__(self):
+    def __str__(self) -> str:
         return str(self._options)

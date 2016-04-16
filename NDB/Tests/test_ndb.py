@@ -1,9 +1,11 @@
 import unittest
 
+from datetime import date
+
 from NDB.advanced_search_options import AdvancedSearchOptions
 from NDB.dna_search_options import DnaSearchOptions
 from NDB.ndb import NDB
-from NDB.enums import ReportType, Polymer, StructuralFeatures, AndOr, DrugBinding, YesNoIgnore
+from NDB.enums import *
 
 
 class NDBTest(unittest.TestCase):
@@ -12,7 +14,9 @@ class NDBTest(unittest.TestCase):
         report = NDB.advanced_search()
         count = report.count()
         print("Counted: " + str(count))
+        print("ReleaseDate: " + str(report.report_ndb_status()[0].release_date()))
 
+        self.assertEquals(str(report.report_ndb_status()[0]), str(report.report()[0]))
         self.assertGreater(count, 7955)
 
     def test_advanced_search_citation(self) -> None:
@@ -24,6 +28,16 @@ class NDBTest(unittest.TestCase):
 
         self.assertGreater(count, 8020)
 
+    def test_advanced_search_cell_dime(self) -> None:
+        opt = AdvancedSearchOptions(report_type=ReportType.CellDimensions)
+
+        report = NDB.advanced_search(opt)
+        count = report.count()
+        print("Counted: " + str(count))
+        print("First a: " + str(report.report_cell_dimensions()[0].cell_a()))
+
+        self.assertGreaterEqual(count, 7349)
+
     def test_advanced_search_drug_binding(self) -> None:
         opt = AdvancedSearchOptions()
         opt.set_drug(yes_no_ignore=YesNoIgnore.Yes)
@@ -34,6 +48,26 @@ class NDBTest(unittest.TestCase):
         print("Counted: " + str(count))
 
         self.assertGreaterEqual(count, 250)
+
+    def test_advanced_search_released_since(self) -> None:
+        opt = AdvancedSearchOptions()
+        opt.set_released(since_date=date(2015, 5, 1))
+
+        report = NDB.advanced_search(opt)
+        count = report.count()
+        print("Counted: " + str(count))
+
+        self.assertGreaterEqual(count, 626)
+
+    def test_advanced_search_alpha(self) -> None:
+        opt = AdvancedSearchOptions()
+        opt.set_cell_alpha(greater_lower_equal=GreaterLowerEqual.GreaterEqual, value=40.0)
+
+        report = NDB.advanced_search(opt)
+        count = report.count()
+        print("Counted: " + str(count))
+
+        self.assertGreaterEqual(count, 6734)
 
     def test_dna_search(self) -> None:
         result = NDB.dna_search()

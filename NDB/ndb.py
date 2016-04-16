@@ -3,7 +3,7 @@ import requests
 from NDB.advanced_search_options import AdvancedSearchOptions
 from NDB.dna_search_options import DnaSearchOptions
 from NDB.rna_search_options import RnaSearchOptions
-from NDB.search_result import SearchResult
+from NDB.search_result import SimpleResult, AdvancedResult
 from NDB.ndb_base import NDBBase
 import NDB.report_parser as parser
 from NDB.summary_result import SummaryResult
@@ -12,7 +12,7 @@ from NDB.summary_result import SummaryResult
 class NDB(NDBBase):
 
     @staticmethod
-    def advanced_search(options: AdvancedSearchOptions= None) -> SearchResult:
+    def advanced_search(options: AdvancedSearchOptions= None) -> AdvancedResult:
 
         if not options:
             options = AdvancedSearchOptions()
@@ -24,7 +24,7 @@ class NDB(NDBBase):
             return report
 
     @staticmethod
-    def dna_search(options: DnaSearchOptions= None) -> SearchResult:
+    def dna_search(options: DnaSearchOptions= None) -> SimpleResult:
 
         if not options:
             options = DnaSearchOptions()
@@ -36,7 +36,7 @@ class NDB(NDBBase):
             return report
 
     @staticmethod
-    def rna_search(options: RnaSearchOptions= None) -> SearchResult:
+    def rna_search(options: RnaSearchOptions= None) -> SimpleResult:
         if not options:
             options = RnaSearchOptions()
 

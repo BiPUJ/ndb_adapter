@@ -1,3 +1,5 @@
+from NDB.search_report import *
+from typing import List
 
 
 class SearchResult(object):
@@ -16,3 +18,31 @@ class SearchResult(object):
 
     def set_report(self, report: list) -> None:
         self._report = report
+
+
+class SimpleResult(SearchResult):
+    def __init__(self):
+        super().__init__()
+
+    def report(self) -> List[SimpleReport]:
+        return self._report
+
+
+class AdvancedResult(SearchResult):
+    def __init__(self):
+        super().__init__()
+
+    def report(self) -> List[AdvancedReport]:
+        return self._report
+
+    def report_ndb_status(self) -> List[NDBStatusReport]:
+        return [NDBStatusReport(x) for x in self._report]
+
+    def report_cell_dimensions(self) -> List[CellDimensionsReport]:
+        return [CellDimensionsReport(x) for x in self._report]
+
+    def report_citation(self) -> List[CitationReport]:
+        return [CitationReport(x) for x in self._report]
+
+    def report_refinement(self) -> List[RefinementDataReport]:
+        return [RefinementDataReport(x) for x in self._report]
