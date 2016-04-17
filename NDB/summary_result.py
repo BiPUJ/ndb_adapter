@@ -72,29 +72,26 @@ class SummaryResult(object):
     def cell_constants(self) -> dict:
         return self._report['Cell Constants']
 
-    def cell_a(self) -> str:
+    def cell_a(self) -> float:
         return self._report['Cell Constants']['a']
 
-    def cell_b(self) -> str:
+    def cell_b(self) -> float:
         return self._report['Cell Constants']['b']
 
-    def cell_c(self) -> str:
+    def cell_c(self) -> float:
         return self._report['Cell Constants']['c']
 
-    def cell_alpha(self) -> str:
+    def cell_alpha(self) -> float:
         return self._report['Cell Constants']['alpha']
 
-    def cell_beta(self) -> str:
+    def cell_beta(self) -> float:
         return self._report['Cell Constants']['beta']
 
-    def cell_gamma(self) -> str:
-        return list(self._report['Cell Constants']['gamma'])
+    def cell_gamma(self) -> float:
+        return self._report['Cell Constants']['gamma']
 
     def protein_seq(self) -> list:
         return list(self._report['Protein Sequence'].values())
-
-    def __str__(self) -> str:
-        return str(self._report)
 
     def protein_seq_with_names(self) -> list:
         return list(self._report['Protein Sequence'].items())
@@ -110,3 +107,6 @@ class SummaryResult(object):
 
     def get_dict(self) -> dict:
         return self._report
+
+    def __str__(self) -> str:
+        return str(self._report)

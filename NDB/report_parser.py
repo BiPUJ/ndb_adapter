@@ -192,14 +192,17 @@ def parse_summary(html: str) -> SummaryResult:
                     if matches:
                         report['Cell Constants'] = {}
                         for match in matches:
-                            if 'α' == match[0]:
-                                report['Cell Constants']['alpha'] = match[1]
-                            elif 'β' == match[0]:
-                                report['Cell Constants']['beta'] = match[1]
-                            elif 'γ' == match[0]:
-                                report['Cell Constants']['gamma'] = match[1]
-                            else:
-                                report['Cell Constants'][match[0]] = match[1]
+                            try:
+                                if 'α' == match[0]:
+                                    report['Cell Constants']['alpha'] = float(match[1])
+                                elif 'β' == match[0]:
+                                    report['Cell Constants']['beta'] = float(match[1])
+                                elif 'γ' == match[0]:
+                                    report['Cell Constants']['gamma'] = float(match[1])
+                                else:
+                                    report['Cell Constants'][match[0]] = float(match[1])
+                            except ValueError:
+                                pass
                 else:
                     report[tag.data.replace(":", "")] = tag.next_data()
 
