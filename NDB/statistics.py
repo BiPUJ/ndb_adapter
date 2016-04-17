@@ -1,17 +1,29 @@
-from typing import List, Dict
+from typing import List
 from NDB.search_report import StatisticReport
 
 
 class Statistics(object):
+    """Class for search statistics"""
     def __init__(self):
-        self.min = {}       # type: Dict[str, float]
-        self.max = {}       # type: Dict[str, float]
-        self.mean = {}      # type: Dict[str, float]
-        self.std_dev = {}   # type: Dict[str, float]
+        """Default constructor"""
+        self.min = {}
+        """Dictionary of min values"""
+        self.max = {}
+        """Dictionary of max values"""
+        self.mean = {}
+        """Dictionary of mean values"""
+        self.std_dev = {}
+        """Dictionary of standard division values"""
 
-    def set_report(self, report: List[StatisticReport]):
+    def set_report(self, report: List[StatisticReport]) -> None:
+        """Sets statistic from report
+
+        :param report: list of statistic report
+        :type report: List[StatisticReport]
+        :return: None
+        """
         for row in report:
-            row_dict = row.get_stats()
+            row_dict = row.stats
             try:
                 if row_dict['Stat'] == 'Min':
                     for k, v in row_dict.items():

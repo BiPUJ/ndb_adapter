@@ -77,14 +77,14 @@ def parse_advanced_search_report(text: str, text_stats: str, report_type: Report
     if text_stats:
         raw_stats = parse_to_table(text_stats)
         stats_list = parse_csv(raw_stats[2:], StatisticReport)
-        result.set_statistics(stats_list)
+        result.statistics = stats_list
 
     try:
-        result.set_count(int(count))
+        result.count = (int(count))
     except (TypeError, ValueError, OverflowError):
         pass
 
-    result.set_report(report)
+    result.report = report
 
     return result
 
@@ -103,11 +103,11 @@ def parse_search_report(html: str) -> SimpleResult:
     report = parse_xls(file)
 
     try:
-        result.set_count(int(count_tag.data))
+        result.count = int(count_tag.data)
     except (TypeError, ValueError, OverflowError, AttributeError):
         pass
 
-    result.set_report(report)
+    result.report = report
 
     return result
 

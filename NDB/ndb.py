@@ -10,10 +10,18 @@ from NDB.summary_result import SummaryResult
 
 
 class NDB(NDBBase):
-
+    """Main class for search in NDB - all methods are static"""
     @staticmethod
     def advanced_search(options: AdvancedSearchOptions= None) -> AdvancedResult:
+        """Advanced search in NDB, if in options "stats= True" returns also statistics - works only in some \
+        search types. Default search "type= ReportType.NDBStatus". Depending on ReportType you can annotate return \
+        type i.e. "result.report() # ReportType.NDBStatus".
 
+        :param options: options for advanced search (default value = None) - clear AdvancedSearchOptions()
+        :type options: AdvancedSearchOptions
+        :return: search result { count() -> int, report() -> List[AdvancedReport], statistics() -> Statistics }
+        :rtype: AdvancedResult
+        """
         if not options:
             options = AdvancedSearchOptions()
 
@@ -30,7 +38,13 @@ class NDB(NDBBase):
 
     @staticmethod
     def dna_search(options: DnaSearchOptions= None) -> SimpleResult:
+        """Dna only search in NDB.
 
+        :param options: options for dna search (default value = None) - clear DnaSearchOptions()
+        :type options: DnaSearchOptions
+        :return: search simple result { count() -> int, report() -> List[SimpleReport] }
+        :rtype: SimpleResult
+        """
         if not options:
             options = DnaSearchOptions()
 
@@ -42,6 +56,13 @@ class NDB(NDBBase):
 
     @staticmethod
     def rna_search(options: RnaSearchOptions= None) -> SimpleResult:
+        """Rna only search in NDB.
+
+        :param options: options for rna search (default value = None) - clear RnaSearchOptions()
+        :type options: RnaSearchOptions
+        :return: search simple result { count() -> int, report() -> List[SimpleReport] }
+        :rtype: SimpleResult
+        """
         if not options:
             options = RnaSearchOptions()
 
@@ -53,6 +74,13 @@ class NDB(NDBBase):
 
     @staticmethod
     def summary(structure_id: str) -> SummaryResult:
+        """Summary search in NDB
+
+        :param structure_id: structure NDB or PDB ID e.g. 4Z6C
+        :type structure_id: str
+        :return: search summary result
+        :rtype: SummaryResult
+        """
         params = {
             'searchTarget': structure_id
         }
