@@ -1,5 +1,7 @@
 from enum import Enum
-from NDB.search_report import *
+from NDB.search_report import NDBStatusReport, CellDimensionsReport, CitationReport, RefinementDataReport, \
+    NABackboneTorsionReport, BasePairParameterReport, BasePairStepParameterReport, DescriptorReport, SequencesReport, \
+    RNA3DBasePairRelFreqReport, RNA3DBasePhosphateRelFreqReport, RNA3DBaseStackingRelFreqReport, RNA3DMotifReport
 
 
 class ReportType(Enum):
@@ -47,17 +49,40 @@ class StructuralFeatures(Enum):
 
 
 class ExpMethod(Enum):
+    """Enum to handle experimental method in query
+
+    :cvar All: all in query
+    :cvar XRAY: x-ray in query
+    :cvar NMR: nmr in query
+    """
     All = 'all'
     XRAY = 'x-ray'
     NMR = 'nmr'
 
 
 class RnaStructures(Enum):
+    """Enum to handle rna structures option in query
+
+    :cvar All: all in query
+    :cvar NonRedundant: no redundant in query
+    """
     All = 'all'
     NonRedundant = 'nr'
 
 
 class ResolutionCutoff(Enum):
+    """Enum to handle resolution cutoff options in query
+
+    :cvar All: all in query
+    :cvar Nothing: empty in query
+    :cvar OneHalf: 1.5 in query
+    :cvar Two: 2.0 in query
+    :cvar TwoHalf: 2.5 in query
+    :cvar Three: 3.0 in query
+    :cvar ThreeHalf: 3.5 in query
+    :cvar Four: 4.0 in query
+    :cvar Twenty: 20.0 in query
+    """
     Nothing = ''
     All = 'all'
     OneHalf = '1.5'
@@ -97,28 +122,56 @@ class RnaType(Enum):
 
 
 class YesNoIgnore(Enum):
+    """Enum to handle "yes", "no", "ignore" in query
+
+    :cvar Yes: yes in query
+    :cvar No: no in query
+    :cvar Ignore: ignore in query
+    """
     Yes = 'Y'
     No = 'N'
     Ignore = 'Ignore'
 
 
 class AndOr(Enum):
+    """Enum to handle "and", "or" in query
+
+    :cvar And: and in query
+    :cvar Or: or in query
+    """
     And = "AND"
     Or = "OR"
 
 
 class DnaRnaEither(Enum):
+    """Enum to handle "dna", "rna", "either" in query
+
+    :cvar DNA: dna in query
+    :cvar RNA: rna in query
+    :cvar Either: either in query
+    """
     DNA = 'DNA'
     RNA = 'RNA'
     Either = 'EITHER'
 
 
 class GreaterLower(Enum):
+    """Enum to handle ">=", "<=" in query
+
+    :cvar GreaterEqual: >= in query
+    :cvar LowerEqual: <= in query
+    """
     GreaterEqual = 'gtEq'
     LowerEqual = 'ltEq'
 
 
 class GreaterLowerEqual(Enum):
+    """Enum to handle ">=", "<=", "==" in query
+
+    :cvar GreaterEqual: >= in query
+    :cvar LowerEqual: <= in query
+    :cvar Equal: == in query
+    """
     Equal = 'eq'
     GreaterEqual = 'gtEq'
     LowerEqual = 'ltEq'
@@ -224,21 +277,21 @@ class RFactor(Enum):
 
 
 class BasePair(Enum):
-    """Enum for base pair interaction
+    """Enum for base pair interaction options in query. More info: http://ndbserver.rutgers.edu/ndbmodule/ndb-help.html#bp
 
-        :cvar Nothing: empty value
-        :cvar cWW: (cis Watson-Crick/Watson-Crick)
-        :cvar tWW: (trans Watson-Crick/Watson-Crick)
-        :cvar cWH: (cis Watson-Crick/Hoogsteen)
-        :cvar tWH: (trans Watson-Crick/Hoogsteen)
-        :cvar cWS: (cis Watson-Crick/Sugar Edge)
-        :cvar tWS: (trans Watson-Crick/Sugar Edge)
-        :cvar cHH: (cis Hoogsteen/Hoogsteen)
-        :cvar tHH: (trans Hoogsteen/Hoogsteen)
-        :cvar cHS: (cis Hoogsteen/Sugar Edge)
-        :cvar tHS: (trans Hoogsteen/Sugar Edge)
-        :cvar cSS: (cis Sugar Edge/Sugar Edge)
-        :cvar tSS: (trans Sugar Edge/Sugar Edge)
+    :cvar Nothing: empty value in query
+    :cvar cWW: (cis Watson-Crick/Watson-Crick) in query
+    :cvar tWW: (trans Watson-Crick/Watson-Crick) in query
+    :cvar cWH: (cis Watson-Crick/Hoogsteen) in query
+    :cvar tWH: (trans Watson-Crick/Hoogsteen) in query
+    :cvar cWS: (cis Watson-Crick/Sugar Edge) in query
+    :cvar tWS: (trans Watson-Crick/Sugar Edge) in query
+    :cvar cHH: (cis Hoogsteen/Hoogsteen) in query
+    :cvar tHH: (trans Hoogsteen/Hoogsteen) in query
+    :cvar cHS: (cis Hoogsteen/Sugar Edge) in query
+    :cvar tHS: (trans Hoogsteen/Sugar Edge) in query
+    :cvar cSS: (cis Sugar Edge/Sugar Edge) in query
+    :cvar tSS: (trans Sugar Edge/Sugar Edge) in query
     """
     Nothing = ''
     cWW = 'cWW'
@@ -256,19 +309,19 @@ class BasePair(Enum):
 
 
 class BasePhosphate(Enum):
-    """Enum for base phosphate interaction
+    """Enum for base phosphate interaction in query. More info: http://ndbserver.rutgers.edu/ndbmodule/ndb-help.html#bph
 
-        :cvar Nothing: empty values
-        :cvar BPh_1: 1BPh (base-phosphate position 1)
-        :cvar BPh_2: 2BPh (base-phosphate position 2)
-        :cvar BPh_3: 3BPh (base-phosphate position 3)
-        :cvar BPh_4: 4BPh (base-phosphate position 4)
-        :cvar BPh_5: 5BPh (base-phosphate position 5)
-        :cvar BPh_6: 6BPh (base-phosphate position 6)
-        :cvar BPh_7: 7BPh (base-phosphate position 7)
-        :cvar BPh_8: 8BPh (base-phosphate position 8)
-        :cvar BPh_9: 9BPh (base-phosphate position 9)
-        :cvar BPh_0: 0BPh (base-phosphate position 10)
+    :cvar Nothing: empty values in query
+    :cvar BPh_1: 1BPh (base-phosphate position 1) in query
+    :cvar BPh_2: 2BPh (base-phosphate position 2) in query
+    :cvar BPh_3: 3BPh (base-phosphate position 3) in query
+    :cvar BPh_4: 4BPh (base-phosphate position 4) in query
+    :cvar BPh_5: 5BPh (base-phosphate position 5) in query
+    :cvar BPh_6: 6BPh (base-phosphate position 6) in query
+    :cvar BPh_7: 7BPh (base-phosphate position 7) in query
+    :cvar BPh_8: 8BPh (base-phosphate position 8) in query
+    :cvar BPh_9: 9BPh (base-phosphate position 9) in query
+    :cvar BPh_0: 0BPh (base-phosphate position 10) in query
     """
     Nothing = ''
     BPh_1 = '1BPh'
@@ -284,12 +337,12 @@ class BasePhosphate(Enum):
 
 
 class BaseStack(Enum):
-    """Enum for base stack interaction
+    """Enum for base stack interaction in query. More info: http://ndbserver.rutgers.edu/ndbmodule/ndb-help.html#bs
 
-        :cvar Nothing: empty value
-        :cvar s_33: s33 (stack, 3′ face on 3′ face)
-        :cvar s_35: s35 (stack, 3′ face on 5′ face)
-        :cvar s_55: s55 (stack, 5′ face on 5′ face)
+    :cvar Nothing: empty value in query
+    :cvar s_33: s33 (stack, 3′ face on 3′ face) in query
+    :cvar s_35: s35 (stack, 3′ face on 5′ face) in query
+    :cvar s_55: s55 (stack, 5′ face on 5′ face) in query
     """
     Nothing = ''
     s_33 = 's33'
@@ -298,15 +351,15 @@ class BaseStack(Enum):
 
 
 class InternalLoopMotif(Enum):
-    """Enum for internal loop motif
+    """Enum for internal loop motif in query
 
-        :cvar Nothing: empty value
-        :cvar All: all motifs
-        :cvar SarcinRicin: Sarcin-ricin motif
-        :cvar KinkTurn: Kink-turn motif
-        :cvar CLoop: C-loop motif
-        :cvar DoubleSheared: Double-sheared motif
-        :cvar TripleSheared: Triple-sheared motif
+    :cvar Nothing: empty value in query
+    :cvar All: all motifs in query
+    :cvar SarcinRicin: Sarcin-ricin motif in query
+    :cvar KinkTurn: Kink-turn motif in query
+    :cvar CLoop: C-loop motif in query
+    :cvar DoubleSheared: Double-sheared motif in query
+    :cvar TripleSheared: Triple-sheared motif in query
     """
     Nothing = ''
     All = 'All'
@@ -318,13 +371,13 @@ class InternalLoopMotif(Enum):
 
 
 class HairpinLoopMotif(Enum):
-    """Enum for hairpin loop motif
+    """Enum for hairpin loop motif in query
 
-        :cvar Nothing: empty value
-        :cvar All: all motifs
-        :cvar TLoop: T-loop motif
-        :cvar GNRA: GNRA motif
-        :cvar UNCG: UNCG motif
+    :cvar Nothing: empty value in query
+    :cvar All: all motifs in query
+    :cvar TLoop: T-loop motif in query
+    :cvar GNRA: GNRA motif in query
+    :cvar UNCG: UNCG motif in query
     """
     Nothing = ''
     All = 'All'

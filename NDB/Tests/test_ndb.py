@@ -73,7 +73,7 @@ class NDBTest(unittest.TestCase):
 
     def test_advanced_search_alpha(self) -> None:
         opt = AdvancedSearchOptions()
-        opt.set_cell_alpha(greater_lower_equal=GreaterLowerEqual.GreaterEqual, value=40.0)
+        opt.set_cell_alpha(gt_lt_eq=GreaterLowerEqual.GreaterEqual, value=40.0)
 
         result = NDB.advanced_search(opt)
         count = result.count()
