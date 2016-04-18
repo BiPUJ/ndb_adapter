@@ -19,7 +19,7 @@ class NDB(NDBBase):
 
         :param options: options for advanced search (default value = None) - clear AdvancedSearchOptions()
         :type options: AdvancedSearchOptions
-        :return: search result { count() -> int, report() -> List[AdvancedReport], statistics() -> Statistics }
+        :return: search result { count -> int, report -> List[AdvancedReport], statistics -> Statistics }
         :rtype: AdvancedResult
         """
         if not options:
@@ -42,7 +42,7 @@ class NDB(NDBBase):
 
         :param options: options for dna search (default value = None) - clear DnaSearchOptions()
         :type options: DnaSearchOptions
-        :return: search simple result { count() -> int, report() -> List[SimpleReport] }
+        :return: search simple result { count -> int, report -> List[SimpleReport] }
         :rtype: SimpleResult
         """
         if not options:
@@ -60,7 +60,7 @@ class NDB(NDBBase):
 
         :param options: options for rna search (default value = None) - clear RnaSearchOptions()
         :type options: RnaSearchOptions
-        :return: search simple result { count() -> int, report() -> List[SimpleReport] }
+        :return: search simple result { count -> int, report -> List[SimpleReport] }
         :rtype: SimpleResult
         """
         if not options:

@@ -5,6 +5,22 @@ from NDB.search_report import NDBStatusReport, CellDimensionsReport, CitationRep
 
 
 class ReportType(Enum):
+    """Enum representing advanced search report type - can be used to annotate return type of advanced search report
+
+    :cvar NDBStatus: NDB Status search report
+    :cvar CellDimensions: Cell Dimensions search report
+    :cvar Citation: Citation search report
+    :cvar RefinementData: Refinement Data search report
+    :cvar NABackboneTorsion: NA Backbone Torsion search report
+    :cvar BasePairParameter: Base Pair Parameter search report
+    :cvar BasePairStepParameter: Base Pair Step Parameter search report
+    :cvar Descriptor: Descriptor search report
+    :cvar Sequences: Sequences search report
+    :cvar RNABasePairRelFreq: RNA 3D Base Pair Relative Frequency search report
+    :cvar RNABasePhosphateRelFreq: RNA 3D Base Phosphate Relative Frequency search report
+    :cvar RNABaseStackingRelFreq: RNA 3D Base Stacking Relative Frequency search report
+    :cvar RNAMotif: RNA Motif search report
+    """
     NDBStatus = NDBStatusReport
     CellDimensions = CellDimensionsReport
     Citation = CitationReport
@@ -21,6 +37,15 @@ class ReportType(Enum):
 
 
 class Polymer(Enum):
+    """Enums to handle polymer in query
+
+    :cvar All: all in query
+    :cvar DNAOnly: DNA Only in query
+    :cvar ProteinDNA: Protein DNA Complexes in query
+    :cvar DrugDNA: Drug DNA Complexes in query
+    :cvar HybridsChimera: Hybrids and Chimera in query
+    :cvar PeptideNucleicAcid: Peptide Nucleic Acid / Mimetics in query
+    """
     All = 'all'
     DNAOnly = 'onlyDna'
     ProteinDNA = 'protDna'
@@ -30,6 +55,14 @@ class Polymer(Enum):
 
 
 class ProteinFunc(Enum):
+    """Enums to handle protein function in query
+
+    :cvar All: all in query
+    :cvar Enzymes: enzymes function in query
+    :cvar Structural: structural function in query
+    :cvar Regulatory: regulatory function in query
+    :cvar Other: other function in query
+    """
     All = 'all'
     Enzymes = 'enzymes'
     Structural = 'structural'
@@ -38,6 +71,17 @@ class ProteinFunc(Enum):
 
 
 class StructuralFeatures(Enum):
+    """Enums to handle structural features in query
+
+    :cvar All: all in query
+    :cvar SingleStranded: Single Stranded feature in query
+    :cvar aDNA: aDNA feature in query
+    :cvar bDNA: bDNA feature in query
+    :cvar zDNA: zDNA feature in query
+    :cvar OtherDoubleHelical: Other Double Helical Structures feature in query
+    :cvar TripleHelices: Triple Helices feature in query
+    :cvar QuadrupleHelices: Quadruple Helices feature in query
+    """
     All = 'all'
     SingleStranded = 'single'
     aDNA = 'A'

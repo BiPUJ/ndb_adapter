@@ -136,7 +136,7 @@ class NDBTest(unittest.TestCase):
 
     def test_summary(self) -> None:
         report = NDB.summary('5F8K')
-        print(report.ndb_id())
+        print(report.ndb_id)
         print("Report: " + str(report))
 
         self.assertTrue(report)
