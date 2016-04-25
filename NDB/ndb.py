@@ -90,3 +90,20 @@ class NDB(NDBBase):
             text = resp.text
             report = parser.parse_summary(text)
             return report
+
+    @staticmethod
+    def download(structure_id: str) -> str:
+        """Download PDB from NDB
+
+        :param structure_id: structure NDB or PDB ID e.g. 4Z6C
+        :type structure_id: str
+        :return: string or None
+        :rtype: str
+        """
+
+        if structure_id:
+            proper_url = NDBBase._chiralCorrectUrl + "/pdb" + structure_id.lower() + ".ent.gz"
+            file_text = parser.download_decompress(proper_url)
+            return file_text
+        else:
+            return None

@@ -48,7 +48,7 @@ class AdvancedSearchOptions(object):
             'q_seqnc': '',
             'i_nasct_des': AndOr.Or.value,
             'q_biocn_hyb': YesNoIgnore.Ignore.value,
-            'q_detal_grp': SpaceGroup.Nothing.value,
+            'q_detal_grp': SpaceGroup.Empty.value,
             'c_prbmd_oth': AndOr.And.value,
             'c_bp_count': '',
             'c_etype_sfc': AndOr.And.value,
@@ -65,11 +65,11 @@ class AdvancedSearchOptions(object):
             'c_namod_bas': AndOr.And.value,
             'q_biocn_drg': YesNoIgnore.Ignore.value,
             'q_namod_sgr': YesNoIgnore.Ignore.value,
-            'q_bph_f_int': BasePhosphate.Nothing.value,
+            'q_bph_f_int': BasePhosphate.Empty.value,
             'c_bs_f_count': AndOr.And.value,
             'c_bs_count': '',
             'q_etype_nra': YesNoIgnore.Ignore.value,
-            'q_bph_int': BasePhosphate.Nothing.value,
+            'q_bph_int': BasePhosphate.Empty.value,
             'c_bp_int': AndOr.And.value,
             'q_detal_olc': GreaterLowerEqual.Equal.value,
             'q_detal_vag': '',
@@ -83,7 +83,7 @@ class AdvancedSearchOptions(object):
             'q_bp_f_op': GreaterLower.GreaterEqual.value,
             'q_detal_oag': GreaterLowerEqual.Equal.value,
             'q_hairpin_motif': [],
-            'q_bp_f_int': BasePair.Nothing.value,
+            'q_bp_f_int': BasePair.Empty.value,
             'q_namod_phs': YesNoIgnore.Ignore.value,
             'c_int_motif': AndOr.And.value,
             'q_authr': '',
@@ -97,22 +97,22 @@ class AdvancedSearchOptions(object):
             'q_int_motif': [],
             'c_etype_cry': AndOr.And.value,
             'q_bph_count': '',
-            'q_bp_int': BasePair.Nothing.value,
-            'q_nr_list': ResolutionCutoff.Nothing.value,
+            'q_bp_int': BasePair.Empty.value,
+            'q_nr_list': ResolutionCutoff.Empty.value,
             'c_biocn_dna': AndOr.And.value,
             'q_prbmd_rfn': [],
             'q_prbmd_enz': DnaRnaEither.Either.value,
             'i_hairpin_motif': AndOr.Or.value,
-            'q_bs_int': BaseStack.Nothing.value,
+            'q_bs_int': BaseStack.Empty.value,
             'q_detal_ola': GreaterLowerEqual.Equal.value,
             'c_biocn_lnm': AndOr.And.value,
             'q_detal_olb': GreaterLowerEqual.Equal.value,
-            'q_nasct_typ': ConformationType.Nothing.value,
+            'q_nasct_typ': ConformationType.Empty.value,
             'q_bs_op': '',
             'c_biocn_hyb': AndOr.And.value,
             'q_biocn_pro': YesNoIgnore.Ignore.value,
             'c_etype_nra': AndOr.And.value,
-            'q_bs_f_int': BaseStack.Nothing.value,
+            'q_bs_f_int': BaseStack.Empty.value,
             'q_etype_sfc': YesNoIgnore.Ignore.value,
             'c_biocn_rna': AndOr.And.value,
             'q_prbmd_reg': DnaRnaEither.Either.value,
@@ -157,7 +157,7 @@ class AdvancedSearchOptions(object):
             'q_bph_op': '',
             'c_bph_f_count': AndOr.And.value,
             'i_int_motif': AndOr.Or.value,
-            'q_detal_rfc': RFactor.Nothing.value,
+            'q_detal_rfc': RFactor.Empty.value,
             'chkAllStructure': 'on',
             'repType': 'csv'
         })
@@ -435,7 +435,7 @@ class AdvancedSearchOptions(object):
         """
         return AndOr(self._options['c_etype_nra']), YesNoIgnore(self._options['q_etype_nra'])
 
-    def set_space_group(self, and_or: AndOr = AndOr.And, space_group: SpaceGroup = SpaceGroup.Nothing) -> None:
+    def set_space_group(self, and_or: AndOr = AndOr.And, space_group: SpaceGroup = SpaceGroup.Empty) -> None:
         """Sets space group in options
 
         :param and_or: tells if it should be 'and' or 'or' in query (default value = AndOr.And)
@@ -463,7 +463,7 @@ class AdvancedSearchOptions(object):
 
         :param and_or: tells if it should be 'and' or 'or' in query (default value = AndOr.And)
         :type and_or: AndOr
-        :param gt_lt_eq: space group to choose (default value = .Nothing)
+        :param gt_lt_eq: space group to choose (default value = .Empty)
         :type gt_lt_eq: GreaterLowerEqual
         :param value: optional float alpha value (default value = None)
         :type value: Optional[float]
@@ -490,7 +490,7 @@ class AdvancedSearchOptions(object):
 
         :param and_or: tells if it should be 'and' or 'or' in query (default value = AndOr.And)
         :type and_or: AndOr
-        :param gt_lt_eq: space group to choose (default value = .Nothing)
+        :param gt_lt_eq: space group to choose (default value = .Empty)
         :type gt_lt_eq: GreaterLowerEqual
         :param value: optional float beta value (default value = None)
         :type value: Optional[float]
@@ -517,7 +517,7 @@ class AdvancedSearchOptions(object):
 
         :param and_or: tells if it should be 'and' or 'or' in query (default value = AndOr.And)
         :type and_or: AndOr
-        :param gt_lt_eq: space group to choose (default value = .Nothing)
+        :param gt_lt_eq: space group to choose (default value = .Empty)
         :type gt_lt_eq: GreaterLowerEqual
         :param value: optional float gamma value (default value = None)
         :type value: Optional[float]
@@ -544,7 +544,7 @@ class AdvancedSearchOptions(object):
 
         :param and_or: tells if it should be 'and' or 'or' in query (default value = AndOr.And)
         :type and_or: AndOr
-        :param gt_lt_eq: space group to choose (default value = .Nothing)
+        :param gt_lt_eq: space group to choose (default value = .Empty)
         :type gt_lt_eq: GreaterLowerEqual
         :param value: optional float a value in angstroms (default value = None)
         :type value: Optional[float]
@@ -571,7 +571,7 @@ class AdvancedSearchOptions(object):
 
         :param and_or: tells if it should be 'and' or 'or' in query (default value = AndOr.And)
         :type and_or: AndOr
-        :param gt_lt_eq: space group to choose (default value = .Nothing)
+        :param gt_lt_eq: space group to choose (default value = .Empty)
         :type gt_lt_eq: GreaterLowerEqual
         :param value: optional float b value in angstroms (default value = None)
         :type value: Optional[float]
@@ -598,7 +598,7 @@ class AdvancedSearchOptions(object):
 
         :param and_or: tells if it should be 'and' or 'or' in query (default value = AndOr.And)
         :type and_or: AndOr
-        :param gt_lt_eq: space group to choose (default value = .Nothing)
+        :param gt_lt_eq: space group to choose (default value = .Empty)
         :type gt_lt_eq: GreaterLowerEqual
         :param value: optional float c value in angstroms (default value = None)
         :type value: Optional[float]
@@ -640,12 +640,12 @@ class AdvancedSearchOptions(object):
         return AndOr(self._options['c_detal_res']), \
             float(self._options['q_detal_res']) if self._options['q_detal_res'] else None
 
-    def set_cell_r_factor(self, and_or: AndOr = AndOr.And, r_factor: RFactor = RFactor.Nothing) -> None:
+    def set_cell_r_factor(self, and_or: AndOr = AndOr.And, r_factor: RFactor = RFactor.Empty) -> None:
         """Sets cell r factor in options
 
         :param and_or: tells if it should be 'and' or 'or' in query (default value = AndOr.And)
         :type and_or: AndOr
-        :param r_factor: r factor value in angstroms (default value = RFactor.Nothing)
+        :param r_factor: r factor value in angstroms (default value = RFactor.Empty)
         :type r_factor: RFactor
 
         :return: None
@@ -761,12 +761,12 @@ class AdvancedSearchOptions(object):
         return AndOr(self._options['c_citat_rel']), datetime.strptime(date, '%Y-$m-$d').date() \
             if self._options['q_citat_rel'] else None
 
-    def set_base_pair(self, and_or: AndOr = AndOr.And, base_pair: BasePair = BasePair.Nothing) -> None:
+    def set_base_pair(self, and_or: AndOr = AndOr.And, base_pair: BasePair = BasePair.Empty) -> None:
         """Sets RNA base pair interaction in options
 
         :param and_or: tells if it should be 'and' or 'or' in query (default value = AndOr.And)
         :type and_or: AndOr
-        :param base_pair: base pair interaction to set (default value = BasePair.Nothing)
+        :param base_pair: base pair interaction to set (default value = BasePair.Empty)
         :type base_pair: BasePair
 
         :return: None
@@ -783,12 +783,12 @@ class AdvancedSearchOptions(object):
         return AndOr(self._options['c_bp_int']), BasePair(self._options['q_bp_int'])
 
     def set_base_phosphate(self, and_or: AndOr = AndOr.And,
-                           base_phosphate: BasePhosphate = BasePhosphate.Nothing) -> None:
+                           base_phosphate: BasePhosphate = BasePhosphate.Empty) -> None:
         """Sets RNA base phosphate interaction in options
 
         :param and_or: tells if it should be 'and' or 'or' in query (default value = AndOr.And)
         :type and_or: AndOr
-        :param base_phosphate: base phosphate interaction to set (default value = BasePhosphate.Nothing)
+        :param base_phosphate: base phosphate interaction to set (default value = BasePhosphate.Empty)
         :type base_phosphate: BasePhosphate
 
         :return: None
@@ -804,12 +804,12 @@ class AdvancedSearchOptions(object):
         """
         return AndOr(self._options['c_bph_int']), BasePhosphate(self._options['q_bph_int'])
 
-    def set_base_stack(self, and_or: AndOr = AndOr.And, base_stack: BaseStack = BaseStack.Nothing) -> None:
+    def set_base_stack(self, and_or: AndOr = AndOr.And, base_stack: BaseStack = BaseStack.Empty) -> None:
         """Sets RNA base stack interaction in options
 
         :param and_or: tells if it should be 'and' or 'or' in query (default value = AndOr.And)
         :type and_or: AndOr
-        :param base_stack: base stack interaction to set (default value = BaseStack.Nothing)
+        :param base_stack: base stack interaction to set (default value = BaseStack.Empty)
         :type base_stack: BaseStack
 
         :return: None
@@ -825,14 +825,14 @@ class AdvancedSearchOptions(object):
         """
         return AndOr(self._options['c_bs_int']), BaseStack(self._options['q_bs_int'])
 
-    def set_base_pair_relative_freq(self, and_or: AndOr = AndOr.And, base_pair: BasePair = BasePair.Nothing,
+    def set_base_pair_relative_freq(self, and_or: AndOr = AndOr.And, base_pair: BasePair = BasePair.Empty,
                                     gt_lt: GreaterLower = GreaterLower.GreaterEqual, freq: float = 0.1) -> None:
         """Sets RNA base pair relative frequency interaction in options \
         More info: http://ndbserver.rutgers.edu/ndbmodule/ndb-help.html#relF
 
         :param and_or: tells if it should be 'and' or 'or' in query (default value = AndOr.And)
         :type and_or: AndOr
-        :param base_pair: base pair interaction to set (default value = BasePair.Nothing)
+        :param base_pair: base pair interaction to set (default value = BasePair.Empty)
         :type base_pair: BasePair
         :param gt_lt: greater lower for relative frequency (default value = GreaterLower.GreaterEqual)
         :type gt_lt: GreaterLower
@@ -856,7 +856,7 @@ class AdvancedSearchOptions(object):
             GreaterLower(self._options['q_bp_f_op']), self._options['q_bp_f_count']
 
     def set_base_phosphate_relative_freq(self, and_or: AndOr = AndOr.And,
-                                         base_phosphate: BasePhosphate = BasePhosphate.Nothing,
+                                         base_phosphate: BasePhosphate = BasePhosphate.Empty,
                                          gt_lt: GreaterLower = GreaterLower.GreaterEqual,
                                          freq: float = 0.1) -> None:
         """Sets RNA base phosphate relative frequency interaction in options. \
@@ -864,7 +864,7 @@ class AdvancedSearchOptions(object):
 
         :param and_or: tells if it should be 'and' or 'or' in query (default value = AndOr.And)
         :type and_or: AndOr
-        :param base_phosphate: base phosphate interaction to set (default value = BasePhosphate.Nothing)
+        :param base_phosphate: base phosphate interaction to set (default value = BasePhosphate.Empty)
         :type base_phosphate: BasePhosphate
         :param gt_lt: greater lower for relative frequency (default value = GreaterLower.GreaterEqual)
         :type gt_lt: GreaterLower
@@ -887,7 +887,7 @@ class AdvancedSearchOptions(object):
         return AndOr(self._options['c_bph_f_count']), BasePhosphate(self._options['q_bph_f_int']), \
             GreaterLower(self._options['q_bph_f_op']), self._options['q_bph_f_count']
 
-    def set_base_stack_relative_freq(self, and_or: AndOr = AndOr.And, base_stack: BaseStack = BaseStack.Nothing,
+    def set_base_stack_relative_freq(self, and_or: AndOr = AndOr.And, base_stack: BaseStack = BaseStack.Empty,
                                      gt_lt: GreaterLower = GreaterLower.GreaterEqual,
                                      freq: float = 0.1) -> None:
         """Sets RNA base stack relative frequency interaction in options. \
@@ -895,7 +895,7 @@ class AdvancedSearchOptions(object):
 
         :param and_or: tells if it should be 'and' or 'or' in query (default value = AndOr.And)
         :type and_or: AndOr
-        :param base_stack: base phosphate interaction to set (default value = BaseStack.Nothing)
+        :param base_stack: base phosphate interaction to set (default value = BaseStack.Empty)
         :type base_stack: BasePhosphate
         :param gt_lt: greater lower for relative frequency (default value = GreaterLower.GreaterEqual)
         :type gt_lt: GreaterLower
@@ -961,12 +961,12 @@ class AdvancedSearchOptions(object):
         return AndOr(self._options['c_hairpin_motif']), [HairpinLoopMotif(x) for x in self._options['q_hairpin_motif']]
 
     def set_non_redundant_list(self, and_or: AndOr = AndOr.And,
-                               resolution: ResolutionCutoff = ResolutionCutoff.Nothing) -> None:
+                               resolution: ResolutionCutoff = ResolutionCutoff.Empty) -> None:
         """Sets RNA non redundant list cutoff in options. More info: http://ndbserver.rutgers.edu/ndbmodule/ndb-help.html#nrl
 
         :param and_or: tells if it should be 'and' or 'or' in query (default value = AndOr.And)
         :type and_or: AndOr
-        :param resolution: resolution value (default value = ResolutionCutoff.Nothing)
+        :param resolution: resolution value (default value = ResolutionCutoff.Empty)
         :type resolution: ResolutionCutoff
 
         :return: None
@@ -1257,12 +1257,12 @@ class AdvancedSearchOptions(object):
         return AndOr(self._options['c_nasct_des']), [StrandDescription(x) for x in self._options['q_nasct_des']]
 
     def set_conformation(self, and_or: AndOr = AndOr.And,
-                         conformation: ConformationType = ConformationType.Nothing) -> None:
+                         conformation: ConformationType = ConformationType.Empty) -> None:
         """Sets nucleic acid conformation in options
 
         :param and_or: tells if it should be 'and' or 'or' in query (default value = AndOr.And)
         :type and_or: AndOr
-        :param conformation: conformation value (default value = ConformationType.Nothing)
+        :param conformation: conformation value (default value = ConformationType.Empty)
         :type conformation: ConformationType
 
         :return: None

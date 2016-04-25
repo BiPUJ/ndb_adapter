@@ -75,18 +75,18 @@ class StructuralFeatures(Enum):
 
     :cvar All: all in query
     :cvar SingleStranded: Single Stranded feature in query
-    :cvar aDNA: aDNA feature in query
-    :cvar bDNA: bDNA feature in query
-    :cvar zDNA: zDNA feature in query
+    :cvar A_DNA: aDNA feature in query
+    :cvar B_DNA: bDNA feature in query
+    :cvar Z_DNA: zDNA feature in query
     :cvar OtherDoubleHelical: Other Double Helical Structures feature in query
     :cvar TripleHelices: Triple Helices feature in query
     :cvar QuadrupleHelices: Quadruple Helices feature in query
     """
     All = 'all'
     SingleStranded = 'single'
-    aDNA = 'A'
-    bDNA = 'B'
-    zDNA = 'Z'
+    A_DNA = 'A'
+    B_DNA = 'B'
+    Z_DNA = 'Z'
     OtherDoubleHelical = 'other'
     TripleHelices = 'triple'
     QuadrupleHelices = 'quadruple'
@@ -118,7 +118,7 @@ class ResolutionCutoff(Enum):
     """Enum to handle resolution cutoff options in query
 
     :cvar All: all in query
-    :cvar Nothing: empty in query
+    :cvar Empty: empty in query
     :cvar OneHalf: 1.5 in query
     :cvar Two: 2.0 in query
     :cvar TwoHalf: 2.5 in query
@@ -127,7 +127,7 @@ class ResolutionCutoff(Enum):
     :cvar Four: 4.0 in query
     :cvar Twenty: 20.0 in query
     """
-    Nothing = ''
+    Empty = ''
     All = 'all'
     OneHalf = '1.5'
     Two = '2.0'
@@ -139,9 +139,32 @@ class ResolutionCutoff(Enum):
 
 
 class RnaType(Enum):
+    """Enum to handle rna type options in query
+
+    :cvar All: all in query
+    :cvar TRNA: tRNA in query
+    :cvar TRNAFrag: tRNA fragment in query
+    :cvar Ribosome: Ribosome in query
+    :cvar Ribozyme: Ribozyme in query
+    :cvar Harpin: Hairpin Ribozyme in query
+    :cvar Hammerhead: Hammerhead Ribozyme in query
+    :cvar Group1Intron: Group I intron Ribozyme in query
+    :cvar Group2Intron: Group II intron Ribozyme in query
+    :cvar RnaseP: Rnase P Ribozyme in query
+    :cvar Polymerase: Polymerase Ribozyme in query
+    :cvar Ligase: Ligase Ribozyme in query
+    :cvar Leadzyme: Leadzyme in query
+    :cvar RibozymeFrag: Ribozyme fragment in query
+    :cvar Virus: Virus in query
+    :cvar ViralFrag: Viral fragment in query
+    :cvar Riboswitch: Riboswitch in query
+    :cvar RiboswitchFrag: Riboswitch fragment in query
+    :cvar Aptamer: Aptamer in query
+    :cvar Leadzyme: Leadzyme in query
+    """
     All = 'all'
-    tRNA = 'trna'
-    tRNAFrag = 'trnaFr'
+    TRNA = 'trna'
+    TRNAFrag = 'trnaFr'
     Ribosome = 'ribosome'
     Ribozyme = 'ribozyme'
     Harpin = 'hairpin'
@@ -222,6 +245,23 @@ class GreaterLowerEqual(Enum):
 
 
 class DrugBinding(Enum):
+    """Enum to handle nucleic acid drug bindings options in query
+
+    :cvar Empty: empty value in query
+    :cvar Intercalation: Intercalation in query
+    :cvar OutsideBinder: Outside binder in query
+    :cvar IntercalationCovalent: Intercalation, covalent in query
+    :cvar OutsideBinderCovalent: Outside binder, covalent in query
+    :cvar MajorGrooveBinder: Major groove binder in query
+    :cvar MinorGrooveBinder: Minor groove binder in query
+    :cvar MajorGrooveBinderCovalent: Major groove binder, covalent in query
+    :cvar MinorGrooveBinderCovalent: Minor groove binder, covalent in query
+    :cvar BisIntercalation: Bis-Intercalation in query
+    :cvar DoubleMajorGrooveBinder: Double major groove binder in query
+    :cvar DoubleMinorGrooveBinder: Double minor groove binder in query
+    :cvar CovalentMetalBonds: Covalent metal bonds in query
+    """
+    Empty = ''
     Intercalation = 'Intercalation'
     OutsideBinder = 'Outside binder'
     IntercalationCovalent = 'Intercalation, Covalent'
@@ -239,7 +279,74 @@ class DrugBinding(Enum):
 
 
 class SpaceGroup(Enum):
-    Nothing = ''
+    """Enum to handle space group in query
+
+    :cvar Empty: empty value in query
+    :cvar B_2_21_2: 'B 2 21 2' in query
+    :cvar C_1_2_1: 'C 1 2 1' in query
+    :cvar C_2_2_2: 'C 2 2 2' in query
+    :cvar C_2_2_21: 'C 2 2 21' in query
+    :cvar F_2_2_2: 'F 2 2 2' in query
+    :cvar F_2_3: 'F 2 3' in query
+    :cvar F_4_3_2: 'F 4 3 2' in query
+    :cvar H_3: 'H 3' in query
+    :cvar H_3_2: 'H 3 2' in query
+    :cvar I_2_2_2: 'I 2 2 2' in query
+    :cvar I_2_3: 'I 2 3' in query
+    :cvar I_21_21_21: 'I 21 21 21' in query
+    :cvar I_21_3: 'I 21 3' in query
+    :cvar I_4: 'I 4' in query
+    :cvar I_4_2_2: 'I 4 2 2' in query
+    :cvar I_4_3_2: 'I 4 3 2' in query
+    :cvar I_41: 'I 41' in query
+    :cvar I_41_2_2: 'I 41 2 2' in query
+    :cvar P_minus1: 'P -1' in query
+    :cvar P_1: 'P 1' in query
+    :cvar P_1_1_21: 'P 1 1 21' in query
+    :cvar P_1_2_1: 'P 1 2 1' in query
+    :cvar P_2_2_21: 'P 2 2 21' in query
+    :cvar P_2_21_21: 'P 2 21 21' in query
+    :cvar P_2_3: 'P 2 3' in query
+    :cvar P_21_2_21: 'P 21 2 21' in query
+    :cvar P_21_21_2: 'P 21 21 2' in query
+    :cvar P_21_21_21: 'P 21 21 21' in query
+    :cvar P_21_3: 'P 21 3' in query
+    :cvar P_3: 'P 3' in query
+    :cvar P_3_1_2: 'P 3 1 2' in query
+    :cvar P_3_2_1: 'P 3 2 1' in query
+    :cvar P_31: 'P 31' in query
+    :cvar P_31_1_2: 'P 31 1 2' in query
+    :cvar P_31_2_1: 'P 31 2 1' in query
+    :cvar P_32: 'P 31' in query
+    :cvar P_32_1_2: 'P 31 1 2' in query
+    :cvar P_32_2_1: 'P 31 2 1' in query
+    :cvar P_4: 'P 4' in query
+    :cvar P_4_2_2: 'P 4 2 2' in query
+    :cvar P_4_21_2: 'P 4 21 2' in query
+    :cvar P_41: 'P 41' in query
+    :cvar P_41_2_2: 'P 41 2 2' in query
+    :cvar P_41_21_2: 'P 41 21 2' in query
+    :cvar P_42: 'P 42' in query
+    :cvar P_42_2_2: 'P 42 2 2' in query
+    :cvar P_42_21_2: 'P 42 21 2' in query
+    :cvar P_43: 'P 43' in query
+    :cvar P_43_2_2: 'P 43 2 2' in query
+    :cvar P_43_21_2: 'P 43 21 2' in query
+    :cvar P_6: 'P 6' in query
+    :cvar P_6_2_2: 'P 6 2 2' in query
+    :cvar P_61: 'P 61' in query
+    :cvar P_61_2_2: 'P 61 2 2' in query
+    :cvar P_62: 'P 62' in query
+    :cvar P_62_2_2: 'P 62 2 2' in query
+    :cvar P_63: 'P 63' in query
+    :cvar P_63_2_2: 'P 63 2 2' in query
+    :cvar P_64: 'P 64' in query
+    :cvar P_64_2_2: 'P 64 2 2' in query
+    :cvar P_65: 'P 65' in query
+    :cvar P_65_2_2: 'P 65 2 2' in query
+    :cvar R_3_2: 'R 3 2' in query
+    """
+    Empty = ''
     B_2_21_2 = 'B 2 21 2'
     C_1_2_1 = 'C 1 2 1'
     C_2_2_2 = 'C 2 2 2'
@@ -311,51 +418,61 @@ class SpaceGroup(Enum):
 
 
 class RFactor(Enum):
-    Nothing = ''
-    Zero_Ten = '10'
-    Zero_Fifteen = '15'
-    Zero_Twenty = '20'
-    Zero_TwentyFive = '25'
-    Zero_Thirty = '30'
-    Zero_ThirtyFive = '35'
+    """Enum to handle R-factor in query
+
+    :cvar Empty: empty value in query
+    :cvar R_10: 0.10 in query
+    :cvar R_15: 0.15 in query
+    :cvar R_20: 0.20 in query
+    :cvar R_25: 0.25 in query
+    :cvar R_30: 0.30 in query
+    :cvar R_35: 0.35 in query
+    """
+    Empty = ''
+    R_10 = '0.10'
+    R_15 = '0.15'
+    R_20 = '0.20'
+    R_25 = '0.25'
+    R_30 = '0.30'
+    R_35 = '0.35'
 
 
 class BasePair(Enum):
     """Enum for base pair interaction options in query. More info: http://ndbserver.rutgers.edu/ndbmodule/ndb-help.html#bp
 
-    :cvar Nothing: empty value in query
-    :cvar cWW: (cis Watson-Crick/Watson-Crick) in query
-    :cvar tWW: (trans Watson-Crick/Watson-Crick) in query
-    :cvar cWH: (cis Watson-Crick/Hoogsteen) in query
-    :cvar tWH: (trans Watson-Crick/Hoogsteen) in query
-    :cvar cWS: (cis Watson-Crick/Sugar Edge) in query
-    :cvar tWS: (trans Watson-Crick/Sugar Edge) in query
-    :cvar cHH: (cis Hoogsteen/Hoogsteen) in query
-    :cvar tHH: (trans Hoogsteen/Hoogsteen) in query
-    :cvar cHS: (cis Hoogsteen/Sugar Edge) in query
-    :cvar tHS: (trans Hoogsteen/Sugar Edge) in query
-    :cvar cSS: (cis Sugar Edge/Sugar Edge) in query
-    :cvar tSS: (trans Sugar Edge/Sugar Edge) in query
+    :cvar Empty: empty value in query
+    :cvar CWW: (cis Watson-Crick/Watson-Crick) in query
+    :cvar TWW: (trans Watson-Crick/Watson-Crick) in query
+    :cvar CWH: (cis Watson-Crick/Hoogsteen) in query
+    :cvar TWH: (trans Watson-Crick/Hoogsteen) in query
+    :cvar CWS: (cis Watson-Crick/Sugar Edge) in query
+    :cvar TWS: (trans Watson-Crick/Sugar Edge) in query
+    :cvar CHH: (cis Hoogsteen/Hoogsteen) in query
+    :cvar THH: (trans Hoogsteen/Hoogsteen) in query
+    :cvar CHS: (cis Hoogsteen/Sugar Edge) in query
+    :cvar THS: (trans Hoogsteen/Sugar Edge) in query
+    :cvar CSS: (cis Sugar Edge/Sugar Edge) in query
+    :cvar TSS: (trans Sugar Edge/Sugar Edge) in query
     """
-    Nothing = ''
-    cWW = 'cWW'
-    tWW = 'tWW'
-    cWH = 'cWH'
-    tWH = 'tWH'
-    cWS = 'cWS'
-    tWS = 'tWS'
-    cHH = 'cHH'
-    tHH = 'tHH'
-    cHS = 'cHS'
-    tHS = 'tHS'
-    cSS = 'cSS'
-    tSS = 'tSS'
+    Empty = ''
+    CWW = 'cWW'
+    TWW = 'tWW'
+    CWH = 'cWH'
+    TWH = 'tWH'
+    CWS = 'cWS'
+    TWS = 'tWS'
+    CHH = 'cHH'
+    THH = 'tHH'
+    CHS = 'cHS'
+    THS = 'tHS'
+    CSS = 'cSS'
+    TSS = 'tSS'
 
 
 class BasePhosphate(Enum):
     """Enum for base phosphate interaction in query. More info: http://ndbserver.rutgers.edu/ndbmodule/ndb-help.html#bph
 
-    :cvar Nothing: empty values in query
+    :cvar Empty: empty values in query
     :cvar BPh_1: 1BPh (base-phosphate position 1) in query
     :cvar BPh_2: 2BPh (base-phosphate position 2) in query
     :cvar BPh_3: 3BPh (base-phosphate position 3) in query
@@ -367,7 +484,7 @@ class BasePhosphate(Enum):
     :cvar BPh_9: 9BPh (base-phosphate position 9) in query
     :cvar BPh_0: 0BPh (base-phosphate position 10) in query
     """
-    Nothing = ''
+    Empty = ''
     BPh_1 = '1BPh'
     BPh_2 = '2BPh'
     BPh_3 = '3BPh'
@@ -383,21 +500,21 @@ class BasePhosphate(Enum):
 class BaseStack(Enum):
     """Enum for base stack interaction in query. More info: http://ndbserver.rutgers.edu/ndbmodule/ndb-help.html#bs
 
-    :cvar Nothing: empty value in query
-    :cvar s_33: s33 (stack, 3′ face on 3′ face) in query
-    :cvar s_35: s35 (stack, 3′ face on 5′ face) in query
-    :cvar s_55: s55 (stack, 5′ face on 5′ face) in query
+    :cvar Empty: empty value in query
+    :cvar S_33: s33 (stack, 3′ face on 3′ face) in query
+    :cvar S_35: s35 (stack, 3′ face on 5′ face) in query
+    :cvar S_55: s55 (stack, 5′ face on 5′ face) in query
     """
-    Nothing = ''
-    s_33 = 's33'
-    s_35 = 's35'
-    s_55 = 's55'
+    Empty = ''
+    S_33 = 's33'
+    S_35 = 's35'
+    S_55 = 's55'
 
 
 class InternalLoopMotif(Enum):
     """Enum for internal loop motif in query
 
-    :cvar Nothing: empty value in query
+    :cvar Empty: empty value in query
     :cvar All: all motifs in query
     :cvar SarcinRicin: Sarcin-ricin motif in query
     :cvar KinkTurn: Kink-turn motif in query
@@ -405,7 +522,7 @@ class InternalLoopMotif(Enum):
     :cvar DoubleSheared: Double-sheared motif in query
     :cvar TripleSheared: Triple-sheared motif in query
     """
-    Nothing = ''
+    Empty = ''
     All = 'All'
     SarcinRicin = 'Sarcin-ricin'
     KinkTurn = 'Kink-turn'
@@ -417,13 +534,13 @@ class InternalLoopMotif(Enum):
 class HairpinLoopMotif(Enum):
     """Enum for hairpin loop motif in query
 
-    :cvar Nothing: empty value in query
+    :cvar Empty: empty value in query
     :cvar All: all motifs in query
     :cvar TLoop: T-loop motif in query
     :cvar GNRA: GNRA motif in query
     :cvar UNCG: UNCG motif in query
     """
-    Nothing = ''
+    Empty = ''
     All = 'All'
     TLoop = 'T-loop'
     GNRA = 'GNRA'
@@ -431,7 +548,37 @@ class HairpinLoopMotif(Enum):
 
 
 class EnzymeFunction(Enum):
-    Nothing = ''
+    """Enum for enzyme function in query
+
+    :cvar Empty: empty value in query
+    :cvar All: all functions in query
+    :cvar Topoisomerase: topoisomerase function in query
+    :cvar Synthetase: synthetase function in query
+    :cvar Thrombin: thrombin function in query
+    :cvar DNAPolymerase: DNA polymarase function in query
+    :cvar DNAReverseTranscriptase: DNA polymerase / reverse transcriptase function in query
+    :cvar DNAEndonuclease: DNA nuclease / endonucelase function in query
+    :cvar DNAExonuclease: DNA nuclease / exonucelase function in query
+    :cvar Glycosylase: glycosylase function in query
+    :cvar Helicase: helicase function in query
+    :cvar Kinase: kinase function in query
+    :cvar Ligase: ligase function in query
+    :cvar Lyase: lyase function in query
+    :cvar MethylaseMethytransferase: methylase or methyltransferase function in query
+    :cvar MRNACapping: mRNA capping function in query
+    :cvar Phosphatase: phosphatase function in query
+    :cvar Integrase: recombinase / integrase function in query
+    :cvar Invertase: recombinase / invertase function in query
+    :cvar Resolvase: recombinase / resolvase function in query
+    :cvar Transposase: recombinase / transposase function in query
+    :cvar RecombinaseOther: recombinase / other function in query
+    :cvar RNAPolymerase: RNA polymerase function in query
+    :cvar RNAEndonuclease: RNA nuclease / endonuclease function in query
+    :cvar RNAExonuclease: RNA nuclease / exdonuclease function in query
+    :cvar TRNAModifying: tRNA Modifying function in query
+    :cvar Other: other function in query
+    """
+    Empty = ''
     All = 'ENZYME'
     Topoisomerase = 'TOPOISOMERASE'
     Synthetase = 'SYNTHETASE'
@@ -446,7 +593,7 @@ class EnzymeFunction(Enum):
     Ligase = 'LIGASE'
     Lyase = 'LYASE'
     MethylaseMethytransferase = 'METHYLASE OR METHYLTRANSFERASE'
-    mRNACapping = 'MRNA CAPPING'
+    MRNACapping = 'MRNA CAPPING'
     Phosphatase = 'PHOSPHATASE'
     Integrase = 'RECOMBINASE/INTEGRASE'
     Invertase = 'RECOMBINASE/INVERTASE'
@@ -456,12 +603,35 @@ class EnzymeFunction(Enum):
     RNAPolymerase = 'RNA POLYMERASE'
     RNAEndonuclease = 'RNA NUCLEASE/ENDONUCLEASE'
     RNAExonuclease = 'RNA NUCLEASE/EXONUCLEASE'
-    tRNAModifying = 'TRNA MODIFYING'
+    TRNAModifying = 'TRNA MODIFYING'
     Other = 'OTHER'
 
 
 class RegulatoryFunction(Enum):
-    Nothing = ''
+    """Enum for regulatory functions in query
+
+    :cvar Empty: empty value in query
+    :cvar All: all functions in query
+    :cvar DnaRepairActivator: DNA repair activator function in query
+    :cvar DnaRepairRepressor: DNA repair repressor function in query
+    :cvar RecombinationActivator: recombination activator function in query
+    :cvar RecombinationReporessor: recombination reporessor function in query
+    :cvar ReplicationActivator: replication factor / activator function in query
+    :cvar ReplicationReporessor: replication factor / reporessor function in query
+    :cvar SpliceosomalProtein: spliceosomal protein function in query
+    :cvar TranscriptionActivatorRepressor: transcription factor / activator and repressor function in query
+    :cvar TranscriptionActivator: transcription factor / activator function in query
+    :cvar TranscriptionCoactivator: transcription factor / coactivator function in query
+    :cvar TranscriptionCorepressor: transcription factor / corepressor function in query
+    :cvar TranscriptionElongation: transcription factor / elongation function in query
+    :cvar Transcription: transcription factor in general in query
+    :cvar TranscriptionReporessor: transcription factor / repressor function in query
+    :cvar TranscriptionTermination: transcription factor / termination function in query
+    :cvar TranslationElongation: translation factor / elongation function in query
+    :cvar TranslationInitiator: translation factor / initiator function in query
+    :cvar TranslationTermination: translation factor / termination function in query
+    """
+    Empty = ''
     All = 'REGULATORY'
     DnaRepairActivator = 'DNA Repair Activator'
     DnaRepairRepressor = 'DNA Repair Repressor'
@@ -484,7 +654,20 @@ class RegulatoryFunction(Enum):
 
 
 class StructuralFunction(Enum):
-    Nothing = ''
+    """Enum for structural functions in query
+
+    :cvar Empty: empty value in query
+    :cvar All: all functions in query
+    :cvar Chromosomal: chromosomal function in query
+    :cvar Histone: histone function in query
+    :cvar HMG: hmg function in query
+    :cvar Ribonucleoprotein: ribonucleoprotein function in query
+    :cvar RibosomalProtein: ribosomal protein function in query
+    :cvar SignalRecognitionParticle: signal recognition particle function in query
+    :cvar TelomereBinding: telomere binding function in query
+    :cvar ViralCoat: viral coat function in query
+    """
+    Empty = ''
     All = 'STRUCTURAL'
     Chromosomal = 'Chromosomal'
     Histone = 'Histone'
@@ -497,7 +680,15 @@ class StructuralFunction(Enum):
 
 
 class OtherFunction(Enum):
-    Nothing = ''
+    """Enum for other functions in query
+
+    :cvar Empty: empty value in query
+    :cvar All: all functions in query
+    :cvar Antibiotic: antibiotic function in query
+    :cvar Antibody: antibody function in query
+    :cvar Other: other function in query
+    """
+    Empty = ''
     All = 'OTHER'
     Antibiotic = 'Antibiotic'
     Antibody = 'Antibody'
@@ -505,7 +696,20 @@ class OtherFunction(Enum):
 
 
 class NaFeature(Enum):
-    Nothing = ''
+    """Enum for nucleic acid feature in query
+
+    :cvar Empty: empty value in query
+    :cvar All: all features in query
+    :cvar HairpinLoop: hairpin loop in query
+    :cvar InternalLoop: internal loop in query
+    :cvar Bulge: bulge in query
+    :cvar Hammerhead: hammerhead in query
+    :cvar ThreeWayJunction: three way junction in query
+    :cvar FourWayJunction: four way (holliday) junction in query
+    :cvar NonWatsonCrickBaseParing: non watson crick base paring in query
+    :cvar MismatchBaseParing: mismatch base paring in query
+    """
+    Empty = ''
     All = 'loop'
     HairpinLoop = 'hairpin loop'
     InternalLoop = 'internal loop'
@@ -513,19 +717,37 @@ class NaFeature(Enum):
     Hammerhead = 'hammerhead'
     ThreeWayJunction = 'three_way_junction'
     FourWayJunction = 'holliday_junction'
-    NonWatsonCrickBaseParing ='type_11_pair'
+    NonWatsonCrickBaseParing = 'type_11_pair'
     MismatchBaseParing = 'mismat'
 
 
 class StrandDescription(Enum):
-    Nothing = ''
+    """Enum for strand description in query
+
+    :cvar Empty: empty value in query
+    :cvar DoubleHelix: double helix in query
+    :cvar TripleHelix: triple helix in query
+    :cvar QuadrupleHelix: quadruple helix in query
+    """
+    Empty = ''
     DoubleHelix = 'double helix'
     TripleHelix = 'triple helix'
     QuadrupleHelix = 'quadruple helix'
 
 
 class ConformationType(Enum):
-    Nothing = ''
+    """Enum for conformation type in query
+
+    :cvar Empty: empty value in query
+    :cvar All: all conformations in query
+    :cvar A: A conformation in query
+    :cvar B: B conformation in query
+    :cvar RH: RH conformation in query
+    :cvar T: T conformation in query
+    :cvar U: U conformation in query
+    :cvar Z: Z conformation in query
+    """
+    Empty = ''
     All = 'all'
     A = 'A'
     B = 'B'

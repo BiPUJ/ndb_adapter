@@ -3,15 +3,28 @@ from html.parser import HTMLParser
 
 
 class NDBHtmlParser(HTMLParser):
-    def error(self, message):
-        pass
-
+    """Class for html parse"""
     def __init__(self):
+        """Default constructor"""
         HTMLParser.__init__(self)
         self.__tree = None
         self.__elementsStack = []
 
+    def error(self, message: str):
+        """Function for error messages
+
+        :param message: message string
+        :type message: str
+        """
+        pass
+
     def analyze(self, data: str) -> None:
+        """Function for analyze html structure
+
+        :param data: html string
+        :type data: str
+        :return: None
+        """
         self.__tree = None
         self.__elementsStack = []
         self.feed(data)
@@ -21,9 +34,27 @@ class NDBHtmlParser(HTMLParser):
             self.__tree = self.__elementsStack.pop()
 
     def get_tree(self) -> 'Tag':
+        """Function for get tree top element
+
+        :rtype: 'Tag'
+        :return: Tree top
+        """
         return self.__tree
 
     def find_one(self, name: str =None, after: 'Tag'=None, before: 'Tag'=None, params: dict=None) -> 'Tag':
+        """Function for get tree node matching criteria
+
+        :param name: node name (default value = None)
+        :type name: str
+        :param after: after node instance (default value = None)
+        :type after: Tag
+        :param before: before node instance (default value = None)
+        :type before: Tag
+        :param params: node parameters (default value = None)
+        :type params: dict
+        :return: searched node
+        :rtype: 'Tag'
+        """
         if after and not isinstance(after, Tag):
             raise TypeError("After is not instance of Tag class")
         if before and not isinstance(before, Tag):
@@ -48,6 +79,19 @@ class NDBHtmlParser(HTMLParser):
                 return None
 
     def find_all(self, name: str=None, after: 'Tag'=None, before: 'Tag'=None, params: dict=None) -> List['Tag']:
+        """Function for get tree node matching criteria
+
+            :param name: node name (default value = None)
+            :type name: str
+            :param after: after node instance (default value = None)
+            :type after: Tag
+            :param before: before node instance (default value = None)
+            :type before: Tag
+            :param params: node parameters (default value = None)
+            :type params: dict
+            :return: searched nodes list
+            :rtype: List[Tag]
+        """
         if after and not isinstance(after, Tag):
             raise TypeError("After is not instance of Tag class")
         if before and not isinstance(before, Tag):
@@ -73,10 +117,21 @@ class NDBHtmlParser(HTMLParser):
                 return result
 
     def handle_starttag(self, tag, attrs) -> None:
+        """Function to handle start tag and add to stack of nodes
+
+        :param tag: tag string
+        :param attrs: attributes dictionary
+        :return: None
+        """
         to_add = Tag(tag, attrs=dict(attrs))
         self.__elementsStack.append(to_add)
 
     def handle_endtag(self, tag) -> None:
+        """Function to handle end tag and add to tree
+
+        :param tag: tag ending
+        :return: None
+        """
         try:
             poped = self.__elementsStack.pop()
             if not self.__elementsStack:
@@ -90,6 +145,11 @@ class NDBHtmlParser(HTMLParser):
             pass
 
     def handle_data(self, data) -> None:
+        """Function to handle data in tags
+
+        :param data: data inside tag
+        :return: None
+        """
         #   TO DO: rest unicode char to null
         data = data.translate({ord('\xc5'): '', ord('\xa0'): '', ord('\n'): '',
                                ord('\t'): '', ord('\r'): '', ord('\f'): ''})
@@ -101,19 +161,43 @@ class NDBHtmlParser(HTMLParser):
 
 
 class Tag(object):
+    """Class for handle html tags"""
     def __init__(self, name: str, data: str='', attrs: dict=None, parent: 'Tag'=None, next_sib: 'Tag'=None,
                  prev_sib: 'Tag'=None, children: List['Tag']=None):
+        """Default constructor
+
+        :param name: tag name
+        :type name: str
+        :param data: tag data (default value = '')
+        :type data: str
+        :param attrs: tag attributes (default value = None)
+        :type attrs: dict
+        :param parent: parent tag
+        :type parent: Tag
+        :param next_sib: next sibling tag
+        :type next_sib: Tag
+        :param prev_sib: previous sibling tag
+        :type prev_sib: Tag
+        :param children: list of children's
+        :type children: List[Tag]
+        """
         self.name = name    # type: str
         self.data = data    # type: str
         self.attrs = [] if attrs is None else attrs     # type: Dict[str]
-        self.parent = parent    # type: 'Tag'
-        self.next_sib = next_sib    # type: 'Tag'
-        self.prev_sib = prev_sib    # type: 'Tag'
-        self.children = [] if children is None else children    # type: List['Tag']
+        self.parent = parent    # type: Tag
+        self.next_sib = next_sib    # type: Tag
+        self.prev_sib = prev_sib    # type: Tag
+        self.children = [] if children is None else children    # type: List[Tag]
         for child in self.children:
             child.parent = self
 
     def has_attr(self, params: dict) -> bool:
+        """To check if tag has given attributes
+
+        :param params: attributes to check
+        :type params: dict
+        :return: True/False if there is attribute
+        """
         if not params:
             return True
 
@@ -124,12 +208,23 @@ class Tag(object):
         return False
 
     def add_child(self, child: 'Tag') -> None:
+        """To add child to tag
+
+        :param child: tag to add
+        :type child: Tag
+        :return: None
+        """
         child.parent = self
         if self.children:
             self.children[-1].next_sib, child.prev_sib = child, self.children[-1]
         self.children.append(child)
 
     def prev(self) -> 'Tag':
+        """Previous tag
+
+        :return: previous tag
+        :rtype: Tag
+        """
         if self.prev_sib:
             return self.prev_sib
         elif self.parent:
@@ -138,6 +233,11 @@ class Tag(object):
             raise StopIteration
 
     def __next__(self) -> 'Tag':
+        """Next tag
+
+        :return: next tag
+        :rtype: Tag
+        """
         if self.children:
             return self.children[0]
         elif self.next_sib:
@@ -154,24 +254,41 @@ class Tag(object):
     next = __next__
 
     def next_data(self) -> str:
+        """Next tag data
+
+        :return: next tag data
+        :rtype: str
+        """
         next_tag = self.next()
         if next_tag:
             return next_tag.data
         return ''
 
     def prev_data(self) -> str:
+        """Previous tag data
+
+        :return: previous tag data
+        :rtype: str
+        """
         next_tag = self.prev()
         if next_tag:
             return next_tag.data
         return ''
 
     def __repr__(self) -> str:
+        """Tag to string"""
         return self.__str__()
 
     def __iter__(self):
+        """For iteration handle"""
         return self
 
     def __str__(self) -> str:
+        """Tag to string
+
+        :return: tag as string
+        :rtype: str
+        """
         result = "<" + str(self.name)
 
         for key in self.attrs:

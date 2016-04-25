@@ -141,6 +141,12 @@ class NDBTest(unittest.TestCase):
 
         self.assertTrue(report)
 
+    def test_download(self) -> None:
+        report = NDB.download('1kog')
+        print(report)
+
+        self.assertTrue(report)
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -660,7 +660,12 @@ class NABackboneTorsionReport(_AdvancedBaseReport):
 
 
 class BasePairParameterReport(_AdvancedBaseReport):
+    """Class for base pair parameter search report extending _AdvancedBaseReport"""
     def __init__(self, report: dict = None):
+        """Default constructor
+
+        :param report: report dict to make report (default value = None)
+        :type report: dict"""
         super().__init__()
         self._update({
             'Model Number': 0,
@@ -682,43 +687,93 @@ class BasePairParameterReport(_AdvancedBaseReport):
 
     @property
     def model_num(self) -> int:
+        """Gets advanced report structure model number
+
+        :return: model number
+        :rtype: int
+        """
         return self._report['Model Number']
 
     @property
     def pair_num(self) -> int:
+        """Gets advanced report structure pair number
+
+        :return: pair number
+        :rtype: int
+        """
         return self._report['Pair Number']
 
     @property
     def pair_name(self) -> str:
+        """Gets advanced report structure pair name
+
+        :return: pair name
+        :rtype: str
+        """
         return self._report['Pair Name']
 
     @property
     def shear(self) -> float:
+        """Gets advanced report structure shear
+
+        :return: shear
+        :rtype: float
+        """
         return self._report['Shear']
 
     @property
     def stretch(self) -> float:
+        """Gets advanced report structure stretch
+
+        :return: stretch
+        :rtype: float
+        """
         return self._report['Stretch']
 
     @property
     def stagger(self) -> float:
+        """Gets advanced report structure stagger
+
+        :return: stagger
+        :rtype: float
+        """
         return self._report['Stagger']
 
     @property
     def buckle(self) -> float:
+        """Gets advanced report structure buckle
+
+        :return: buckle
+        :rtype: float
+        """
         return self._report['Buckle']
 
     @property
     def propellor(self) -> float:
+        """Gets advanced report structure propellor
+
+        :return: propellor
+        :rtype: float
+        """
         return self._report['Propellor']
 
     @property
     def opening(self) -> float:
+        """Gets advanced report structure opening
+
+        :return: opening
+        :rtype: float
+        """
         return self._report['Opening']
 
 
 class BasePairStepParameterReport(_AdvancedBaseReport):
+    """Class for base pair parameter search report extending _AdvancedBaseReport"""
     def __init__(self, report: dict = None):
+        """Default constructor
+
+        :param report: report dict to make report (default value = None)
+        :type report: dict"""
         super().__init__()
         self._update({
             'Model Number': 0,
@@ -746,63 +801,138 @@ class BasePairStepParameterReport(_AdvancedBaseReport):
 
     @property
     def model_num(self) -> int:
+        """Gets advanced report structure model number
+
+        :return: model number
+        :rtype: int
+        """
         return self._report['Model Number']
 
     @property
     def step_num(self) -> int:
+        """Gets advanced report structure step number
+
+        :return: step number
+        :rtype: int
+        """
         return self._report['Step Number']
 
     @property
     def step_name(self) -> str:
+        """Gets advanced report structure step name
+
+        :return: step name
+        :rtype: str
+        """
         return self._report['Step Name']
 
     @property
     def shift(self) -> float:
+        """Gets advanced report structure shift
+
+        :return: shift
+        :rtype: float
+        """
         return self._report['Shift']
 
     @property
     def slide(self) -> float:
+        """Gets advanced report structure slide
+
+        :return: slide
+        :rtype: float
+        """
         return self._report['Slide']
 
     @property
     def rise(self) -> float:
+        """Gets advanced report structure rise
+
+        :return: rise
+        :rtype: float
+        """
         return self._report['Rise']
 
     @property
     def tilt(self) -> float:
+        """Gets advanced report structure tilt
+
+        :return: tilt
+        :rtype: float
+        """
         return self._report['Tilt']
 
     @property
     def roll(self) -> float:
+        """Gets advanced report structure roll
+
+        :return: roll
+        :rtype: float
+        """
         return self._report['Roll']
 
     @property
     def x_disp(self) -> float:
+        """Gets advanced report structure x displacement
+
+        :return: x displacement
+        :rtype: float
+        """
         return self._report['X-Displacement']
 
     @property
     def y_disp(self) -> float:
+        """Gets advanced report structure y displacement
+
+        :return: x displacement
+        :rtype: float
+        """
         return self._report['Y-Displacement']
 
     @property
     def helical_rise(self) -> float:
+        """Gets advanced report structure helical rise
+
+        :return: helical rise
+        :rtype: float
+        """
         return self._report['Helical Rise']
 
     @property
     def inclination(self) -> float:
+        """Gets advanced report structure inclination
+
+        :return: inclination
+        :rtype: float
+        """
         return self._report['Inclination']
 
     @property
     def tip(self) -> float:
+        """Gets advanced report structure tip
+
+        :return: tip
+        :rtype: float
+        """
         return self._report['Tip']
 
     @property
     def helical_twist(self) -> float:
+        """Gets advanced report structure helical twist
+
+        :return: helical twist
+        :rtype: float
+        """
         return self._report['Helical Twist']
 
 
 class DescriptorReport(_AdvancedBaseReport):
+    """Class for descriptor search report extending _AdvancedBaseReport"""
     def __init__(self, report: dict = None):
+        """Default constructor
+
+        :param report: report dict to make report (default value = None)
+        :type report: dict"""
         super().__init__()
         self._update({
             'Structure Description': '',
@@ -816,11 +946,21 @@ class DescriptorReport(_AdvancedBaseReport):
 
     @property
     def description(self) -> str:
+        """Gets advanced report structure description
+
+        :return: description
+        :rtype: str
+        """
         return self._report['Structure Description']
 
 
 class SequencesReport(_AdvancedBaseReport):
+    """Class for sequences search report extending _AdvancedBaseReport"""
     def __init__(self, report: dict = None):
+        """Default constructor
+
+        :param report: report dict to make report (default value = None)
+        :type report: dict"""
         super().__init__()
         self._update({
             'NA Sequence': '',
@@ -835,24 +975,49 @@ class SequencesReport(_AdvancedBaseReport):
 
     @property
     def sequence(self) -> str:
+        """Gets advanced report structure nucleic acid sequence
+
+        :return: sequence
+        :rtype: str
+        """
         return self._report['NA Sequence']
 
     @property
     def description(self) -> str:
+        """Gets advanced report structure description
+
+        :return: description
+        :rtype: str
+        """
         return self._report['Structure Description']
 
 
 class StatisticReport(object):
-    def __init__(self, report: dict= None):
+    """Class for statistic search report extending _AdvancedBaseReport"""
+    def __init__(self, report: dict = None):
+        """Default constructor
+
+        :param report: report dict to make report (default value = None)
+        :type report: dict"""
         self._stats = report
 
     @property
-    def stats(self):
+    def stats(self) -> dict:
+        """Gets advanced report structure statistics
+
+        :return: statistics
+        :rtype: str
+        """
         return self._stats
 
 
 class RNA3DBasePairRelFreqReport(_AdvancedBaseReport):
+    """Class for RNA 3D Base Pair Relative Frequency Report search report extending _AdvancedBaseReport"""
     def __init__(self, report: dict = None):
+        """Default constructor
+
+        :param report: report dict to make report (default value = None)
+        :type report: dict"""
         super().__init__()
         self._update({
             'PDB ID': '',
@@ -878,59 +1043,129 @@ class RNA3DBasePairRelFreqReport(_AdvancedBaseReport):
 
     @property
     def pdb_id(self) -> str:
+        """Gets advanced report structure PDB
+
+        :return: PDB ID
+        :rtype: str
+        """
         return self._report['PDB ID']
 
     @property
     def cww(self) -> float:
+        """Gets advanced report relative cWW
+
+        :return: relative cWW
+        :rtype: float
+        """
         return self._report['Relative cWW']
 
     @property
     def tww(self) -> float:
+        """Gets advanced report relative tWW
+
+        :return: relative tWW
+        :rtype: float
+        """
         return self._report['Relative tWW']
 
     @property
     def cwh(self) -> float:
+        """Gets advanced report relative qWH
+
+        :return: relative qWH
+        :rtype: float
+        """
         return self._report['Relative cWH']
 
     @property
     def twh(self) -> float:
+        """Gets advanced report relative tWH
+
+        :return: relative tWH
+        :rtype: float
+        """
         return self._report['Relative tWH']
 
     @property
     def cws(self) -> float:
+        """Gets advanced report relative cWS
+
+        :return: relative cWS
+        :rtype: float
+        """
         return self._report['Relative cWS']
 
     @property
     def tws(self) -> float:
+        """Gets advanced report relative tWS
+
+        :return: relative tWS
+        :rtype: float
+        """
         return self._report['Relative tWS']
 
     @property
     def chh(self) -> float:
+        """Gets advanced report relative cHH
+
+        :return: relative cHH
+        :rtype: float
+        """
         return self._report['Relative cHH']
 
     @property
     def thh(self) -> float:
+        """Gets advanced report relative tHH
+
+        :return: relative tHH
+        :rtype: float
+        """
         return self._report['Relative tHH']
 
     @property
     def chs(self) -> float:
+        """Gets advanced report relative cHS
+
+        :return: relative cHS
+        :rtype: float
+        """
         return self._report['Relative cHS']
 
     @property
     def ths(self) -> float:
+        """Gets advanced report relative tHS
+
+        :return: relative tHS
+        :rtype: float
+        """
         return self._report['Relative tHS']
 
     @property
     def css(self) -> float:
+        """Gets advanced report relative cSS
+
+        :return: relative cSS
+        :rtype: float
+        """
         return self._report['Relative cSS']
 
     @property
     def tss(self) -> float:
+        """Gets advanced report relative tSS
+
+        :return: relative tWS
+        :rtype: float
+        """
         return self._report['Relative tSS']
 
 
 class RNA3DBasePhosphateRelFreqReport(_AdvancedBaseReport):
+    """Class for RNA 3D Base Phosphate Relative Frequency Report search report extending _AdvancedBaseReport"""
     def __init__(self, report: dict = None):
+        """Default constructor
+
+        :param report: report dict to make report (default value = None)
+        :type report: dict"""
         super().__init__()
         self._update({
             'PDB ID': '',
@@ -954,55 +1189,111 @@ class RNA3DBasePhosphateRelFreqReport(_AdvancedBaseReport):
 
     @property
     def pdb_id(self) -> str:
+        """Gets advanced report structure PDB
+
+        :return: PDB ID
+        :rtype: str
+        """
         return self._report['PDB ID']
 
     @property
-    def cww(self) -> float:
-        return self._report['Relative cWW']
-
-    @property
     def bph_1(self) -> float:
+        """Gets advanced report relative 1BPh
+
+        :return: relative 1BPh
+        :rtype: float
+        """
         return self._report['Relative 1BPh']
 
     @property
     def bph_2(self) -> float:
+        """Gets advanced report relative 2BPh
+
+        :return: relative 2BPh
+        :rtype: float
+        """
         return self._report['Relative 2BPh']
 
     @property
     def bph_3(self) -> float:
+        """Gets advanced report relative 3BPh
+
+        :return: relative 3BPh
+        :rtype: float
+        """
         return self._report['Relative 3BPh']
 
     @property
     def bph_4(self) -> float:
+        """Gets advanced report relative 4BPh
+
+        :return: relative 4BPh
+        :rtype: float
+        """
         return self._report['Relative 4BPh']
 
     @property
     def bph_5(self) -> float:
+        """Gets advanced report relative 5BPh
+
+        :return: relative 5BPh
+        :rtype: float
+        """
         return self._report['Relative 5BPh']
 
     @property
     def bph_6(self) -> float:
+        """Gets advanced report relative 6BPh
+
+        :return: relative 6BPh
+        :rtype: float
+        """
         return self._report['Relative 6BPh']
 
     @property
     def bph_7(self) -> float:
+        """Gets advanced report relative 7BPh
+
+        :return: relative 7BPh
+        :rtype: float
+        """
         return self._report['Relative 7BPh']
 
     @property
     def bph_8(self) -> float:
+        """Gets advanced report relative 8BPh
+
+        :return: relative 8BPh
+        :rtype: float
+        """
         return self._report['Relative 8BPh']
 
     @property
     def bph_9(self) -> float:
+        """Gets advanced report relative 9BPh
+
+        :return: relative 9BPh
+        :rtype: float
+        """
         return self._report['Relative 9BPh']
 
     @property
     def bph_0(self) -> float:
+        """Gets advanced report relative 0BPh
+
+        :return: relative 0BPh
+        :rtype: float
+        """
         return self._report['Relative 0BPh']
 
 
 class RNA3DBaseStackingRelFreqReport(_AdvancedBaseReport):
+    """Class for RNA 3D Base Stacking Relative Frequency Report search report extending _AdvancedBaseReport"""
     def __init__(self, report: dict = None):
+        """Default constructor
+
+        :param report: report dict to make report (default value = None)
+        :type report: dict"""
         super().__init__()
         self._update({
             'PDB ID': '',
@@ -1019,23 +1310,48 @@ class RNA3DBaseStackingRelFreqReport(_AdvancedBaseReport):
 
     @property
     def pdb_id(self) -> str:
+        """Gets advanced report structure PDB
+
+        :return: PDB ID
+        :rtype: str
+        """
         return self._report['PDB ID']
 
     @property
     def s33(self) -> float:
+        """Gets advanced report structure relative s33
+
+        :return: relative s33
+        :rtype: float
+        """
         return self._report['Relative s33']
 
     @property
     def s53(self) -> float:
+        """Gets advanced report structure relative s53
+
+        :return: relative s53
+        :rtype: float
+        """
         return self._report['Relative s53']
 
     @property
     def s55(self) -> float:
+        """Gets advanced report structure relative s55
+
+        :return: relative s55
+        :rtype: float
+        """
         return self._report['Relative s55']
 
 
 class RNA3DMotifReport(_AdvancedBaseReport):
+    """Class for RNA 3D Base Phosphate Relative Frequency Report search report extending _AdvancedBaseReport"""
     def __init__(self, report: dict = None):
+        """Default constructor
+
+        :param report: report dict to make report (default value = None)
+        :type report: dict"""
         super().__init__()
         self._update({
             'PDB ID': '',
@@ -1052,18 +1368,38 @@ class RNA3DMotifReport(_AdvancedBaseReport):
 
     @property
     def pdb_id(self) -> str:
+        """Gets advanced report structure PDB
+
+        :return: PDB ID
+        :rtype: str
+        """
         return self._report['PDB ID']
 
     @property
     def motif_id(self) -> str:
+        """Gets advanced report structure motif ID
+
+        :return: motif ID
+        :rtype: str
+        """
         return self._report['Motif ID']
 
     @property
     def common_name(self) -> str:
+        """Gets advanced report structure common name
+
+        :return: common name
+        :rtype: str
+        """
         return self._report['Common Name']
 
     @property
     def annotation(self) -> str:
+        """Gets advanced report structure annotation
+
+        :return: annotation
+        :rtype: str
+        """
         return self._report['Annotation']
 
 

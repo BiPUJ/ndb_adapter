@@ -5,17 +5,33 @@ from NDB.search_result import SearchResult, SimpleResult, AdvancedResult
 from NDB.summary_result import SummaryResult
 from NDB.html_parser import NDBHtmlParser
 from NDB.ndb import NDBBase
+from io import BytesIO
 import re
 import requests
 import xlrd
-import io
+import zlib
 
 
 def parse_to_table(text: str) -> List[str]:
+    """To parse text to list of strings
+
+    :param text: input string
+    :return: list of string
+    :rtype: List[str]
+    """
     return [t.strip() for t in text.splitlines()]
 
 
 def parse_csv(table: List[str], result_class: Callable[[], AdvancedReport]) -> List[AdvancedReport]:
+    """To parse table of string as csv to list of AdvancedReport
+
+    :param table: string table to parse
+    :type table: List[str]
+    :param result_class: class that init object before adding to results
+    :type result_class: Callable[[], AdvancedReport]
+    :return: list of advanced report
+    :rtype: List[AdvancedReport]
+    """
     result = []
     try:
         headers = table[0].split(',')
@@ -51,7 +67,14 @@ def parse_csv(table: List[str], result_class: Callable[[], AdvancedReport]) -> L
     return result
 
 
-def parse_xls(file: io.BytesIO) -> List[SimpleReport]:
+def parse_xls(file: BytesIO) -> List[SimpleReport]:
+    """To parse xls file to list of Simplereport
+
+    :param file: file bytes to parse
+    :type file: BytesIO
+    :return: list of SimpleReport
+    :rtype: List[SimpleReport]
+    """
     result = []
     try:
         book = xlrd.open_workbook(file_contents=file.read())
@@ -68,6 +91,17 @@ def parse_xls(file: io.BytesIO) -> List[SimpleReport]:
 
 
 def parse_advanced_search_report(text: str, text_stats: str, report_type: ReportType) -> AdvancedResult:
+    """To parse advanced search report from text to AdvancedResult
+
+    :param text: text to parse
+    :type text: str
+    :param text_stats: statistics text to parse
+    :type text_stats: str
+    :param report_type: type of report to parse
+    :type report_type: ReportType
+    :return: advanced search result
+    :rtype: AdvancedResult
+    """
     result = AdvancedResult()
     result_class = report_type.value
     raw_table = parse_to_table(text)
@@ -90,6 +124,13 @@ def parse_advanced_search_report(text: str, text_stats: str, report_type: Report
 
 
 def parse_search_report(html: str) -> SimpleResult:
+    """To parse simple search report from html to SimpleResult
+
+    :param html: html string to parse
+    :type html: str
+    :return: simple search result
+    :rtype: SimpleResult
+    """
     result = SearchResult()
     parser = NDBHtmlParser()
 
@@ -99,7 +140,7 @@ def parse_search_report(html: str) -> SimpleResult:
     file_tag = parser.find_one('a', after=count_tag, params={'id': 'fileGal'})
     url = file_tag.attrs.get('href', '') if file_tag else ''
 
-    file = download_file(url)
+    file = download_file(NDBBase.siteUrl + url)
     report = parse_xls(file)
 
     try:
@@ -113,6 +154,13 @@ def parse_search_report(html: str) -> SimpleResult:
 
 
 def parse_summary(html: str) -> SummaryResult:
+    """To parse summary search from html to SummaryResult
+
+    :param html: html string to parse
+    :type html: str
+    :return: summary search result
+    :rtype: SummaryResult
+    """
     report = {}
     result = SummaryResult()
     parser = NDBHtmlParser()
@@ -210,9 +258,25 @@ def parse_summary(html: str) -> SummaryResult:
     return result
 
 
-def download_file(url: str) -> io.BytesIO:
+def download_decompress(url: str) -> str:
+    try:
+        file = download_file(url)
+        dec_file = zlib.decompress(file.read(), 32 + zlib.MAX_WBITS)  # 32 to skip header of gz
+        return dec_file
+    except zlib.error:
+        return None
+
+
+def download_file(url: str) -> BytesIO:
+    """To download file from given url
+
+    :param url: url string
+    :type url: str
+    :return: file bytes, if no file then None
+    :rtype: io.BytesIO
+    """
     if url:
         with requests.session() as session:
-            resp = session.get(NDBBase.siteUrl + url)
-            return io.BytesIO(resp.content)
+            resp = session.get(url)
+            return BytesIO(resp.content)
     return None

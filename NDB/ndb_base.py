@@ -14,3 +14,4 @@ class NDBBase(object):
     _summaryUrl = siteUrl + '/service/ndb/atlas/summary'
     _dnaUrl = siteUrl + '/service/ndb/atlas/gallery/dna'
     _rnaUrl = siteUrl + '/service/ndb/atlas/gallery/rna'
+    _chiralCorrectUrl = siteUrl + '/files/ftp/NDB/coordinates/na-chiral-correct'
