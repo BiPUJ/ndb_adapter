@@ -1,4 +1,6 @@
 from typing import TypeVar
+from NDB.ndb_download import DownloadHelper
+from NDB.ndb_download import DownloadType
 
 
 def _assign_numbers(dic: dict) -> dict:
@@ -154,6 +156,20 @@ class SimpleReport(object):
         """
         return self._report['R free']
 
+    def download(self, download_type: DownloadType = DownloadType.Pdb, save: bool = False, target_dir: str = '') -> str:
+        """Download PDB from NDB
+
+        :param download_type: file download type (default value is DownloadType.PDB)
+        :type download_type: DownloadType
+        :param target_dir: where to save file (default value is current dir)
+        :type target_dir: str
+        :param save: tells if file should be saved or not (default value = False)
+        :type save: bool
+        :return: string or None
+        :rtype: str
+        """
+        return DownloadHelper.download(self.pdb_id, download_type, save, target_dir)
+
     def get_dict(self) -> dict:
         """Gets simple report as dict
 
@@ -196,6 +212,10 @@ class _AdvancedBaseReport(object):
         :rtype: str
         """
         return self._report['NDB ID']
+
+    def download(self, download_type: DownloadType = DownloadType.Pdb, save: bool = False, target_dir: str = '') -> str:
+        """To download files from NDB - only works for some reports"""
+        raise NotImplementedError
 
     def get_dict(self) -> dict:
         """Gets advanced report as dict
@@ -276,9 +296,24 @@ class NDBStatusReport(_AdvancedBaseReport):
         """
         return self._report['Authors']
 
+    def download(self, download_type: DownloadType = DownloadType.Pdb, save: bool = False, target_dir: str = '') -> str:
+        """Download PDB from NDB
+
+        :param download_type: file download type (default value is DownloadType.PDB)
+        :type download_type: DownloadType
+        :param target_dir: where to save file (default value is current dir)
+        :type target_dir: str
+        :param save: tells if file should be saved or not (default value = False)
+        :type save: bool
+        :return: string or None
+        :rtype: str
+        """
+        return DownloadHelper.download(self.pdb_id, download_type, save, target_dir)
+
 
 class CellDimensionsReport(_AdvancedBaseReport):
     """Class for cell dimensions search report extending _AdvancedBaseReport"""
+
     def __init__(self, report: dict = None):
         """Default constructor
 
@@ -364,6 +399,10 @@ class CellDimensionsReport(_AdvancedBaseReport):
         """
         return self._report['Space Group']
 
+    def download(self, download_type: DownloadType = DownloadType.Pdb, save: bool = False, target_dir: str = '') -> str:
+        """NOT WORKS ON THIS REPORT TYPE"""
+        pass
+
 
 class CitationReport(_AdvancedBaseReport):
     """Class for citation search report extending _AdvancedBaseReport"""
@@ -441,6 +480,20 @@ class CitationReport(_AdvancedBaseReport):
         :rtype: int
         """
         return self._report['Year']
+
+    def download(self, download_type: DownloadType = DownloadType.Pdb, save: bool = False, target_dir: str = '') -> str:
+        """Download PDB from NDB
+
+        :param download_type: file download type (default value is DownloadType.PDB)
+        :type download_type: DownloadType
+        :param target_dir: where to save file (default value is current dir)
+        :type target_dir: str
+        :param save: tells if file should be saved or not (default value = False)
+        :type save: bool
+        :return: string or None
+        :rtype: str
+        """
+        return DownloadHelper.download(self.pdb_id, download_type, save, target_dir)
 
 
 class RefinementDataReport(_AdvancedBaseReport):
@@ -529,6 +582,10 @@ class RefinementDataReport(_AdvancedBaseReport):
         :rtype: str
         """
         return self._report['Structure Refinement']
+
+    def download(self, download_type: DownloadType = DownloadType.Pdb, save: bool = False, target_dir: str = '') -> str:
+        """NOT WORKS ON THIS REPORT TYPE"""
+        pass
 
 
 class NABackboneTorsionReport(_AdvancedBaseReport):
@@ -658,6 +715,10 @@ class NABackboneTorsionReport(_AdvancedBaseReport):
         """
         return self._report["O4'-C1'-N1-9-C2-4"]
 
+    def download(self, download_type: DownloadType = DownloadType.Pdb, save: bool = False, target_dir: str = '') -> str:
+        """NOT WORKS ON THIS REPORT TYPE"""
+        pass
+
 
 class BasePairParameterReport(_AdvancedBaseReport):
     """Class for base pair parameter search report extending _AdvancedBaseReport"""
@@ -765,6 +826,10 @@ class BasePairParameterReport(_AdvancedBaseReport):
         :rtype: float
         """
         return self._report['Opening']
+
+    def download(self, download_type: DownloadType = DownloadType.Pdb, save: bool = False, target_dir: str = '') -> str:
+        """NOT WORKS ON THIS REPORT TYPE"""
+        pass
 
 
 class BasePairStepParameterReport(_AdvancedBaseReport):
@@ -925,6 +990,10 @@ class BasePairStepParameterReport(_AdvancedBaseReport):
         """
         return self._report['Helical Twist']
 
+    def download(self, download_type: DownloadType = DownloadType.Pdb, save: bool = False, target_dir: str = '') -> str:
+        """NOT WORKS ON THIS REPORT TYPE"""
+        pass
+
 
 class DescriptorReport(_AdvancedBaseReport):
     """Class for descriptor search report extending _AdvancedBaseReport"""
@@ -952,6 +1021,10 @@ class DescriptorReport(_AdvancedBaseReport):
         :rtype: str
         """
         return self._report['Structure Description']
+
+    def download(self, download_type: DownloadType = DownloadType.Pdb, save: bool = False, target_dir: str = '') -> str:
+        """NOT WORKS ON THIS REPORT TYPE"""
+        pass
 
 
 class SequencesReport(_AdvancedBaseReport):
@@ -991,9 +1064,13 @@ class SequencesReport(_AdvancedBaseReport):
         """
         return self._report['Structure Description']
 
+    def download(self, download_type: DownloadType = DownloadType.Pdb, save: bool = False, target_dir: str = '') -> str:
+        """NOT WORKS ON THIS REPORT TYPE"""
+        pass
+
 
 class StatisticReport(object):
-    """Class for statistic search report extending _AdvancedBaseReport"""
+    """Class for statistic search report"""
     def __init__(self, report: dict = None):
         """Default constructor
 
@@ -1158,6 +1235,20 @@ class RNA3DBasePairRelFreqReport(_AdvancedBaseReport):
         """
         return self._report['Relative tSS']
 
+    def download(self, download_type: DownloadType = DownloadType.Pdb, save: bool = False, target_dir: str = '') -> str:
+        """Download PDB from NDB
+
+        :param download_type: file download type (default value is DownloadType.PDB)
+        :type download_type: DownloadType
+        :param target_dir: where to save file (default value is current dir)
+        :type target_dir: str
+        :param save: tells if file should be saved or not (default value = False)
+        :type save: bool
+        :return: string or None
+        :rtype: str
+        """
+        return DownloadHelper.download(self.pdb_id, download_type, save, target_dir)
+
 
 class RNA3DBasePhosphateRelFreqReport(_AdvancedBaseReport):
     """Class for RNA 3D Base Phosphate Relative Frequency Report search report extending _AdvancedBaseReport"""
@@ -1286,6 +1377,20 @@ class RNA3DBasePhosphateRelFreqReport(_AdvancedBaseReport):
         """
         return self._report['Relative 0BPh']
 
+    def download(self, download_type: DownloadType = DownloadType.Pdb, save: bool = False, target_dir: str = '') -> str:
+        """Download PDB from NDB
+
+        :param download_type: file download type (default value is DownloadType.PDB)
+        :type download_type: DownloadType
+        :param target_dir: where to save file (default value is current dir)
+        :type target_dir: str
+        :param save: tells if file should be saved or not (default value = False)
+        :type save: bool
+        :return: string or None
+        :rtype: str
+        """
+        return DownloadHelper.download(self.pdb_id, download_type, save, target_dir)
+
 
 class RNA3DBaseStackingRelFreqReport(_AdvancedBaseReport):
     """Class for RNA 3D Base Stacking Relative Frequency Report search report extending _AdvancedBaseReport"""
@@ -1344,6 +1449,20 @@ class RNA3DBaseStackingRelFreqReport(_AdvancedBaseReport):
         """
         return self._report['Relative s55']
 
+    def download(self, download_type: DownloadType = DownloadType.Pdb, save: bool = False, target_dir: str = '') -> str:
+        """Download PDB from NDB
+
+        :param download_type: file download type (default value is DownloadType.PDB)
+        :type download_type: DownloadType
+        :param target_dir: where to save file (default value is current dir)
+        :type target_dir: str
+        :param save: tells if file should be saved or not (default value = False)
+        :type save: bool
+        :return: string or None
+        :rtype: str
+        """
+        return DownloadHelper.download(self.pdb_id, download_type, save, target_dir)
+
 
 class RNA3DMotifReport(_AdvancedBaseReport):
     """Class for RNA 3D Base Phosphate Relative Frequency Report search report extending _AdvancedBaseReport"""
@@ -1401,6 +1520,20 @@ class RNA3DMotifReport(_AdvancedBaseReport):
         :rtype: str
         """
         return self._report['Annotation']
+
+    def download(self, download_type: DownloadType = DownloadType.Pdb, save: bool = False, target_dir: str = '') -> str:
+        """Download PDB from NDB
+
+        :param download_type: file download type (default value is DownloadType.PDB)
+        :type download_type: DownloadType
+        :param target_dir: where to save file (default value is current dir)
+        :type target_dir: str
+        :param save: tells if file should be saved or not (default value = False)
+        :type save: bool
+        :return: string or None
+        :rtype: str
+        """
+        return DownloadHelper.download(self.pdb_id, download_type, save, target_dir)
 
 
 AdvancedReport = TypeVar('AdvancedReport', NDBStatusReport, CellDimensionsReport, CitationReport, RefinementDataReport,

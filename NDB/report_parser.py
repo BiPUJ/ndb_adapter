@@ -7,9 +7,7 @@ from NDB.html_parser import NDBHtmlParser
 from NDB.ndb import NDBBase
 from io import BytesIO
 import re
-import requests
 import xlrd
-import zlib
 
 
 def parse_to_table(text: str) -> List[str]:
@@ -140,7 +138,8 @@ def parse_search_report(html: str) -> SimpleResult:
     file_tag = parser.find_one('a', after=count_tag, params={'id': 'fileGal'})
     url = file_tag.attrs.get('href', '') if file_tag else ''
 
-    file = download_file(NDBBase.siteUrl + url)
+    from NDB.ndb_download import DownloadHelper
+    file = DownloadHelper.download_file(NDBBase.siteUrl + url)
     report = parse_xls(file)
 
     try:
@@ -256,27 +255,3 @@ def parse_summary(html: str) -> SummaryResult:
 
     result.update(report)
     return result
-
-
-def download_decompress(url: str) -> str:
-    try:
-        file = download_file(url)
-        dec_file = zlib.decompress(file.read(), 32 + zlib.MAX_WBITS)  # 32 to skip header of gz
-        return dec_file
-    except zlib.error:
-        return None
-
-
-def download_file(url: str) -> BytesIO:
-    """To download file from given url
-
-    :param url: url string
-    :type url: str
-    :return: file bytes, if no file then None
-    :rtype: io.BytesIO
-    """
-    if url:
-        with requests.session() as session:
-            resp = session.get(url)
-            return BytesIO(resp.content)
-    return None

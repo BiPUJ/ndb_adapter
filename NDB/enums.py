@@ -755,3 +755,4 @@ class ConformationType(Enum):
     T = 'T'
     U = 'U'
     Z = 'Z'
+

@@ -1,6 +1,5 @@
 from NDB.search_report import *
 from typing import List
-
 from NDB.statistics import Statistics
 
 
@@ -68,6 +67,29 @@ class SimpleResult(SearchResult):
         """
         return self._report
 
+    def download(self, file_type: DownloadType = DownloadType.Pdb,
+                 save: bool = False, target_dir: str = '') -> List[str]:
+        """Download PDB files from NDB
+
+        :param file_type: files download type (default value is DownloadType.PDB)
+        :type file_type: DownloadType
+        :param target_dir: where to save file (default value is current dir)
+        :type target_dir: str
+        :param save: tells if files should be saved or not (default value = False)
+        :type save: bool
+        :return: list of strings or None
+        :rtype: List[str]
+        """
+        files = []
+        for rep in self.get_report():
+            try:
+                rep.download(file_type, save, target_dir)
+            except FileNotFoundError:
+                print("No file with id: " + rep.pdb_id)
+                pass
+
+        return files
+
 
 class AdvancedResult(SearchResult):
     """Class for advanced search result"""
@@ -83,6 +105,34 @@ class AdvancedResult(SearchResult):
         :rtype: List[AdvancedReport]
         """
         return self._report
+
+    def download(self, file_type: DownloadType = DownloadType.Pdb,
+                 save: bool = False, target_dir: str = '') -> List[str]:
+        """Download PDB files from NDB
+
+        :param file_type: files download type (default value is DownloadType.PDB)
+        :type file_type: DownloadType
+        :param target_dir: where to save file (default value is current dir)
+        :type target_dir: str
+        :param save: tells if files should be saved or not (default value = False)
+        :type save: bool
+        :return: list of strings or None
+        :rtype: List[str]
+        """
+        try:
+            files = []
+            for rep in self.get_report():
+                try:
+                    rep.download(file_type, save, target_dir)
+                except FileNotFoundError:
+                    print("No file with id: " + rep.pdb_id)
+                    pass
+
+            return files
+        except (NotImplementedError, KeyError):
+            print("This report type doesn't support download")
+
+        return []
 
     def get_statistics(self) -> Statistics:
         """Get statistics of advanced search

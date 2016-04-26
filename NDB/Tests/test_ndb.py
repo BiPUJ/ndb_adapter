@@ -1,9 +1,11 @@
 import unittest
+import os
 from datetime import date
 from NDB.advanced_search_options import AdvancedSearchOptions
 from NDB.dna_search_options import DnaSearchOptions
 from NDB.ndb import NDB
 from NDB.enums import *
+from NDB.ndb_download import DownloadType
 
 
 class NDBTest(unittest.TestCase):
@@ -108,7 +110,7 @@ class NDBTest(unittest.TestCase):
 
     def test_dna_search_structural_features(self) -> None:
         opt = DnaSearchOptions()
-        opt.set_structural_features(StructuralFeatures.aDNA)
+        opt.set_structural_features(StructuralFeatures.A_DNA)
 
         result = NDB.dna_search(opt)
         count = result.count
@@ -138,8 +140,18 @@ class NDBTest(unittest.TestCase):
         report = NDB.summary('5F8K')
         print(report.ndb_id)
         print("Report: " + str(report))
+        print(report.download(file_type=DownloadType.Cif))
 
         self.assertTrue(report)
+
+    def test_download_save(self) -> None:
+        NDB.download('1kog', save=True)
+
+        try:
+            with open(os.getcwd() + "\\pdb1kog.ent") as f:
+                self.assertTrue(f)
+        except FileNotFoundError:
+            self.fail()
 
     def test_download(self) -> None:
         report = NDB.download('1kog')
@@ -147,6 +159,11 @@ class NDBTest(unittest.TestCase):
 
         self.assertTrue(report)
 
+    def test_download_bio_assembly(self) -> None:
+        files = NDB.download('4ZM0', download_type=DownloadType.PdbBioAssembly)     # type: List[str]
+        print(files)
+
+        self.assertGreaterEqual(len(files), 2)
 
 if __name__ == '__main__':
     unittest.main()

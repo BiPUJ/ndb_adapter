@@ -1,4 +1,6 @@
 from typing import List, Dict
+from NDB.ndb_download import DownloadHelper
+from NDB.ndb_download import DownloadType
 
 
 class SummaryResult(object):
@@ -257,6 +259,20 @@ class SummaryResult(object):
         :return: None
         """
         self._report.update(report)
+
+    def download(self, file_type: DownloadType=DownloadType.Pdb, save: bool = False, target_dir: str = '') -> str:
+        """Download PDB from NDB
+
+        :param file_type: file download type (default value is DownloadType.PDB)
+        :type file_type: DownloadType
+        :param target_dir: where to save file (default value is current dir)
+        :type target_dir: str
+        :param save: tells if file should be saved or not (default value = False)
+        :type save: bool
+        :return: string or None
+        :rtype: str
+        """
+        return DownloadHelper.download(self.pdb_id, file_type, save, target_dir)
 
     def get_dict(self) -> dict:
         """Gets internal report dict

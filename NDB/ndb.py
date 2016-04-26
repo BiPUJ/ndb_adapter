@@ -1,7 +1,7 @@
 import requests
-
 from NDB.advanced_search_options import AdvancedSearchOptions
 from NDB.dna_search_options import DnaSearchOptions
+from NDB.ndb_download import DownloadHelper, DownloadType
 from NDB.rna_search_options import RnaSearchOptions
 from NDB.search_result import SimpleResult, AdvancedResult
 from NDB.ndb_base import NDBBase
@@ -92,18 +92,19 @@ class NDB(NDBBase):
             return report
 
     @staticmethod
-    def download(structure_id: str) -> str:
+    def download(structure_id: str, download_type: DownloadType=DownloadType.Pdb,
+                 save: bool=False, target_dir: str='') -> str:
         """Download PDB from NDB
 
+        :param download_type: file download type (default value is DownloadType.PDB)
+        :type download_type: DownloadType
+        :param target_dir: where to save file (default value is current dir)
+        :type target_dir: str
+        :param save: tells if file should be saved or not (default value = False)
+        :type save: bool
         :param structure_id: structure NDB or PDB ID e.g. 4Z6C
         :type structure_id: str
         :return: string or None
         :rtype: str
         """
-
-        if structure_id:
-            proper_url = NDBBase._chiralCorrectUrl + "/pdb" + structure_id.lower() + ".ent.gz"
-            file_text = parser.download_decompress(proper_url)
-            return file_text
-        else:
-            return None
+        return DownloadHelper.download(structure_id, download_type, save, target_dir)
