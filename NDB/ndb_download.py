@@ -98,13 +98,27 @@ class DownloadHelper(object):
         :type structure_id: str
         :return: string or None
         :rtype: str
+        :raise AttributeError: when structure id is empty
+        :raise FileNotFoundError: when file is not present on server
         """
+        if not structure_id:
+            raise AttributeError("structure id is empty")
+
         d_type = download_type.value
         file_name = d_type.PreName + structure_id.lower() + d_type.PostName
 
         if d_type is not DownloadType.PdbBioAssembly.value:
-            proper_url = d_type.Url + file_name + d_type.UrlExt
-            file_text = DownloadHelper._download_prepare(proper_url)
+            try:
+                proper_url = d_type.Url + file_name + d_type.UrlExt
+                file_text = DownloadHelper._download_prepare(proper_url)
+            except FileNotFoundError as error:
+                if d_type is DownloadType.Pdb.value:
+                    file_name = structure_id.lower() + d_type.PostName
+                    proper_url = d_type.Url + file_name + d_type.UrlExt
+                    file_text = DownloadHelper._download_prepare(proper_url)
+                    pass
+                else:
+                    raise error
 
             if save:
                 target = target_dir if target_dir else os.getcwd() + "\\"
@@ -147,7 +161,6 @@ class DownloadHelper(object):
         :return: file string
         """
         try:
-
             file = DownloadHelper.download_file(url)
             if decompress:
                 file = zlib.decompress(file.read(), 32 + zlib.MAX_WBITS)  # 32 to skip header of gz

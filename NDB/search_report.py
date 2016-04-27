@@ -168,7 +168,12 @@ class SimpleReport(object):
         :return: string or None
         :rtype: str
         """
-        return DownloadHelper.download(self.pdb_id, download_type, save, target_dir)
+        id_structure = self.pdb_id
+        if not self.pdb_id:
+            print("No pdb_id trying ndb_id")
+            id_structure = self.ndb_id
+
+        return DownloadHelper.download(id_structure, download_type, save, target_dir)
 
     def get_dict(self) -> dict:
         """Gets simple report as dict
@@ -308,7 +313,12 @@ class NDBStatusReport(_AdvancedBaseReport):
         :return: string or None
         :rtype: str
         """
-        return DownloadHelper.download(self.pdb_id, download_type, save, target_dir)
+        id_structure = self.pdb_id
+        if not self.pdb_id:
+            print("No pdb_id trying ndb_id")
+            id_structure = self.ndb_id
+
+        return DownloadHelper.download(id_structure, download_type, save, target_dir)
 
 
 class CellDimensionsReport(_AdvancedBaseReport):
@@ -493,7 +503,12 @@ class CitationReport(_AdvancedBaseReport):
         :return: string or None
         :rtype: str
         """
-        return DownloadHelper.download(self.pdb_id, download_type, save, target_dir)
+        id_structure = self.pdb_id
+        if not self.pdb_id:
+            print("No pdb_id trying ndb_id")
+            id_structure = self.ndb_id
+
+        return DownloadHelper.download(id_structure, download_type, save, target_dir)
 
 
 class RefinementDataReport(_AdvancedBaseReport):
@@ -1247,7 +1262,12 @@ class RNA3DBasePairRelFreqReport(_AdvancedBaseReport):
         :return: string or None
         :rtype: str
         """
-        return DownloadHelper.download(self.pdb_id, download_type, save, target_dir)
+        id_structure = self.pdb_id
+        if not self.pdb_id:
+            print("No pdb_id trying ndb_id")
+            id_structure = self.ndb_id
+
+        return DownloadHelper.download(id_structure, download_type, save, target_dir)
 
 
 class RNA3DBasePhosphateRelFreqReport(_AdvancedBaseReport):
@@ -1389,7 +1409,12 @@ class RNA3DBasePhosphateRelFreqReport(_AdvancedBaseReport):
         :return: string or None
         :rtype: str
         """
-        return DownloadHelper.download(self.pdb_id, download_type, save, target_dir)
+        id_structure = self.pdb_id
+        if not self.pdb_id:
+            print("No pdb_id trying ndb_id")
+            id_structure = self.ndb_id
+
+        return DownloadHelper.download(id_structure, download_type, save, target_dir)
 
 
 class RNA3DBaseStackingRelFreqReport(_AdvancedBaseReport):
@@ -1461,7 +1486,12 @@ class RNA3DBaseStackingRelFreqReport(_AdvancedBaseReport):
         :return: string or None
         :rtype: str
         """
-        return DownloadHelper.download(self.pdb_id, download_type, save, target_dir)
+        id_structure = self.pdb_id
+        if not self.pdb_id:
+            print("No pdb_id trying ndb_id")
+            id_structure = self.ndb_id
+
+        return DownloadHelper.download(id_structure, download_type, save, target_dir)
 
 
 class RNA3DMotifReport(_AdvancedBaseReport):
@@ -1533,7 +1563,12 @@ class RNA3DMotifReport(_AdvancedBaseReport):
         :return: string or None
         :rtype: str
         """
-        return DownloadHelper.download(self.pdb_id, download_type, save, target_dir)
+        id_structure = self.pdb_id
+        if not self.pdb_id:
+            print("No pdb_id trying ndb_id")
+            id_structure = self.ndb_id
+
+        return DownloadHelper.download(id_structure, download_type, save, target_dir)
 
 
 AdvancedReport = TypeVar('AdvancedReport', NDBStatusReport, CellDimensionsReport, CitationReport, RefinementDataReport,

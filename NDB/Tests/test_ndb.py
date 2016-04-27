@@ -6,6 +6,7 @@ from NDB.dna_search_options import DnaSearchOptions
 from NDB.ndb import NDB
 from NDB.enums import *
 from NDB.ndb_download import DownloadType
+from typing import List
 
 
 class NDBTest(unittest.TestCase):
@@ -152,6 +153,17 @@ class NDBTest(unittest.TestCase):
                 self.assertTrue(f)
         except FileNotFoundError:
             self.fail()
+
+    def test_download_search(self) -> None:
+        opt = AdvancedSearchOptions()
+        opt.set_drug(yes_no_ignore=YesNoIgnore.Yes)
+        opt.set_drug_binding(AndOr.And, DrugBinding.Intercalation)
+        opt.set_base(yes_no_ignore=YesNoIgnore.Yes)
+
+        result = NDB.advanced_search(opt)
+        files = result.download(download_type=DownloadType.Pdb, save=True)
+        print(files)
+        self.assertGreaterEqual(len(files), 23)
 
     def test_download(self) -> None:
         report = NDB.download('1kog')

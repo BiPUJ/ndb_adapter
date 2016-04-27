@@ -67,12 +67,12 @@ class SimpleResult(SearchResult):
         """
         return self._report
 
-    def download(self, file_type: DownloadType = DownloadType.Pdb,
+    def download(self, download_type: DownloadType = DownloadType.Pdb,
                  save: bool = False, target_dir: str = '') -> List[str]:
         """Download PDB files from NDB
 
-        :param file_type: files download type (default value is DownloadType.PDB)
-        :type file_type: DownloadType
+        :param download_type: files download type (default value is DownloadType.PDB)
+        :type download_type: DownloadType
         :param target_dir: where to save file (default value is current dir)
         :type target_dir: str
         :param save: tells if files should be saved or not (default value = False)
@@ -82,11 +82,17 @@ class SimpleResult(SearchResult):
         """
         files = []
         for rep in self.get_report():
+            file = ''
             try:
-                rep.download(file_type, save, target_dir)
+                file = rep.download(download_type, save, target_dir)
             except FileNotFoundError:
                 print("No file with id: " + rep.pdb_id)
                 pass
+            except AttributeError:
+                print("Structure has not pdb_id in report")
+                pass
+
+            files.append(file)
 
         return files
 
@@ -106,12 +112,12 @@ class AdvancedResult(SearchResult):
         """
         return self._report
 
-    def download(self, file_type: DownloadType = DownloadType.Pdb,
+    def download(self, download_type: DownloadType = DownloadType.Pdb,
                  save: bool = False, target_dir: str = '') -> List[str]:
         """Download PDB files from NDB
 
-        :param file_type: files download type (default value is DownloadType.PDB)
-        :type file_type: DownloadType
+        :param download_type: files download type (default value is DownloadType.PDB)
+        :type download_type: DownloadType
         :param target_dir: where to save file (default value is current dir)
         :type target_dir: str
         :param save: tells if files should be saved or not (default value = False)
@@ -121,12 +127,17 @@ class AdvancedResult(SearchResult):
         """
         try:
             files = []
-            for rep in self.get_report():
+            for rep in self._report:
+                file = ''
                 try:
-                    rep.download(file_type, save, target_dir)
+                    file = rep.download(download_type, save, target_dir)
                 except FileNotFoundError:
                     print("No file with id: " + rep.pdb_id)
                     pass
+                except AttributeError:
+                    print("Structure has not pdb_id in report")
+                    pass
+                files.append(file)
 
             return files
         except (NotImplementedError, KeyError):
