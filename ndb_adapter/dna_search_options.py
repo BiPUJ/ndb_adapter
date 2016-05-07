@@ -1,5 +1,5 @@
-from NDB.enums import StructuralFeatures
-from NDB.search_options import SearchOptions
+from ndb_adapter.enums import StructuralFeatures
+from ndb_adapter.search_options import SearchOptions
 
 
 class DnaSearchOptions(SearchOptions):

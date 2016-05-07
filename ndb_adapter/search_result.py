@@ -1,6 +1,6 @@
-from NDB.search_report import *
+from ndb_adapter.search_report import *
 from typing import List
-from NDB.statistics import Statistics
+from ndb_adapter.statistics import Statistics
 
 
 class SearchResult(object):
@@ -69,7 +69,7 @@ class SimpleResult(SearchResult):
 
     def download(self, download_type: DownloadType = DownloadType.Pdb,
                  save: bool = False, target_dir: str = '') -> List[str]:
-        """Download PDB files from NDB
+        """Download PDB files from ndb_adapter
 
         :param download_type: files download type (default value is DownloadType.PDB)
         :type download_type: DownloadType
@@ -114,7 +114,7 @@ class AdvancedResult(SearchResult):
 
     def download(self, download_type: DownloadType = DownloadType.Pdb,
                  save: bool = False, target_dir: str = '') -> List[str]:
-        """Download PDB files from NDB
+        """Download PDB files from ndb_adapter
 
         :param download_type: files download type (default value is DownloadType.PDB)
         :type download_type: DownloadType

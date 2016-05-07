@@ -1,19 +1,19 @@
 import requests
-from NDB.advanced_search_options import AdvancedSearchOptions
-from NDB.dna_search_options import DnaSearchOptions
-from NDB.ndb_download import DownloadHelper, DownloadType
-from NDB.rna_search_options import RnaSearchOptions
-from NDB.search_result import SimpleResult, AdvancedResult
-from NDB.ndb_base import NDBBase
-import NDB.report_parser as parser
-from NDB.summary_result import SummaryResult
+import ndb_adapter.report_parser as parser
+from ndb_adapter.advanced_search_options import AdvancedSearchOptions
+from ndb_adapter.dna_search_options import DnaSearchOptions
+from ndb_adapter.ndb_download import DownloadHelper, DownloadType
+from ndb_adapter.rna_search_options import RnaSearchOptions
+from ndb_adapter.search_result import SimpleResult, AdvancedResult
+from ndb_adapter.ndb_base import NDBBase
+from ndb_adapter.summary_result import SummaryResult
 
 
 class NDB(NDBBase):
-    """Main class for search in NDB - all methods are static"""
+    """Main class for search in ndb_adapter - all methods are static"""
     @staticmethod
     def advanced_search(options: AdvancedSearchOptions= None) -> AdvancedResult:
-        """Advanced search in NDB, if in options "stats= True" returns also statistics - works only in some \
+        """Advanced search in ndb_adapter, if in options "stats= True" returns also statistics - works only in some \
         search types. Default search "type= ReportType.NDBStatus". Depending on ReportType you can annotate return \
         type i.e. "result.report() # ReportType.NDBStatus".
 
@@ -38,7 +38,7 @@ class NDB(NDBBase):
 
     @staticmethod
     def dna_search(options: DnaSearchOptions= None) -> SimpleResult:
-        """Dna only search in NDB.
+        """Dna only search in ndb_adapter.
 
         :param options: options for dna search (default value = None) - clear DnaSearchOptions()
         :type options: DnaSearchOptions
@@ -56,7 +56,7 @@ class NDB(NDBBase):
 
     @staticmethod
     def rna_search(options: RnaSearchOptions= None) -> SimpleResult:
-        """Rna only search in NDB.
+        """Rna only search in ndb_adapter.
 
         :param options: options for rna search (default value = None) - clear RnaSearchOptions()
         :type options: RnaSearchOptions
@@ -74,9 +74,9 @@ class NDB(NDBBase):
 
     @staticmethod
     def summary(structure_id: str) -> SummaryResult:
-        """Summary search in NDB
+        """Summary search in ndb_adapter
 
-        :param structure_id: structure NDB or PDB ID e.g. 4Z6C
+        :param structure_id: structure ndb_adapter or PDB ID e.g. 4Z6C
         :type structure_id: str
         :return: search summary result
         :rtype: SummaryResult
@@ -94,7 +94,7 @@ class NDB(NDBBase):
     @staticmethod
     def download(structure_id: str, download_type: DownloadType=DownloadType.Pdb,
                  save: bool=False, target_dir: str='') -> str:
-        """Download PDB from NDB
+        """Download PDB from ndb_adapter
 
         :param download_type: file download type (default value is DownloadType.PDB)
         :type download_type: DownloadType
@@ -102,7 +102,7 @@ class NDB(NDBBase):
         :type target_dir: str
         :param save: tells if file should be saved or not (default value = False)
         :type save: bool
-        :param structure_id: structure NDB or PDB ID e.g. 4Z6C
+        :param structure_id: structure ndb_adapter or PDB ID e.g. 4Z6C
         :type structure_id: str
         :return: string or None
         :rtype: str

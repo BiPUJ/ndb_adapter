@@ -2,7 +2,7 @@ import zlib
 import requests
 import os
 from enum import Enum
-from NDB.ndb_base import NDBBase
+from ndb_adapter.ndb_base import NDBBase
 from io import BytesIO
 
 
@@ -82,11 +82,11 @@ class DownloadType(Enum):
 
 
 class DownloadHelper(object):
-    """Helper class for downloading form NDB"""
+    """Helper class for downloading form ndb_adapter"""
     @staticmethod
     def download(structure_id: str, download_type: DownloadType = DownloadType.Pdb,
                  save: bool = False, target_dir: str = '') -> str:
-        """Download PDB from NDB
+        """Download PDB from ndb_adapter
 
         :param download_type: file download type (default value is DownloadType.PDB)
         :type download_type: DownloadType
@@ -94,7 +94,7 @@ class DownloadHelper(object):
         :type target_dir: str
         :param save: tells if file should be saved or not (default value = False)
         :type save: bool
-        :param structure_id: structure NDB or PDB ID e.g. 4Z6C
+        :param structure_id: structure ndb_adapter or PDB ID e.g. 4Z6C
         :type structure_id: str
         :return: string or None
         :rtype: str

@@ -1,10 +1,10 @@
 from typing import List, Callable
-from NDB.enums import ReportType
-from NDB.search_report import AdvancedReport, SimpleReport, StatisticReport
-from NDB.search_result import SearchResult, SimpleResult, AdvancedResult
-from NDB.summary_result import SummaryResult
-from NDB.html_parser import NDBHtmlParser
-from NDB.ndb import NDBBase
+from ndb_adapter.enums import ReportType
+from ndb_adapter.search_report import AdvancedReport, SimpleReport, StatisticReport
+from ndb_adapter.search_result import SearchResult, SimpleResult, AdvancedResult
+from ndb_adapter.summary_result import SummaryResult
+from ndb_adapter.html_parser import NDBHtmlParser
+from ndb_adapter.ndb import NDBBase
 from io import BytesIO
 import re
 import xlrd
@@ -138,7 +138,7 @@ def parse_search_report(html: str) -> SimpleResult:
     file_tag = parser.find_one('a', after=count_tag, params={'id': 'fileGal'})
     url = file_tag.attrs.get('href', '') if file_tag else ''
 
-    from NDB.ndb_download import DownloadHelper
+    from ndb_adapter.ndb_download import DownloadHelper
     file = DownloadHelper.download_file(NDBBase.siteUrl + url)
     report = parse_xls(file)
 
@@ -169,10 +169,10 @@ def parse_summary(html: str) -> SummaryResult:
     summary_tag = parser.find_one('div', params={'id': 'summary'})
     if summary_tag:
         heading_tag = parser.find_one('h2', params={'class': 'justHeading'})
-        if heading_tag and "NDB ID" in heading_tag.data:
+        if heading_tag and "ndb_adapter ID" in heading_tag.data:
             ndb_id_tag = next(heading_tag)
             if ndb_id_tag:
-                report["NDB ID"] = ndb_id_tag.data
+                report["ndb_adapter ID"] = ndb_id_tag.data
                 report["PDB ID"] = ndb_id_tag.next_data()
 
         details_tags = parser.find_all('h3', after=heading_tag, params={'id': 'dataKey'})

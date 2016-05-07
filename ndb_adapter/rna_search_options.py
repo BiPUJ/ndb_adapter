@@ -1,5 +1,5 @@
-from NDB.enums import RnaType, RnaStructures, ResolutionCutoff
-from NDB.search_options import SearchOptions
+from ndb_adapter.enums import RnaType, RnaStructures, ResolutionCutoff
+from ndb_adapter.search_options import SearchOptions
 
 
 class RnaSearchOptions(SearchOptions):

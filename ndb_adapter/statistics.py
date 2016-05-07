@@ -1,5 +1,5 @@
 from typing import List, Dict
-from NDB.search_report import StatisticReport
+from ndb_adapter.search_report import StatisticReport
 
 
 class Statistics(object):

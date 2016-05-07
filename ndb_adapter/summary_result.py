@@ -1,6 +1,6 @@
 from typing import List, Dict
-from NDB.ndb_download import DownloadHelper
-from NDB.ndb_download import DownloadType
+from ndb_adapter.ndb_download import DownloadHelper
+from ndb_adapter.ndb_download import DownloadType
 
 
 class SummaryResult(object):
@@ -9,7 +9,7 @@ class SummaryResult(object):
         """Default constructor"""
         self._report = {
             'PDB ID': '',
-            'NDB ID': '',
+            'ndb_adapter ID': '',
             'Title': '',
             'Space Group': '',
             'Refinement': '',
@@ -46,12 +46,12 @@ class SummaryResult(object):
 
     @property
     def ndb_id(self) -> str:
-        """Gets summary result structure NDB ID
+        """Gets summary result structure ndb_adapter ID
 
-        :return: NDB ID
+        :return: ndb_adapter ID
         :rtype: str
         """
-        return self._report['NDB ID']
+        return self._report['ndb_adapter ID']
 
     @property
     def title(self) -> str:
@@ -261,7 +261,7 @@ class SummaryResult(object):
         self._report.update(report)
 
     def download(self, file_type: DownloadType=DownloadType.Pdb, save: bool = False, target_dir: str = '') -> str:
-        """Download PDB from NDB
+        """Download PDB from ndb_adapter
 
         :param file_type: file download type (default value is DownloadType.PDB)
         :type file_type: DownloadType

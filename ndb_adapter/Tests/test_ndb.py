@@ -1,11 +1,11 @@
 import unittest
 import os
 from datetime import date
-from NDB.advanced_search_options import AdvancedSearchOptions
-from NDB.dna_search_options import DnaSearchOptions
-from NDB.ndb import NDB
-from NDB.enums import *
-from NDB.ndb_download import DownloadType
+from ndb_adapter.advanced_search_options import AdvancedSearchOptions
+from ndb_adapter.dna_search_options import DnaSearchOptions
+from ndb_adapter.ndb import NDB
+from ndb_adapter.enums import *
+from ndb_adapter.ndb_download import DownloadType
 from typing import List
 
 

@@ -1,4 +1,4 @@
-from NDB.enums import Polymer, ProteinFunc, ExpMethod
+from ndb_adapter.enums import Polymer, ProteinFunc, ExpMethod
 
 
 class SearchOptions(object):

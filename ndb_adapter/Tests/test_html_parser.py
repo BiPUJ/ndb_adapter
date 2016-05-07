@@ -1,5 +1,5 @@
 import unittest
-from NDB.html_parser import NDBHtmlParser
+from ndb_adapter.html_parser import NDBHtmlParser
 
 
 class HtmlParserTests(unittest.TestCase):
