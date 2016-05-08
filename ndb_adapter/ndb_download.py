@@ -1,9 +1,11 @@
-import zlib
-import requests
 import os
+import zlib
 from enum import Enum
-from ndb_adapter.ndb_base import NDBBase
 from io import BytesIO
+
+import requests
+
+from ndb_adapter.ndb_base import NDBBase
 
 
 class _Pdb(NDBBase):

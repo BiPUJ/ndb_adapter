@@ -1,13 +1,15 @@
+import re
+from io import BytesIO
 from typing import List, Callable
+
+import xlrd
+
 from ndb_adapter.enums import ReportType
+from ndb_adapter.html_parser import NDBHtmlParser
+from ndb_adapter.ndb_base import NDBBase
 from ndb_adapter.search_report import AdvancedReport, SimpleReport, StatisticReport
 from ndb_adapter.search_result import SearchResult, SimpleResult, AdvancedResult
 from ndb_adapter.summary_result import SummaryResult
-from ndb_adapter.html_parser import NDBHtmlParser
-from ndb_adapter.ndb_base import NDBBase
-from io import BytesIO
-import re
-import xlrd
 
 
 def parse_to_table(text: str) -> List[str]:

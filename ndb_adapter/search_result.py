@@ -1,5 +1,6 @@
-from ndb_adapter.search_report import *
 from typing import List
+
+from ndb_adapter.search_report import *
 from ndb_adapter.statistics import Statistics
 
 

@@ -1,5 +1,5 @@
-from typing import List, Dict
 from html.parser import HTMLParser
+from typing import List, Dict
 
 
 class NDBHtmlParser(HTMLParser):

@@ -1,11 +1,12 @@
 import requests
+
 import ndb_adapter.report_parser as parser
 from ndb_adapter.advanced_search_options import AdvancedSearchOptions
 from ndb_adapter.dna_search_options import DnaSearchOptions
+from ndb_adapter.ndb_base import NDBBase
 from ndb_adapter.ndb_download import DownloadHelper, DownloadType
 from ndb_adapter.rna_search_options import RnaSearchOptions
 from ndb_adapter.search_result import SimpleResult, AdvancedResult
-from ndb_adapter.ndb_base import NDBBase
 from ndb_adapter.summary_result import SummaryResult
 
 

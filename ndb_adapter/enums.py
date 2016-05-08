@@ -1,4 +1,5 @@
 from enum import Enum
+
 from ndb_adapter.search_report import NDBStatusReport, CellDimensionsReport, CitationReport, RefinementDataReport, \
     NABackboneTorsionReport, BasePairParameterReport, BasePairStepParameterReport, DescriptorReport, SequencesReport, \
     RNA3DBasePairRelFreqReport, RNA3DBasePhosphateRelFreqReport, RNA3DBaseStackingRelFreqReport, RNA3DMotifReport
