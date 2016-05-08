@@ -8,12 +8,10 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 
 setup(
     name='ndb_adapter',
-    version=1.0,
+    version="0.1b1",
     author='Michal Mrozek',
     author_email='michau.mrozek@student.uj.edu.pl',
     url='https://github.com/Michsior14/ndb_adapter',
-    #use_scm_version=True,
-    #setup_requires=['setuptools_scm'],
     description='Adapter for http://ndbserver.rutgers.edu/ created for biologists, bioinformatics etc.',
     long_description=long_description,
     packages=['ndb_adapter'],
@@ -27,6 +25,9 @@ setup(
             'Intended Audience :: Developers',
             'License :: OSI Approved :: BSD License',
             'Programming Language :: Python :: 3',
+            'Programming Language :: Python :: 3.3',
+            'Programming Language :: Python :: 3.4',
+            'Programming Language :: Python :: 3.5',
             'Operating System :: OS Independent',
             'Topic :: Database',
             'Topic :: Office/Business',

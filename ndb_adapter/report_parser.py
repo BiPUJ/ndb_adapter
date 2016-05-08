@@ -4,7 +4,7 @@ from ndb_adapter.search_report import AdvancedReport, SimpleReport, StatisticRep
 from ndb_adapter.search_result import SearchResult, SimpleResult, AdvancedResult
 from ndb_adapter.summary_result import SummaryResult
 from ndb_adapter.html_parser import NDBHtmlParser
-from ndb_adapter.ndb import NDBBase
+from ndb_adapter.ndb_base import NDBBase
 from io import BytesIO
 import re
 import xlrd
