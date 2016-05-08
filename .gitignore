@@ -53,7 +53,7 @@ coverage.xml
 *.log
 
 # Sphinx documentation
-docs/_build/
+docs/build/
 
 # intelij
 .idea
@@ -63,3 +63,5 @@ target/
 
 #Ipython Notebook
 .ipynb_checkpoints
+
+instructs.txt
