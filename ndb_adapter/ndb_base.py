@@ -1,7 +1,7 @@
 
 
 class NDBBase(object):
-    """Base class for ndb_adapter
+    """Base class for NDB
 
     :cvar siteUrl: ndb site url
     :cvar _advancedUrl: private advanced search url
@@ -14,10 +14,10 @@ class NDBBase(object):
     _summaryUrl = siteUrl + '/service/ndb/atlas/summary'
     _dnaUrl = siteUrl + '/service/ndb/atlas/gallery/dna'
     _rnaUrl = siteUrl + '/service/ndb/atlas/gallery/rna'
-    _chiralCorrectUrl = siteUrl + '/files/ftp/ndb_adapter/coordinates/na-chiral-correct/'
-    _bioAssemblyCoordinateUrl = siteUrl + '/files/ftp/ndb_adapter/coordinates/na-biol/'
-    _mmCifUrl = siteUrl + '/files/ftp/ndb_adapter/coordinates/na-mmcif/'
-    _structureFactorsUrl = siteUrl + '/files/ftp/ndb_adapter/structure-factors/'
-    _xmlCompleteUrl = siteUrl + '/files/ftp/ndb_adapter/coordinates/xml/'
-    _xmlCoordinatesUrl = siteUrl + '/files/ftp/ndb_adapter/coordinates/xml-extatom/'
-    _xmlHeaderUrl = siteUrl + '/files/ftp/ndb_adapter/coordinates/xml-noatom/'
+    _chiralCorrectUrl = siteUrl + '/files/ftp/NDB/coordinates/na-chiral-correct/'
+    _bioAssemblyCoordinateUrl = siteUrl + '/files/ftp/NDB/coordinates/na-biol/'
+    _mmCifUrl = siteUrl + '/files/ftp/NDB/coordinates/na-mmcif/'
+    _structureFactorsUrl = siteUrl + '/files/ftp/NDB/structure-factors/'
+    _xmlCompleteUrl = siteUrl + '/files/ftp/NDB/coordinates/xml/'
+    _xmlCoordinatesUrl = siteUrl + '/files/ftp/NDB/coordinates/xml-extatom/'
+    _xmlHeaderUrl = siteUrl + '/files/ftp/NDB/coordinates/xml-noatom/'

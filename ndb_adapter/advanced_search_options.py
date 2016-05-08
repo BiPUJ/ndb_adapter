@@ -662,9 +662,9 @@ class AdvancedSearchOptions(object):
         return AndOr(self._options['c_detal_rfc']), RFactor(self._options['q_detal_rfc'])
 
     def set_ndb_id(self, ndb_id: str = '') -> None:
-        """Sets ndb_adapter ID in options
+        """Sets NDB ID in options
 
-        :param ndb_id: ndb_adapter ID e.g. NA2326 (default value = '')
+        :param ndb_id: NDB ID e.g. NA2326 (default value = '')
         :type ndb_id: str
 
         :return: None
@@ -672,9 +672,9 @@ class AdvancedSearchOptions(object):
         self._options['q_ndbid'] = ndb_id
 
     def get_ndb_id(self) -> str:
-        """Gets ndb_adapter ID options
+        """Gets NDB ID options
 
-        :return: ndb_adapter ID
+        :return: NDB ID
         :rtype: str
         """
         return self._options['q_ndbid']

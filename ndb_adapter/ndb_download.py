@@ -82,11 +82,11 @@ class DownloadType(Enum):
 
 
 class DownloadHelper(object):
-    """Helper class for downloading form ndb_adapter"""
+    """Helper class for downloading form NDB"""
     @staticmethod
     def download(structure_id: str, download_type: DownloadType = DownloadType.Pdb,
                  save: bool = False, target_dir: str = '') -> str:
-        """Download PDB from ndb_adapter
+        """Download PDB from NDB
 
         :param download_type: file download type (default value is DownloadType.PDB)
         :type download_type: DownloadType
@@ -94,7 +94,7 @@ class DownloadHelper(object):
         :type target_dir: str
         :param save: tells if file should be saved or not (default value = False)
         :type save: bool
-        :param structure_id: structure ndb_adapter or PDB ID e.g. 4Z6C
+        :param structure_id: structure NDB ID or PDB ID e.g. 4Z6C
         :type structure_id: str
         :return: string or None
         :rtype: str

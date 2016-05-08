@@ -69,7 +69,7 @@ class SimpleResult(SearchResult):
 
     def download(self, download_type: DownloadType = DownloadType.Pdb,
                  save: bool = False, target_dir: str = '') -> List[str]:
-        """Download PDB files from ndb_adapter
+        """Download PDB files from NDB
 
         :param download_type: files download type (default value is DownloadType.PDB)
         :type download_type: DownloadType
@@ -86,10 +86,10 @@ class SimpleResult(SearchResult):
             try:
                 file = rep.download(download_type, save, target_dir)
             except FileNotFoundError:
-                print("No file with id: " + rep.pdb_id)
+                print("No file with pdb_id: " + rep.pdb_id)
                 pass
             except AttributeError:
-                print("Structure has not pdb_id in report")
+                print("Structure has not pdb_id and ndb_id in report")
                 pass
 
             files.append(file)
@@ -114,7 +114,7 @@ class AdvancedResult(SearchResult):
 
     def download(self, download_type: DownloadType = DownloadType.Pdb,
                  save: bool = False, target_dir: str = '') -> List[str]:
-        """Download PDB files from ndb_adapter
+        """Download PDB files from NDB
 
         :param download_type: files download type (default value is DownloadType.PDB)
         :type download_type: DownloadType

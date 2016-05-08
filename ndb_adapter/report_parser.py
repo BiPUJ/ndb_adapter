@@ -169,10 +169,10 @@ def parse_summary(html: str) -> SummaryResult:
     summary_tag = parser.find_one('div', params={'id': 'summary'})
     if summary_tag:
         heading_tag = parser.find_one('h2', params={'class': 'justHeading'})
-        if heading_tag and "ndb_adapter ID" in heading_tag.data:
+        if heading_tag and "NDB ID" in heading_tag.data:
             ndb_id_tag = next(heading_tag)
             if ndb_id_tag:
-                report["ndb_adapter ID"] = ndb_id_tag.data
+                report["NDB ID"] = ndb_id_tag.data
                 report["PDB ID"] = ndb_id_tag.next_data()
 
         details_tags = parser.find_all('h3', after=heading_tag, params={'id': 'dataKey'})

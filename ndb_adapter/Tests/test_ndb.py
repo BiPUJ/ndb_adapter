@@ -139,7 +139,6 @@ class NDBTest(unittest.TestCase):
 
     def test_summary(self) -> None:
         report = NDB.summary('5F8K')
-        print(report.ndb_id)
         print("Report: " + str(report))
         print(report.download(file_type=DownloadType.Cif))
 

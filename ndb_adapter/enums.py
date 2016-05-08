@@ -7,7 +7,7 @@ from ndb_adapter.search_report import NDBStatusReport, CellDimensionsReport, Cit
 class ReportType(Enum):
     """Enum representing advanced search report type - can be used to annotate return type of advanced search report
 
-    :cvar NDBStatus: ndb_adapter Status search report
+    :cvar NDBStatus: NDB Status search report
     :cvar CellDimensions: Cell Dimensions search report
     :cvar Citation: Citation search report
     :cvar RefinementData: Refinement Data search report

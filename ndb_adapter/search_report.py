@@ -32,7 +32,7 @@ class SimpleReport(object):
         :type report: dict
         """
         self._report = {
-            'ndb_adapter ID': '',
+            'NDB ID': '',
             'PDB ID': '',
             'Classification': '',
             'Title': '',
@@ -59,12 +59,12 @@ class SimpleReport(object):
 
     @property
     def ndb_id(self) -> str:
-        """Gets simple report structure ndb_adapter ID
+        """Gets simple report structure NDB ID
 
-        :return: ndb_adapter ID
+        :return: NDB ID
         :rtype: str
         """
-        return self._report['ndb_adapter ID']
+        return self._report['NDB ID']
 
     @property
     def title(self) -> str:
@@ -157,7 +157,7 @@ class SimpleReport(object):
         return self._report['R free']
 
     def download(self, download_type: DownloadType = DownloadType.Pdb, save: bool = False, target_dir: str = '') -> str:
-        """Download PDB from ndb_adapter
+        """Download PDB from ndb
 
         :param download_type: file download type (default value is DownloadType.PDB)
         :type download_type: DownloadType
@@ -192,7 +192,7 @@ class _AdvancedBaseReport(object):
     def __init__(self):
         """Default constructor"""
         self._report = {
-            'ndb_adapter ID': ''
+            'NDB ID': ''
         }
 
     def _update(self, report: dict) -> None:
@@ -211,15 +211,15 @@ class _AdvancedBaseReport(object):
 
     @property
     def ndb_id(self) -> str:
-        """Gets advanced report structure ndb_adapter ID
+        """Gets advanced report structure NDB ID
 
-        :return: ndb_adapter ID
+        :return: NDB ID
         :rtype: str
         """
-        return self._report['ndb_adapter ID']
+        return self._report['NDB ID']
 
     def download(self, download_type: DownloadType = DownloadType.Pdb, save: bool = False, target_dir: str = '') -> str:
-        """To download files from ndb_adapter - only works for some reports"""
+        """To download files from NDB - only works for some reports"""
         raise NotImplementedError
 
     def get_dict(self) -> dict:
@@ -235,7 +235,7 @@ class _AdvancedBaseReport(object):
 
 
 class NDBStatusReport(_AdvancedBaseReport):
-    """Class for ndb_adapter status search report extending _AdvancedBaseReport"""
+    """Class for NDB status search report extending _AdvancedBaseReport"""
     def __init__(self, report: dict= None):
         """Default constructor
 
@@ -245,7 +245,7 @@ class NDBStatusReport(_AdvancedBaseReport):
         self._update({
             'PDB ID': '',
             'Title': '',
-            'ndb_adapter Release Date': '',
+            'NDB Release Date': '',
             'Authors': '',
             'Initial Deposition Date': ''
         })
@@ -276,12 +276,12 @@ class NDBStatusReport(_AdvancedBaseReport):
 
     @property
     def release_date(self) -> str:
-        """Gets advanced report structure ndb_adapter release date
+        """Gets advanced report structure NDB release date
 
         :return: release date
         :rtype: str
         """
-        return self._report['ndb_adapter Release Date']
+        return self._report['NDB Release Date']
 
     @property
     def deposition_date(self) -> str:
@@ -302,7 +302,7 @@ class NDBStatusReport(_AdvancedBaseReport):
         return self._report['Authors']
 
     def download(self, download_type: DownloadType = DownloadType.Pdb, save: bool = False, target_dir: str = '') -> str:
-        """Download PDB from ndb_adapter
+        """Download PDB from NDB
 
         :param download_type: file download type (default value is DownloadType.PDB)
         :type download_type: DownloadType
@@ -492,7 +492,7 @@ class CitationReport(_AdvancedBaseReport):
         return self._report['Year']
 
     def download(self, download_type: DownloadType = DownloadType.Pdb, save: bool = False, target_dir: str = '') -> str:
-        """Download PDB from ndb_adapter
+        """Download PDB from NDB
 
         :param download_type: file download type (default value is DownloadType.PDB)
         :type download_type: DownloadType
@@ -1251,7 +1251,7 @@ class RNA3DBasePairRelFreqReport(_AdvancedBaseReport):
         return self._report['Relative tSS']
 
     def download(self, download_type: DownloadType = DownloadType.Pdb, save: bool = False, target_dir: str = '') -> str:
-        """Download PDB from ndb_adapter
+        """Download PDB from NDB
 
         :param download_type: file download type (default value is DownloadType.PDB)
         :type download_type: DownloadType
@@ -1398,7 +1398,7 @@ class RNA3DBasePhosphateRelFreqReport(_AdvancedBaseReport):
         return self._report['Relative 0BPh']
 
     def download(self, download_type: DownloadType = DownloadType.Pdb, save: bool = False, target_dir: str = '') -> str:
-        """Download PDB from ndb_adapter
+        """Download PDB from NDB
 
         :param download_type: file download type (default value is DownloadType.PDB)
         :type download_type: DownloadType
@@ -1475,7 +1475,7 @@ class RNA3DBaseStackingRelFreqReport(_AdvancedBaseReport):
         return self._report['Relative s55']
 
     def download(self, download_type: DownloadType = DownloadType.Pdb, save: bool = False, target_dir: str = '') -> str:
-        """Download PDB from ndb_adapter
+        """Download PDB from NDB
 
         :param download_type: file download type (default value is DownloadType.PDB)
         :type download_type: DownloadType
@@ -1552,7 +1552,7 @@ class RNA3DMotifReport(_AdvancedBaseReport):
         return self._report['Annotation']
 
     def download(self, download_type: DownloadType = DownloadType.Pdb, save: bool = False, target_dir: str = '') -> str:
-        """Download PDB from ndb_adapter
+        """Download PDB from NDB
 
         :param download_type: file download type (default value is DownloadType.PDB)
         :type download_type: DownloadType

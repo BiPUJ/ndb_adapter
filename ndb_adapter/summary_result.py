@@ -9,7 +9,7 @@ class SummaryResult(object):
         """Default constructor"""
         self._report = {
             'PDB ID': '',
-            'ndb_adapter ID': '',
+            'NDB ID': '',
             'Title': '',
             'Space Group': '',
             'Refinement': '',
@@ -46,12 +46,12 @@ class SummaryResult(object):
 
     @property
     def ndb_id(self) -> str:
-        """Gets summary result structure ndb_adapter ID
+        """Gets summary result structure NDB ID
 
-        :return: ndb_adapter ID
+        :return: NDB ID
         :rtype: str
         """
-        return self._report['ndb_adapter ID']
+        return self._report['NDB ID']
 
     @property
     def title(self) -> str:
@@ -261,7 +261,7 @@ class SummaryResult(object):
         self._report.update(report)
 
     def download(self, file_type: DownloadType=DownloadType.Pdb, save: bool = False, target_dir: str = '') -> str:
-        """Download PDB from ndb_adapter
+        """Download PDB from NDB
 
         :param file_type: file download type (default value is DownloadType.PDB)
         :type file_type: DownloadType
@@ -272,7 +272,12 @@ class SummaryResult(object):
         :return: string or None
         :rtype: str
         """
-        return DownloadHelper.download(self.pdb_id, file_type, save, target_dir)
+        id_structure = self.pdb_id
+        if not self.pdb_id:
+            print("No pdb_id trying ndb_id")
+            id_structure = self.ndb_id
+
+        return DownloadHelper.download(id_structure, file_type, save, target_dir)
 
     def get_dict(self) -> dict:
         """Gets internal report dict
