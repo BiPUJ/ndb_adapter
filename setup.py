@@ -8,7 +8,7 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 
 setup(
     name='ndb_adapter',
-    version="0.1b1",
+    version="0.1b2",
     author='Michal Mrozek',
     author_email='michau.mrozek@student.uj.edu.pl',
     url='https://github.com/Michsior14/ndb_adapter',
