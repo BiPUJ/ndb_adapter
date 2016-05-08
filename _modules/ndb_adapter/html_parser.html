@@ -1,0 +1,388 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>ndb_adapter.html_parser &mdash; ndb_adapter 0.1b2 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1b2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="ndb_adapter 0.1b2 documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for ndb_adapter.html_parser</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">html.parser</span> <span class="kn">import</span> <span class="n">HTMLParser</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span>
+
+
+<div class="viewcode-block" id="NDBHtmlParser"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.html_parser.NDBHtmlParser">[docs]</a><span class="k">class</span> <span class="nc">NDBHtmlParser</span><span class="p">(</span><span class="n">HTMLParser</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Class for html parse&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Default constructor&quot;&quot;&quot;</span>
+        <span class="n">HTMLParser</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__tree</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__elementsStack</span> <span class="o">=</span> <span class="p">[]</span>
+
+<div class="viewcode-block" id="NDBHtmlParser.error"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.html_parser.NDBHtmlParser.error">[docs]</a>    <span class="k">def</span> <span class="nf">error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Function for error messages</span>
+
+<span class="sd">        :param message: message string</span>
+<span class="sd">        :type message: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="NDBHtmlParser.analyze"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.html_parser.NDBHtmlParser.analyze">[docs]</a>    <span class="k">def</span> <span class="nf">analyze</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Function for analyze html structure</span>
+
+<span class="sd">        :param data: html string</span>
+<span class="sd">        :type data: str</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__tree</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__elementsStack</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">feed</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__elementsStack</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__tree</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__elementsStack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="NDBHtmlParser.get_tree"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.html_parser.NDBHtmlParser.get_tree">[docs]</a>    <span class="k">def</span> <span class="nf">get_tree</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Tag&#39;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Function for get tree top element</span>
+
+<span class="sd">        :rtype: &#39;Tag&#39;</span>
+<span class="sd">        :return: Tree top</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__tree</span></div>
+
+<div class="viewcode-block" id="NDBHtmlParser.find_one"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.html_parser.NDBHtmlParser.find_one">[docs]</a>    <span class="k">def</span> <span class="nf">find_one</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">after</span><span class="p">:</span> <span class="s1">&#39;Tag&#39;</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">before</span><span class="p">:</span> <span class="s1">&#39;Tag&#39;</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Tag&#39;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Function for get tree node matching criteria</span>
+
+<span class="sd">        :param name: node name (default value = None)</span>
+<span class="sd">        :type name: str</span>
+<span class="sd">        :param after: after node instance (default value = None)</span>
+<span class="sd">        :type after: Tag</span>
+<span class="sd">        :param before: before node instance (default value = None)</span>
+<span class="sd">        :type before: Tag</span>
+<span class="sd">        :param params: node parameters (default value = None)</span>
+<span class="sd">        :type params: dict</span>
+<span class="sd">        :return: searched node</span>
+<span class="sd">        :rtype: &#39;Tag&#39;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">after</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">after</span><span class="p">,</span> <span class="n">Tag</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;After is not instance of Tag class&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">before</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">before</span><span class="p">,</span> <span class="n">Tag</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Before is not instance of Tag class&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">params</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Params is not instance of dictionary class&quot;</span><span class="p">)</span>
+
+        <span class="n">root</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__tree</span> <span class="k">if</span> <span class="n">after</span> <span class="ow">is</span> <span class="bp">None</span> <span class="k">else</span> <span class="n">after</span>
+        <span class="n">next_tag</span> <span class="o">=</span> <span class="n">Tag</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;root&quot;</span><span class="p">,</span> <span class="n">next_sib</span><span class="o">=</span><span class="n">root</span><span class="p">)</span>
+        <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">next_tag</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">next_tag</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">before</span> <span class="ow">and</span> <span class="n">before</span> <span class="o">==</span> <span class="n">next_tag</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">StopIteration</span>
+                <span class="k">elif</span> <span class="n">name</span> <span class="ow">and</span> <span class="n">next_tag</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="n">name</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="k">elif</span> <span class="n">next_tag</span><span class="o">.</span><span class="n">has_attr</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="n">next_tag</span>
+
+            <span class="k">except</span> <span class="ne">StopIteration</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">None</span></div>
+
+<div class="viewcode-block" id="NDBHtmlParser.find_all"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.html_parser.NDBHtmlParser.find_all">[docs]</a>    <span class="k">def</span> <span class="nf">find_all</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">after</span><span class="p">:</span> <span class="s1">&#39;Tag&#39;</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">before</span><span class="p">:</span> <span class="s1">&#39;Tag&#39;</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="s1">&#39;Tag&#39;</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Function for get tree node matching criteria</span>
+
+<span class="sd">            :param name: node name (default value = None)</span>
+<span class="sd">            :type name: str</span>
+<span class="sd">            :param after: after node instance (default value = None)</span>
+<span class="sd">            :type after: Tag</span>
+<span class="sd">            :param before: before node instance (default value = None)</span>
+<span class="sd">            :type before: Tag</span>
+<span class="sd">            :param params: node parameters (default value = None)</span>
+<span class="sd">            :type params: dict</span>
+<span class="sd">            :return: searched nodes list</span>
+<span class="sd">            :rtype: List[Tag]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">after</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">after</span><span class="p">,</span> <span class="n">Tag</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;After is not instance of Tag class&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">before</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">before</span><span class="p">,</span> <span class="n">Tag</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Before is not instance of Tag class&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">params</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Params is not instance of dictionary class&quot;</span><span class="p">)</span>
+
+        <span class="n">root</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__tree</span> <span class="k">if</span> <span class="n">after</span> <span class="ow">is</span> <span class="bp">None</span> <span class="k">else</span> <span class="n">after</span>
+        <span class="n">next_tag</span> <span class="o">=</span> <span class="n">Tag</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;root&quot;</span><span class="p">,</span> <span class="n">next_sib</span><span class="o">=</span><span class="n">root</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">next_tag</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">next_tag</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">before</span> <span class="o">==</span> <span class="n">next_tag</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">StopIteration</span>
+                <span class="k">elif</span> <span class="n">name</span> <span class="ow">and</span> <span class="n">next_tag</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="n">name</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="k">elif</span> <span class="n">next_tag</span><span class="o">.</span><span class="n">has_attr</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
+                    <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">next_tag</span><span class="p">)</span>
+
+            <span class="k">except</span> <span class="ne">StopIteration</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">result</span></div>
+
+<div class="viewcode-block" id="NDBHtmlParser.handle_starttag"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.html_parser.NDBHtmlParser.handle_starttag">[docs]</a>    <span class="k">def</span> <span class="nf">handle_starttag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">,</span> <span class="n">attrs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Function to handle start tag and add to stack of nodes</span>
+
+<span class="sd">        :param tag: tag string</span>
+<span class="sd">        :param attrs: attributes dictionary</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">to_add</span> <span class="o">=</span> <span class="n">Tag</span><span class="p">(</span><span class="n">tag</span><span class="p">,</span> <span class="n">attrs</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">attrs</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__elementsStack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">to_add</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="NDBHtmlParser.handle_endtag"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.html_parser.NDBHtmlParser.handle_endtag">[docs]</a>    <span class="k">def</span> <span class="nf">handle_endtag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Function to handle end tag and add to tree</span>
+
+<span class="sd">        :param tag: tag ending</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">poped</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__elementsStack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">__elementsStack</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">__tree</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">__tree</span> <span class="o">=</span> <span class="n">poped</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">__tree</span><span class="o">.</span><span class="n">add_child</span><span class="p">(</span><span class="n">poped</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__elementsStack</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">add_child</span><span class="p">(</span><span class="n">poped</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+            <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="NDBHtmlParser.handle_data"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.html_parser.NDBHtmlParser.handle_data">[docs]</a>    <span class="k">def</span> <span class="nf">handle_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Function to handle data in tags</span>
+
+<span class="sd">        :param data: data inside tag</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1">#   TO DO: rest unicode char to null</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">translate</span><span class="p">({</span><span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\xc5</span><span class="s1">&#39;</span><span class="p">):</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\xa0</span><span class="s1">&#39;</span><span class="p">):</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">):</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+                               <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">):</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\r</span><span class="s1">&#39;</span><span class="p">):</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\f</span><span class="s1">&#39;</span><span class="p">):</span> <span class="s1">&#39;&#39;</span><span class="p">})</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__elementsStack</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span> <span class="o">+=</span> <span class="n">data</span>
+        <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+            <span class="k">pass</span></div></div>
+
+
+<div class="viewcode-block" id="Tag"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.html_parser.Tag">[docs]</a><span class="k">class</span> <span class="nc">Tag</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Class for handle html tags&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">attrs</span><span class="p">:</span> <span class="nb">dict</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">parent</span><span class="p">:</span> <span class="s1">&#39;Tag&#39;</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">next_sib</span><span class="p">:</span> <span class="s1">&#39;Tag&#39;</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">prev_sib</span><span class="p">:</span> <span class="s1">&#39;Tag&#39;</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">children</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="s1">&#39;Tag&#39;</span><span class="p">]</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Default constructor</span>
+
+<span class="sd">        :param name: tag name</span>
+<span class="sd">        :type name: str</span>
+<span class="sd">        :param data: tag data (default value = &#39;&#39;)</span>
+<span class="sd">        :type data: str</span>
+<span class="sd">        :param attrs: tag attributes (default value = None)</span>
+<span class="sd">        :type attrs: dict</span>
+<span class="sd">        :param parent: parent tag</span>
+<span class="sd">        :type parent: Tag</span>
+<span class="sd">        :param next_sib: next sibling tag</span>
+<span class="sd">        :type next_sib: Tag</span>
+<span class="sd">        :param prev_sib: previous sibling tag</span>
+<span class="sd">        :type prev_sib: Tag</span>
+<span class="sd">        :param children: list of children&#39;s</span>
+<span class="sd">        :type children: List[Tag]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>    <span class="c1"># type: str</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>    <span class="c1"># type: str</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">attrs</span> <span class="o">=</span> <span class="p">[]</span> <span class="k">if</span> <span class="n">attrs</span> <span class="ow">is</span> <span class="bp">None</span> <span class="k">else</span> <span class="n">attrs</span>     <span class="c1"># type: Dict[str]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="n">parent</span>    <span class="c1"># type: Tag</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">next_sib</span> <span class="o">=</span> <span class="n">next_sib</span>    <span class="c1"># type: Tag</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prev_sib</span> <span class="o">=</span> <span class="n">prev_sib</span>    <span class="c1"># type: Tag</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">children</span> <span class="o">=</span> <span class="p">[]</span> <span class="k">if</span> <span class="n">children</span> <span class="ow">is</span> <span class="bp">None</span> <span class="k">else</span> <span class="n">children</span>    <span class="c1"># type: List[Tag]</span>
+        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
+            <span class="n">child</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span>
+
+<div class="viewcode-block" id="Tag.has_attr"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.html_parser.Tag.has_attr">[docs]</a>    <span class="k">def</span> <span class="nf">has_attr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;To check if tag has given attributes</span>
+
+<span class="sd">        :param params: attributes to check</span>
+<span class="sd">        :type params: dict</span>
+<span class="sd">        :return: True/False if there is attribute</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">params</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">True</span>
+
+        <span class="k">for</span> <span class="n">attr_key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">attrs</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">par_key</span> <span class="ow">in</span> <span class="n">params</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">par_key</span> <span class="o">==</span> <span class="n">attr_key</span> <span class="ow">and</span> <span class="n">params</span><span class="p">[</span><span class="n">par_key</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="n">attr_key</span><span class="p">]:</span>
+                    <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">return</span> <span class="bp">False</span></div>
+
+<div class="viewcode-block" id="Tag.add_child"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.html_parser.Tag.add_child">[docs]</a>    <span class="k">def</span> <span class="nf">add_child</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">child</span><span class="p">:</span> <span class="s1">&#39;Tag&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;To add child to tag</span>
+
+<span class="sd">        :param child: tag to add</span>
+<span class="sd">        :type child: Tag</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">child</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">next_sib</span><span class="p">,</span> <span class="n">child</span><span class="o">.</span><span class="n">prev_sib</span> <span class="o">=</span> <span class="n">child</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">child</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Tag.prev"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.html_parser.Tag.prev">[docs]</a>    <span class="k">def</span> <span class="nf">prev</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Tag&#39;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Previous tag</span>
+
+<span class="sd">        :return: previous tag</span>
+<span class="sd">        :rtype: Tag</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">prev_sib</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">prev_sib</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">StopIteration</span></div>
+
+    <span class="k">def</span> <span class="nf">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Tag&#39;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Next tag</span>
+
+<span class="sd">        :return: next tag</span>
+<span class="sd">        :rtype: Tag</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">next_sib</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">next_sib</span>
+
+        <span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span>
+        <span class="k">while</span> <span class="n">parent</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">parent</span><span class="o">.</span><span class="n">next_sib</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">parent</span><span class="o">.</span><span class="n">next_sib</span>
+            <span class="n">parent</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">parent</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">StopIteration</span>
+
+    <span class="nb">next</span> <span class="o">=</span> <span class="n">__next__</span>
+
+<div class="viewcode-block" id="Tag.next_data"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.html_parser.Tag.next_data">[docs]</a>    <span class="k">def</span> <span class="nf">next_data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Next tag data</span>
+
+<span class="sd">        :return: next tag data</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">next_tag</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">next_tag</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">next_tag</span><span class="o">.</span><span class="n">data</span>
+        <span class="k">return</span> <span class="s1">&#39;&#39;</span></div>
+
+<div class="viewcode-block" id="Tag.prev_data"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.html_parser.Tag.prev_data">[docs]</a>    <span class="k">def</span> <span class="nf">prev_data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Previous tag data</span>
+
+<span class="sd">        :return: previous tag data</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">next_tag</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prev</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">next_tag</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">next_tag</span><span class="o">.</span><span class="n">data</span>
+        <span class="k">return</span> <span class="s1">&#39;&#39;</span></div>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Tag to string&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__str__</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;For iteration handle&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Tag to string</span>
+
+<span class="sd">        :return: tag as string</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="s2">&quot;&lt;&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">attrs</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">+=</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;=</span><span class="se">\&quot;</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="n">key</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\&quot;</span><span class="s2">&quot;</span>
+        <span class="n">result</span> <span class="o">+=</span> <span class="s2">&quot;&gt;&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">+=</span> <span class="nb">str</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+
+        <span class="n">result</span> <span class="o">+=</span> <span class="s2">&quot;&lt;/&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;&gt;&quot;</span>
+
+        <span class="k">return</span> <span class="n">result</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Michal Mrozek.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

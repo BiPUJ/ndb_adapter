@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>ndb_adapter.ndb &mdash; ndb_adapter 0.1b2 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1b2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="ndb_adapter 0.1b2 documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for ndb_adapter.ndb</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="kn">import</span> <span class="nn">ndb_adapter.report_parser</span> <span class="kn">as</span> <span class="nn">parser</span>
+<span class="kn">from</span> <span class="nn">ndb_adapter.advanced_search_options</span> <span class="kn">import</span> <span class="n">AdvancedSearchOptions</span>
+<span class="kn">from</span> <span class="nn">ndb_adapter.dna_search_options</span> <span class="kn">import</span> <span class="n">DnaSearchOptions</span>
+<span class="kn">from</span> <span class="nn">ndb_adapter.ndb_base</span> <span class="kn">import</span> <span class="n">NDBBase</span>
+<span class="kn">from</span> <span class="nn">ndb_adapter.ndb_download</span> <span class="kn">import</span> <span class="n">DownloadHelper</span><span class="p">,</span> <span class="n">DownloadType</span>
+<span class="kn">from</span> <span class="nn">ndb_adapter.rna_search_options</span> <span class="kn">import</span> <span class="n">RnaSearchOptions</span>
+<span class="kn">from</span> <span class="nn">ndb_adapter.search_result</span> <span class="kn">import</span> <span class="n">SimpleResult</span><span class="p">,</span> <span class="n">AdvancedResult</span>
+<span class="kn">from</span> <span class="nn">ndb_adapter.summary_result</span> <span class="kn">import</span> <span class="n">SummaryResult</span>
+
+
+<div class="viewcode-block" id="NDB"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.ndb.NDB">[docs]</a><span class="k">class</span> <span class="nc">NDB</span><span class="p">(</span><span class="n">NDBBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Main class for search in NDB - all methods are static&quot;&quot;&quot;</span>
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="NDB.advanced_search"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.ndb.NDB.advanced_search">[docs]</a>    <span class="k">def</span> <span class="nf">advanced_search</span><span class="p">(</span><span class="n">options</span><span class="p">:</span> <span class="n">AdvancedSearchOptions</span><span class="o">=</span> <span class="bp">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AdvancedResult</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Advanced search in NDB, if in options &quot;stats= True&quot; returns also statistics - works only in some \</span>
+<span class="sd">        search types. Default search &quot;type= ReportType.NDBStatus&quot;. Depending on ReportType you can annotate return \</span>
+<span class="sd">        type i.e. &quot;result.report() # ReportType.NDBStatus&quot;.</span>
+
+<span class="sd">        :param options: options for advanced search (default value = None) - clear AdvancedSearchOptions()</span>
+<span class="sd">        :type options: AdvancedSearchOptions</span>
+<span class="sd">        :return: search result { count -&gt; int, report -&gt; List[AdvancedReport], statistics -&gt; Statistics }</span>
+<span class="sd">        :rtype: AdvancedResult</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">options</span><span class="p">:</span>
+            <span class="n">options</span> <span class="o">=</span> <span class="n">AdvancedSearchOptions</span><span class="p">()</span>
+
+        <span class="k">with</span> <span class="n">requests</span><span class="o">.</span><span class="n">session</span><span class="p">()</span> <span class="k">as</span> <span class="n">session</span><span class="p">:</span>
+            <span class="n">text_stats</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">get_statistics</span><span class="p">():</span>
+                <span class="n">resp</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">NDBBase</span><span class="o">.</span><span class="n">_advancedUrl</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">stats</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span>
+                <span class="n">text_stats</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">text</span>
+
+            <span class="n">resp</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">NDBBase</span><span class="o">.</span><span class="n">_advancedUrl</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">text</span>
+            <span class="n">report</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_advanced_search_report</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">text_stats</span><span class="p">,</span> <span class="n">options</span><span class="o">.</span><span class="n">get_report_type</span><span class="p">())</span>
+            <span class="k">return</span> <span class="n">report</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="NDB.dna_search"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.ndb.NDB.dna_search">[docs]</a>    <span class="k">def</span> <span class="nf">dna_search</span><span class="p">(</span><span class="n">options</span><span class="p">:</span> <span class="n">DnaSearchOptions</span><span class="o">=</span> <span class="bp">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SimpleResult</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Dna only search in NDB.</span>
+
+<span class="sd">        :param options: options for dna search (default value = None) - clear DnaSearchOptions()</span>
+<span class="sd">        :type options: DnaSearchOptions</span>
+<span class="sd">        :return: search simple result { count -&gt; int, report -&gt; List[SimpleReport] }</span>
+<span class="sd">        :rtype: SimpleResult</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">options</span><span class="p">:</span>
+            <span class="n">options</span> <span class="o">=</span> <span class="n">DnaSearchOptions</span><span class="p">()</span>
+
+        <span class="k">with</span> <span class="n">requests</span><span class="o">.</span><span class="n">session</span><span class="p">()</span> <span class="k">as</span> <span class="n">session</span><span class="p">:</span>
+            <span class="n">resp</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">NDBBase</span><span class="o">.</span><span class="n">_dnaUrl</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">text</span>
+            <span class="n">report</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_search_report</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">report</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="NDB.rna_search"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.ndb.NDB.rna_search">[docs]</a>    <span class="k">def</span> <span class="nf">rna_search</span><span class="p">(</span><span class="n">options</span><span class="p">:</span> <span class="n">RnaSearchOptions</span><span class="o">=</span> <span class="bp">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SimpleResult</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Rna only search in NDB.</span>
+
+<span class="sd">        :param options: options for rna search (default value = None) - clear RnaSearchOptions()</span>
+<span class="sd">        :type options: RnaSearchOptions</span>
+<span class="sd">        :return: search simple result { count -&gt; int, report -&gt; List[SimpleReport] }</span>
+<span class="sd">        :rtype: SimpleResult</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">options</span><span class="p">:</span>
+            <span class="n">options</span> <span class="o">=</span> <span class="n">RnaSearchOptions</span><span class="p">()</span>
+
+        <span class="k">with</span> <span class="n">requests</span><span class="o">.</span><span class="n">session</span><span class="p">()</span> <span class="k">as</span> <span class="n">session</span><span class="p">:</span>
+            <span class="n">resp</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">NDBBase</span><span class="o">.</span><span class="n">_rnaUrl</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">text</span>
+            <span class="n">report</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_search_report</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">report</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="NDB.summary"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.ndb.NDB.summary">[docs]</a>    <span class="k">def</span> <span class="nf">summary</span><span class="p">(</span><span class="n">structure_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SummaryResult</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Summary search in NDb</span>
+
+<span class="sd">        :param structure_id: structure NDB ID or PDB ID e.g. 4Z6C</span>
+<span class="sd">        :type structure_id: str</span>
+<span class="sd">        :return: search summary result</span>
+<span class="sd">        :rtype: SummaryResult</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;searchTarget&#39;</span><span class="p">:</span> <span class="n">structure_id</span>
+        <span class="p">}</span>
+
+        <span class="k">with</span> <span class="n">requests</span><span class="o">.</span><span class="n">session</span><span class="p">()</span> <span class="k">as</span> <span class="n">session</span><span class="p">:</span>
+            <span class="n">resp</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">NDBBase</span><span class="o">.</span><span class="n">_summaryUrl</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">text</span>
+            <span class="n">report</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_summary</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">report</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="NDB.download"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.ndb.NDB.download">[docs]</a>    <span class="k">def</span> <span class="nf">download</span><span class="p">(</span><span class="n">structure_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">download_type</span><span class="p">:</span> <span class="n">DownloadType</span><span class="o">=</span><span class="n">DownloadType</span><span class="o">.</span><span class="n">Pdb</span><span class="p">,</span>
+                 <span class="n">save</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">target_dir</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Download PDB from NDB</span>
+
+<span class="sd">        :param download_type: file download type (default value is DownloadType.PDB)</span>
+<span class="sd">        :type download_type: DownloadType</span>
+<span class="sd">        :param target_dir: where to save file (default value is current dir)</span>
+<span class="sd">        :type target_dir: str</span>
+<span class="sd">        :param save: tells if file should be saved or not (default value = False)</span>
+<span class="sd">        :type save: bool</span>
+<span class="sd">        :param structure_id: structure NDB ID or PDB ID e.g. 4Z6C</span>
+<span class="sd">        :type structure_id: str</span>
+<span class="sd">        :return: string or None</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">DownloadHelper</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">structure_id</span><span class="p">,</span> <span class="n">download_type</span><span class="p">,</span> <span class="n">save</span><span class="p">,</span> <span class="n">target_dir</span><span class="p">)</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Michal Mrozek.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,844 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>ndb_adapter.enums &mdash; ndb_adapter 0.1b2 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1b2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="ndb_adapter 0.1b2 documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for ndb_adapter.enums</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+
+<span class="kn">from</span> <span class="nn">ndb_adapter.search_report</span> <span class="kn">import</span> <span class="n">NDBStatusReport</span><span class="p">,</span> <span class="n">CellDimensionsReport</span><span class="p">,</span> <span class="n">CitationReport</span><span class="p">,</span> <span class="n">RefinementDataReport</span><span class="p">,</span> \
+    <span class="n">NABackboneTorsionReport</span><span class="p">,</span> <span class="n">BasePairParameterReport</span><span class="p">,</span> <span class="n">BasePairStepParameterReport</span><span class="p">,</span> <span class="n">DescriptorReport</span><span class="p">,</span> <span class="n">SequencesReport</span><span class="p">,</span> \
+    <span class="n">RNA3DBasePairRelFreqReport</span><span class="p">,</span> <span class="n">RNA3DBasePhosphateRelFreqReport</span><span class="p">,</span> <span class="n">RNA3DBaseStackingRelFreqReport</span><span class="p">,</span> <span class="n">RNA3DMotifReport</span>
+
+
+<div class="viewcode-block" id="ReportType"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.enums.ReportType">[docs]</a><span class="k">class</span> <span class="nc">ReportType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Enum representing advanced search report type - can be used to annotate return type of advanced search report</span>
+
+<span class="sd">    :cvar NDBStatus: NDB Status search report</span>
+<span class="sd">    :cvar CellDimensions: Cell Dimensions search report</span>
+<span class="sd">    :cvar Citation: Citation search report</span>
+<span class="sd">    :cvar RefinementData: Refinement Data search report</span>
+<span class="sd">    :cvar NABackboneTorsion: NA Backbone Torsion search report</span>
+<span class="sd">    :cvar BasePairParameter: Base Pair Parameter search report</span>
+<span class="sd">    :cvar BasePairStepParameter: Base Pair Step Parameter search report</span>
+<span class="sd">    :cvar Descriptor: Descriptor search report</span>
+<span class="sd">    :cvar Sequences: Sequences search report</span>
+<span class="sd">    :cvar RNABasePairRelFreq: RNA 3D Base Pair Relative Frequency search report</span>
+<span class="sd">    :cvar RNABasePhosphateRelFreq: RNA 3D Base Phosphate Relative Frequency search report</span>
+<span class="sd">    :cvar RNABaseStackingRelFreq: RNA 3D Base Stacking Relative Frequency search report</span>
+<span class="sd">    :cvar RNAMotif: RNA Motif search report</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">NDBStatus</span> <span class="o">=</span> <span class="n">NDBStatusReport</span>
+    <span class="n">CellDimensions</span> <span class="o">=</span> <span class="n">CellDimensionsReport</span>
+    <span class="n">Citation</span> <span class="o">=</span> <span class="n">CitationReport</span>
+    <span class="n">RefinementData</span> <span class="o">=</span> <span class="n">RefinementDataReport</span>
+    <span class="n">NABackboneTorsion</span> <span class="o">=</span> <span class="n">NABackboneTorsionReport</span>
+    <span class="n">BasePairParameter</span> <span class="o">=</span> <span class="n">BasePairParameterReport</span>
+    <span class="n">BasePairStepParameter</span> <span class="o">=</span> <span class="n">BasePairStepParameterReport</span>
+    <span class="n">Descriptor</span> <span class="o">=</span> <span class="n">DescriptorReport</span>
+    <span class="n">Sequences</span> <span class="o">=</span> <span class="n">SequencesReport</span>
+    <span class="n">RNABasePairRelFreq</span> <span class="o">=</span> <span class="n">RNA3DBasePairRelFreqReport</span>
+    <span class="n">RNABasePhosphateRelFreq</span> <span class="o">=</span> <span class="n">RNA3DBasePhosphateRelFreqReport</span>
+    <span class="n">RNABaseStackingRelFreq</span> <span class="o">=</span> <span class="n">RNA3DBaseStackingRelFreqReport</span>
+    <span class="n">RNAMotif</span> <span class="o">=</span> <span class="n">RNA3DMotifReport</span></div>
+
+
+<div class="viewcode-block" id="Polymer"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.enums.Polymer">[docs]</a><span class="k">class</span> <span class="nc">Polymer</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Enums to handle polymer in query</span>
+
+<span class="sd">    :cvar All: all in query</span>
+<span class="sd">    :cvar DNAOnly: DNA Only in query</span>
+<span class="sd">    :cvar ProteinDNA: Protein DNA Complexes in query</span>
+<span class="sd">    :cvar DrugDNA: Drug DNA Complexes in query</span>
+<span class="sd">    :cvar HybridsChimera: Hybrids and Chimera in query</span>
+<span class="sd">    :cvar PeptideNucleicAcid: Peptide Nucleic Acid / Mimetics in query</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">All</span> <span class="o">=</span> <span class="s1">&#39;all&#39;</span>
+    <span class="n">DNAOnly</span> <span class="o">=</span> <span class="s1">&#39;onlyDna&#39;</span>
+    <span class="n">ProteinDNA</span> <span class="o">=</span> <span class="s1">&#39;protDna&#39;</span>
+    <span class="n">DrugDNA</span> <span class="o">=</span> <span class="s1">&#39;drugDna&#39;</span>
+    <span class="n">HybridsChimera</span> <span class="o">=</span> <span class="s1">&#39;hybNChimera&#39;</span>
+    <span class="n">PeptideNucleicAcid</span> <span class="o">=</span> <span class="s1">&#39;pepNucAcid&#39;</span></div>
+
+
+<div class="viewcode-block" id="ProteinFunc"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.enums.ProteinFunc">[docs]</a><span class="k">class</span> <span class="nc">ProteinFunc</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Enums to handle protein function in query</span>
+
+<span class="sd">    :cvar All: all in query</span>
+<span class="sd">    :cvar Enzymes: enzymes function in query</span>
+<span class="sd">    :cvar Structural: structural function in query</span>
+<span class="sd">    :cvar Regulatory: regulatory function in query</span>
+<span class="sd">    :cvar Other: other function in query</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">All</span> <span class="o">=</span> <span class="s1">&#39;all&#39;</span>
+    <span class="n">Enzymes</span> <span class="o">=</span> <span class="s1">&#39;enzymes&#39;</span>
+    <span class="n">Structural</span> <span class="o">=</span> <span class="s1">&#39;structural&#39;</span>
+    <span class="n">Regulatory</span> <span class="o">=</span> <span class="s1">&#39;regulatory&#39;</span>
+    <span class="n">Other</span> <span class="o">=</span> <span class="s1">&#39;other&#39;</span></div>
+
+
+<div class="viewcode-block" id="StructuralFeatures"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.enums.StructuralFeatures">[docs]</a><span class="k">class</span> <span class="nc">StructuralFeatures</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Enums to handle structural features in query</span>
+
+<span class="sd">    :cvar All: all in query</span>
+<span class="sd">    :cvar SingleStranded: Single Stranded feature in query</span>
+<span class="sd">    :cvar A_DNA: aDNA feature in query</span>
+<span class="sd">    :cvar B_DNA: bDNA feature in query</span>
+<span class="sd">    :cvar Z_DNA: zDNA feature in query</span>
+<span class="sd">    :cvar OtherDoubleHelical: Other Double Helical Structures feature in query</span>
+<span class="sd">    :cvar TripleHelices: Triple Helices feature in query</span>
+<span class="sd">    :cvar QuadrupleHelices: Quadruple Helices feature in query</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">All</span> <span class="o">=</span> <span class="s1">&#39;all&#39;</span>
+    <span class="n">SingleStranded</span> <span class="o">=</span> <span class="s1">&#39;single&#39;</span>
+    <span class="n">A_DNA</span> <span class="o">=</span> <span class="s1">&#39;A&#39;</span>
+    <span class="n">B_DNA</span> <span class="o">=</span> <span class="s1">&#39;B&#39;</span>
+    <span class="n">Z_DNA</span> <span class="o">=</span> <span class="s1">&#39;Z&#39;</span>
+    <span class="n">OtherDoubleHelical</span> <span class="o">=</span> <span class="s1">&#39;other&#39;</span>
+    <span class="n">TripleHelices</span> <span class="o">=</span> <span class="s1">&#39;triple&#39;</span>
+    <span class="n">QuadrupleHelices</span> <span class="o">=</span> <span class="s1">&#39;quadruple&#39;</span></div>
+
+
+<div class="viewcode-block" id="ExpMethod"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.enums.ExpMethod">[docs]</a><span class="k">class</span> <span class="nc">ExpMethod</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Enum to handle experimental method in query</span>
+
+<span class="sd">    :cvar All: all in query</span>
+<span class="sd">    :cvar XRAY: x-ray in query</span>
+<span class="sd">    :cvar NMR: nmr in query</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">All</span> <span class="o">=</span> <span class="s1">&#39;all&#39;</span>
+    <span class="n">XRAY</span> <span class="o">=</span> <span class="s1">&#39;x-ray&#39;</span>
+    <span class="n">NMR</span> <span class="o">=</span> <span class="s1">&#39;nmr&#39;</span></div>
+
+
+<div class="viewcode-block" id="RnaStructures"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.enums.RnaStructures">[docs]</a><span class="k">class</span> <span class="nc">RnaStructures</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Enum to handle rna structures option in query</span>
+
+<span class="sd">    :cvar All: all in query</span>
+<span class="sd">    :cvar NonRedundant: no redundant in query</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">All</span> <span class="o">=</span> <span class="s1">&#39;all&#39;</span>
+    <span class="n">NonRedundant</span> <span class="o">=</span> <span class="s1">&#39;nr&#39;</span></div>
+
+
+<div class="viewcode-block" id="ResolutionCutoff"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.enums.ResolutionCutoff">[docs]</a><span class="k">class</span> <span class="nc">ResolutionCutoff</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Enum to handle resolution cutoff options in query</span>
+
+<span class="sd">    :cvar All: all in query</span>
+<span class="sd">    :cvar Empty: empty in query</span>
+<span class="sd">    :cvar OneHalf: 1.5 in query</span>
+<span class="sd">    :cvar Two: 2.0 in query</span>
+<span class="sd">    :cvar TwoHalf: 2.5 in query</span>
+<span class="sd">    :cvar Three: 3.0 in query</span>
+<span class="sd">    :cvar ThreeHalf: 3.5 in query</span>
+<span class="sd">    :cvar Four: 4.0 in query</span>
+<span class="sd">    :cvar Twenty: 20.0 in query</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">Empty</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">All</span> <span class="o">=</span> <span class="s1">&#39;all&#39;</span>
+    <span class="n">OneHalf</span> <span class="o">=</span> <span class="s1">&#39;1.5&#39;</span>
+    <span class="n">Two</span> <span class="o">=</span> <span class="s1">&#39;2.0&#39;</span>
+    <span class="n">TwoHalf</span> <span class="o">=</span> <span class="s1">&#39;2.5&#39;</span>
+    <span class="n">Three</span> <span class="o">=</span> <span class="s1">&#39;3.0&#39;</span>
+    <span class="n">ThreeHalf</span> <span class="o">=</span> <span class="s1">&#39;3.5&#39;</span>
+    <span class="n">Four</span> <span class="o">=</span> <span class="s1">&#39;4.0&#39;</span>
+    <span class="n">Twenty</span> <span class="o">=</span> <span class="s1">&#39;20.0&#39;</span></div>
+
+
+<div class="viewcode-block" id="RnaType"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.enums.RnaType">[docs]</a><span class="k">class</span> <span class="nc">RnaType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Enum to handle rna type options in query</span>
+
+<span class="sd">    :cvar All: all in query</span>
+<span class="sd">    :cvar TRNA: tRNA in query</span>
+<span class="sd">    :cvar TRNAFrag: tRNA fragment in query</span>
+<span class="sd">    :cvar Ribosome: Ribosome in query</span>
+<span class="sd">    :cvar Ribozyme: Ribozyme in query</span>
+<span class="sd">    :cvar Harpin: Hairpin Ribozyme in query</span>
+<span class="sd">    :cvar Hammerhead: Hammerhead Ribozyme in query</span>
+<span class="sd">    :cvar Group1Intron: Group I intron Ribozyme in query</span>
+<span class="sd">    :cvar Group2Intron: Group II intron Ribozyme in query</span>
+<span class="sd">    :cvar RnaseP: Rnase P Ribozyme in query</span>
+<span class="sd">    :cvar Polymerase: Polymerase Ribozyme in query</span>
+<span class="sd">    :cvar Ligase: Ligase Ribozyme in query</span>
+<span class="sd">    :cvar Leadzyme: Leadzyme in query</span>
+<span class="sd">    :cvar RibozymeFrag: Ribozyme fragment in query</span>
+<span class="sd">    :cvar Virus: Virus in query</span>
+<span class="sd">    :cvar ViralFrag: Viral fragment in query</span>
+<span class="sd">    :cvar Riboswitch: Riboswitch in query</span>
+<span class="sd">    :cvar RiboswitchFrag: Riboswitch fragment in query</span>
+<span class="sd">    :cvar Aptamer: Aptamer in query</span>
+<span class="sd">    :cvar Leadzyme: Leadzyme in query</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">All</span> <span class="o">=</span> <span class="s1">&#39;all&#39;</span>
+    <span class="n">TRNA</span> <span class="o">=</span> <span class="s1">&#39;trna&#39;</span>
+    <span class="n">TRNAFrag</span> <span class="o">=</span> <span class="s1">&#39;trnaFr&#39;</span>
+    <span class="n">Ribosome</span> <span class="o">=</span> <span class="s1">&#39;ribosome&#39;</span>
+    <span class="n">Ribozyme</span> <span class="o">=</span> <span class="s1">&#39;ribozyme&#39;</span>
+    <span class="n">Harpin</span> <span class="o">=</span> <span class="s1">&#39;hairpin&#39;</span>
+    <span class="n">Hammerhead</span> <span class="o">=</span> <span class="s1">&#39;hammhd&#39;</span>
+    <span class="n">Group1Intron</span> <span class="o">=</span> <span class="s1">&#39;gr1In&#39;</span>
+    <span class="n">Group2Intron</span> <span class="o">=</span> <span class="s1">&#39;gr2In&#39;</span>
+    <span class="n">RnaseP</span> <span class="o">=</span> <span class="s1">&#39;rnase&#39;</span>
+    <span class="n">Polymerase</span> <span class="o">=</span> <span class="s1">&#39;polymerase&#39;</span>
+    <span class="n">Ligase</span> <span class="o">=</span> <span class="s1">&#39;ligase&#39;</span>
+    <span class="n">Leadzyme</span> <span class="o">=</span> <span class="s1">&#39;leadzyme&#39;</span>
+    <span class="n">RibozymeFrag</span> <span class="o">=</span> <span class="s1">&#39;ribozymeFr&#39;</span>
+    <span class="n">Virus</span> <span class="o">=</span> <span class="s1">&#39;virus&#39;</span>
+    <span class="n">ViralFrag</span> <span class="o">=</span> <span class="s1">&#39;viralfr&#39;</span>
+    <span class="n">Riboswitch</span> <span class="o">=</span> <span class="s1">&#39;riboswitch&#39;</span>
+    <span class="n">RiboswitchFrag</span> <span class="o">=</span> <span class="s1">&#39;riboswitchFr&#39;</span>
+    <span class="n">Aptamer</span> <span class="o">=</span> <span class="s1">&#39;aptamer&#39;</span>
+    <span class="n">Telomerase</span> <span class="o">=</span> <span class="s1">&#39;telomerase&#39;</span>
+    <span class="n">SmallNucleotideFrag</span> <span class="o">=</span> <span class="s1">&#39;singleStranded&#39;</span>
+    <span class="n">DoubleHelices</span> <span class="o">=</span> <span class="s1">&#39;duplex&#39;</span>
+    <span class="n">TripleHelices</span> <span class="o">=</span> <span class="s1">&#39;triplexes&#39;</span>
+    <span class="n">QuadrupleHelices</span> <span class="o">=</span> <span class="s1">&#39;quadruplexes&#39;</span></div>
+
+
+<div class="viewcode-block" id="YesNoIgnore"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.enums.YesNoIgnore">[docs]</a><span class="k">class</span> <span class="nc">YesNoIgnore</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Enum to handle &quot;yes&quot;, &quot;no&quot;, &quot;ignore&quot; in query</span>
+
+<span class="sd">    :cvar Yes: yes in query</span>
+<span class="sd">    :cvar No: no in query</span>
+<span class="sd">    :cvar Ignore: ignore in query</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">Yes</span> <span class="o">=</span> <span class="s1">&#39;Y&#39;</span>
+    <span class="n">No</span> <span class="o">=</span> <span class="s1">&#39;N&#39;</span>
+    <span class="n">Ignore</span> <span class="o">=</span> <span class="s1">&#39;Ignore&#39;</span></div>
+
+
+<div class="viewcode-block" id="AndOr"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.enums.AndOr">[docs]</a><span class="k">class</span> <span class="nc">AndOr</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Enum to handle &quot;and&quot;, &quot;or&quot; in query</span>
+
+<span class="sd">    :cvar And: and in query</span>
+<span class="sd">    :cvar Or: or in query</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">And</span> <span class="o">=</span> <span class="s2">&quot;AND&quot;</span>
+    <span class="n">Or</span> <span class="o">=</span> <span class="s2">&quot;OR&quot;</span></div>
+
+
+<div class="viewcode-block" id="DnaRnaEither"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.enums.DnaRnaEither">[docs]</a><span class="k">class</span> <span class="nc">DnaRnaEither</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Enum to handle &quot;dna&quot;, &quot;rna&quot;, &quot;either&quot; in query</span>
+
+<span class="sd">    :cvar DNA: dna in query</span>
+<span class="sd">    :cvar RNA: rna in query</span>
+<span class="sd">    :cvar Either: either in query</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">DNA</span> <span class="o">=</span> <span class="s1">&#39;DNA&#39;</span>
+    <span class="n">RNA</span> <span class="o">=</span> <span class="s1">&#39;RNA&#39;</span>
+    <span class="n">Either</span> <span class="o">=</span> <span class="s1">&#39;EITHER&#39;</span></div>
+
+
+<div class="viewcode-block" id="GreaterLower"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.enums.GreaterLower">[docs]</a><span class="k">class</span> <span class="nc">GreaterLower</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Enum to handle &quot;&gt;=&quot;, &quot;&lt;=&quot; in query</span>
+
+<span class="sd">    :cvar GreaterEqual: &gt;= in query</span>
+<span class="sd">    :cvar LowerEqual: &lt;= in query</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">GreaterEqual</span> <span class="o">=</span> <span class="s1">&#39;gtEq&#39;</span>
+    <span class="n">LowerEqual</span> <span class="o">=</span> <span class="s1">&#39;ltEq&#39;</span></div>
+
+
+<div class="viewcode-block" id="GreaterLowerEqual"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.enums.GreaterLowerEqual">[docs]</a><span class="k">class</span> <span class="nc">GreaterLowerEqual</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Enum to handle &quot;&gt;=&quot;, &quot;&lt;=&quot;, &quot;==&quot; in query</span>
+
+<span class="sd">    :cvar GreaterEqual: &gt;= in query</span>
+<span class="sd">    :cvar LowerEqual: &lt;= in query</span>
+<span class="sd">    :cvar Equal: == in query</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">Equal</span> <span class="o">=</span> <span class="s1">&#39;eq&#39;</span>
+    <span class="n">GreaterEqual</span> <span class="o">=</span> <span class="s1">&#39;gtEq&#39;</span>
+    <span class="n">LowerEqual</span> <span class="o">=</span> <span class="s1">&#39;ltEq&#39;</span></div>
+
+
+<div class="viewcode-block" id="DrugBinding"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.enums.DrugBinding">[docs]</a><span class="k">class</span> <span class="nc">DrugBinding</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Enum to handle nucleic acid drug bindings options in query</span>
+
+<span class="sd">    :cvar Empty: empty value in query</span>
+<span class="sd">    :cvar Intercalation: Intercalation in query</span>
+<span class="sd">    :cvar OutsideBinder: Outside binder in query</span>
+<span class="sd">    :cvar IntercalationCovalent: Intercalation, covalent in query</span>
+<span class="sd">    :cvar OutsideBinderCovalent: Outside binder, covalent in query</span>
+<span class="sd">    :cvar MajorGrooveBinder: Major groove binder in query</span>
+<span class="sd">    :cvar MinorGrooveBinder: Minor groove binder in query</span>
+<span class="sd">    :cvar MajorGrooveBinderCovalent: Major groove binder, covalent in query</span>
+<span class="sd">    :cvar MinorGrooveBinderCovalent: Minor groove binder, covalent in query</span>
+<span class="sd">    :cvar BisIntercalation: Bis-Intercalation in query</span>
+<span class="sd">    :cvar DoubleMajorGrooveBinder: Double major groove binder in query</span>
+<span class="sd">    :cvar DoubleMinorGrooveBinder: Double minor groove binder in query</span>
+<span class="sd">    :cvar CovalentMetalBonds: Covalent metal bonds in query</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">Empty</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">Intercalation</span> <span class="o">=</span> <span class="s1">&#39;Intercalation&#39;</span>
+    <span class="n">OutsideBinder</span> <span class="o">=</span> <span class="s1">&#39;Outside binder&#39;</span>
+    <span class="n">IntercalationCovalent</span> <span class="o">=</span> <span class="s1">&#39;Intercalation, Covalent&#39;</span>
+    <span class="n">OutsideBinderCovalent</span> <span class="o">=</span> <span class="s1">&#39;Outside binder, Covalent&#39;</span>
+    <span class="n">MajorGrooveBinder</span> <span class="o">=</span> <span class="s1">&#39;Major Groove Binder&#39;</span>
+    <span class="n">MinorGrooveBinder</span> <span class="o">=</span> <span class="s1">&#39;Minor Groove Binder&#39;</span>
+    <span class="n">MajorGrooveBinderCovalent</span> <span class="o">=</span> <span class="s1">&#39;Major Groove Binder, Covalent&#39;</span>
+    <span class="n">MinorGrooveBinderCovalent</span> <span class="o">=</span> <span class="s1">&#39;Minor Groove Binder, Covalent&#39;</span>
+    <span class="n">IntercalationMajorGrooveBinder</span> <span class="o">=</span> <span class="s1">&#39;Intercalation, Major Groove Binder&#39;</span>
+    <span class="n">IntercalationMinorGrooveBinder</span> <span class="o">=</span> <span class="s1">&#39;Intercalation, Minor Groove Binder&#39;</span>
+    <span class="n">BisIntercalation</span> <span class="o">=</span> <span class="s1">&#39;Bis-Intercalation&#39;</span>
+    <span class="n">DoubleMajorGrooveBinder</span> <span class="o">=</span> <span class="s1">&#39;Double Major Groove Binder&#39;</span>
+    <span class="n">DoubleMinorGrooveBinder</span> <span class="o">=</span> <span class="s1">&#39;Double Minor Groove Binder&#39;</span>
+    <span class="n">CovalentMetalBonds</span> <span class="o">=</span> <span class="s1">&#39;Covalent Metal Bonds&#39;</span></div>
+
+
+<div class="viewcode-block" id="SpaceGroup"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.enums.SpaceGroup">[docs]</a><span class="k">class</span> <span class="nc">SpaceGroup</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Enum to handle space group in query</span>
+
+<span class="sd">    :cvar Empty: empty value in query</span>
+<span class="sd">    :cvar B_2_21_2: &#39;B 2 21 2&#39; in query</span>
+<span class="sd">    :cvar C_1_2_1: &#39;C 1 2 1&#39; in query</span>
+<span class="sd">    :cvar C_2_2_2: &#39;C 2 2 2&#39; in query</span>
+<span class="sd">    :cvar C_2_2_21: &#39;C 2 2 21&#39; in query</span>
+<span class="sd">    :cvar F_2_2_2: &#39;F 2 2 2&#39; in query</span>
+<span class="sd">    :cvar F_2_3: &#39;F 2 3&#39; in query</span>
+<span class="sd">    :cvar F_4_3_2: &#39;F 4 3 2&#39; in query</span>
+<span class="sd">    :cvar H_3: &#39;H 3&#39; in query</span>
+<span class="sd">    :cvar H_3_2: &#39;H 3 2&#39; in query</span>
+<span class="sd">    :cvar I_2_2_2: &#39;I 2 2 2&#39; in query</span>
+<span class="sd">    :cvar I_2_3: &#39;I 2 3&#39; in query</span>
+<span class="sd">    :cvar I_21_21_21: &#39;I 21 21 21&#39; in query</span>
+<span class="sd">    :cvar I_21_3: &#39;I 21 3&#39; in query</span>
+<span class="sd">    :cvar I_4: &#39;I 4&#39; in query</span>
+<span class="sd">    :cvar I_4_2_2: &#39;I 4 2 2&#39; in query</span>
+<span class="sd">    :cvar I_4_3_2: &#39;I 4 3 2&#39; in query</span>
+<span class="sd">    :cvar I_41: &#39;I 41&#39; in query</span>
+<span class="sd">    :cvar I_41_2_2: &#39;I 41 2 2&#39; in query</span>
+<span class="sd">    :cvar P_minus1: &#39;P -1&#39; in query</span>
+<span class="sd">    :cvar P_1: &#39;P 1&#39; in query</span>
+<span class="sd">    :cvar P_1_1_21: &#39;P 1 1 21&#39; in query</span>
+<span class="sd">    :cvar P_1_2_1: &#39;P 1 2 1&#39; in query</span>
+<span class="sd">    :cvar P_2_2_21: &#39;P 2 2 21&#39; in query</span>
+<span class="sd">    :cvar P_2_21_21: &#39;P 2 21 21&#39; in query</span>
+<span class="sd">    :cvar P_2_3: &#39;P 2 3&#39; in query</span>
+<span class="sd">    :cvar P_21_2_21: &#39;P 21 2 21&#39; in query</span>
+<span class="sd">    :cvar P_21_21_2: &#39;P 21 21 2&#39; in query</span>
+<span class="sd">    :cvar P_21_21_21: &#39;P 21 21 21&#39; in query</span>
+<span class="sd">    :cvar P_21_3: &#39;P 21 3&#39; in query</span>
+<span class="sd">    :cvar P_3: &#39;P 3&#39; in query</span>
+<span class="sd">    :cvar P_3_1_2: &#39;P 3 1 2&#39; in query</span>
+<span class="sd">    :cvar P_3_2_1: &#39;P 3 2 1&#39; in query</span>
+<span class="sd">    :cvar P_31: &#39;P 31&#39; in query</span>
+<span class="sd">    :cvar P_31_1_2: &#39;P 31 1 2&#39; in query</span>
+<span class="sd">    :cvar P_31_2_1: &#39;P 31 2 1&#39; in query</span>
+<span class="sd">    :cvar P_32: &#39;P 31&#39; in query</span>
+<span class="sd">    :cvar P_32_1_2: &#39;P 31 1 2&#39; in query</span>
+<span class="sd">    :cvar P_32_2_1: &#39;P 31 2 1&#39; in query</span>
+<span class="sd">    :cvar P_4: &#39;P 4&#39; in query</span>
+<span class="sd">    :cvar P_4_2_2: &#39;P 4 2 2&#39; in query</span>
+<span class="sd">    :cvar P_4_21_2: &#39;P 4 21 2&#39; in query</span>
+<span class="sd">    :cvar P_41: &#39;P 41&#39; in query</span>
+<span class="sd">    :cvar P_41_2_2: &#39;P 41 2 2&#39; in query</span>
+<span class="sd">    :cvar P_41_21_2: &#39;P 41 21 2&#39; in query</span>
+<span class="sd">    :cvar P_42: &#39;P 42&#39; in query</span>
+<span class="sd">    :cvar P_42_2_2: &#39;P 42 2 2&#39; in query</span>
+<span class="sd">    :cvar P_42_21_2: &#39;P 42 21 2&#39; in query</span>
+<span class="sd">    :cvar P_43: &#39;P 43&#39; in query</span>
+<span class="sd">    :cvar P_43_2_2: &#39;P 43 2 2&#39; in query</span>
+<span class="sd">    :cvar P_43_21_2: &#39;P 43 21 2&#39; in query</span>
+<span class="sd">    :cvar P_6: &#39;P 6&#39; in query</span>
+<span class="sd">    :cvar P_6_2_2: &#39;P 6 2 2&#39; in query</span>
+<span class="sd">    :cvar P_61: &#39;P 61&#39; in query</span>
+<span class="sd">    :cvar P_61_2_2: &#39;P 61 2 2&#39; in query</span>
+<span class="sd">    :cvar P_62: &#39;P 62&#39; in query</span>
+<span class="sd">    :cvar P_62_2_2: &#39;P 62 2 2&#39; in query</span>
+<span class="sd">    :cvar P_63: &#39;P 63&#39; in query</span>
+<span class="sd">    :cvar P_63_2_2: &#39;P 63 2 2&#39; in query</span>
+<span class="sd">    :cvar P_64: &#39;P 64&#39; in query</span>
+<span class="sd">    :cvar P_64_2_2: &#39;P 64 2 2&#39; in query</span>
+<span class="sd">    :cvar P_65: &#39;P 65&#39; in query</span>
+<span class="sd">    :cvar P_65_2_2: &#39;P 65 2 2&#39; in query</span>
+<span class="sd">    :cvar R_3_2: &#39;R 3 2&#39; in query</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">Empty</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">B_2_21_2</span> <span class="o">=</span> <span class="s1">&#39;B 2 21 2&#39;</span>
+    <span class="n">C_1_2_1</span> <span class="o">=</span> <span class="s1">&#39;C 1 2 1&#39;</span>
+    <span class="n">C_2_2_2</span> <span class="o">=</span> <span class="s1">&#39;C 2 2 2&#39;</span>
+    <span class="n">C_2_2_21</span> <span class="o">=</span> <span class="s1">&#39;C 2 2 21&#39;</span>
+    <span class="n">F_2_2_2</span> <span class="o">=</span> <span class="s1">&#39;F 2 2 2&#39;</span>
+    <span class="n">F_2_3</span> <span class="o">=</span> <span class="s1">&#39;F 2 3&#39;</span>
+    <span class="n">F_4_3_2</span> <span class="o">=</span> <span class="s1">&#39;F 4 3 2&#39;</span>
+    <span class="n">H_3</span> <span class="o">=</span> <span class="s1">&#39;H 3&#39;</span>
+    <span class="n">H_3_2</span> <span class="o">=</span> <span class="s1">&#39;H 3 2&#39;</span>
+    <span class="n">I_2_2_2</span> <span class="o">=</span> <span class="s1">&#39;I 2 2 2&#39;</span>
+    <span class="n">I_2_3</span> <span class="o">=</span> <span class="s1">&#39;I 2 3&#39;</span>
+    <span class="n">I_21_21_21</span> <span class="o">=</span> <span class="s1">&#39;I 21 21 21&#39;</span>
+    <span class="n">I_21_3</span> <span class="o">=</span> <span class="s1">&#39;I 21 3&#39;</span>
+    <span class="n">I_4</span> <span class="o">=</span> <span class="s1">&#39;I 4&#39;</span>
+    <span class="n">I_4_2_2</span> <span class="o">=</span> <span class="s1">&#39;I 4 2 2&#39;</span>
+    <span class="n">I_4_3_2</span> <span class="o">=</span> <span class="s1">&#39;I 4 3 2&#39;</span>
+    <span class="n">I_41</span> <span class="o">=</span> <span class="s1">&#39;I 41&#39;</span>
+    <span class="n">I_41_2_2</span> <span class="o">=</span> <span class="s1">&#39;I 41 2 2&#39;</span>
+    <span class="n">I_41_3_2</span> <span class="o">=</span> <span class="s1">&#39;I 41 3 2&#39;</span>
+    <span class="n">P_minus1</span> <span class="o">=</span> <span class="s1">&#39;P -1&#39;</span>
+    <span class="n">P_1</span> <span class="o">=</span> <span class="s1">&#39;P 1&#39;</span>
+    <span class="n">P_1_1_21</span> <span class="o">=</span> <span class="s1">&#39;P 1 1 21&#39;</span>
+    <span class="n">P_1_2_1</span> <span class="o">=</span> <span class="s1">&#39;P 1 2 1&#39;</span>
+    <span class="n">P_1_21_1</span> <span class="o">=</span> <span class="s1">&#39;P 1 21 1&#39;</span>
+    <span class="n">P_2_2_21</span> <span class="o">=</span> <span class="s1">&#39;P 2 2 21&#39;</span>
+    <span class="n">P_2_21_21</span> <span class="o">=</span> <span class="s1">&#39;P 2 21 21&#39;</span>
+    <span class="n">P_2_3</span> <span class="o">=</span> <span class="s1">&#39;P 2 3&#39;</span>
+    <span class="n">P_21_2_21</span> <span class="o">=</span> <span class="s1">&#39;P 21 2 21&#39;</span>
+    <span class="n">P_21_21_2</span> <span class="o">=</span> <span class="s1">&#39;P 21 21 2&#39;</span>
+    <span class="n">P_21_21_21</span> <span class="o">=</span> <span class="s1">&#39;P 21 21 21&#39;</span>
+    <span class="n">P_21_3</span> <span class="o">=</span> <span class="s1">&#39;P 21 3&#39;</span>
+    <span class="n">P_3</span> <span class="o">=</span> <span class="s1">&#39;P 3&#39;</span>
+    <span class="n">P_3_1_2</span> <span class="o">=</span> <span class="s1">&#39;P 3 1 2&#39;</span>
+    <span class="n">P_3_2_1</span> <span class="o">=</span> <span class="s1">&#39;P 3 2 1&#39;</span>
+    <span class="n">P_31</span> <span class="o">=</span> <span class="s1">&#39;P 31&#39;</span>
+    <span class="n">P_31_1_2</span> <span class="o">=</span> <span class="s1">&#39;P 31 1 2&#39;</span>
+    <span class="n">P_31_2_1</span> <span class="o">=</span> <span class="s1">&#39;P 31 2 1&#39;</span>
+    <span class="n">P_32</span> <span class="o">=</span> <span class="s1">&#39;P 32&#39;</span>
+    <span class="n">P_32_1_2</span> <span class="o">=</span> <span class="s1">&#39;P 32 1 2&#39;</span>
+    <span class="n">P_32_2_1</span> <span class="o">=</span> <span class="s1">&#39;P 32 2 1&#39;</span>
+    <span class="n">P_4</span> <span class="o">=</span> <span class="s1">&#39;P 4&#39;</span>
+    <span class="n">P_4_2_2</span> <span class="o">=</span> <span class="s1">&#39;P 4 2 2&#39;</span>
+    <span class="n">P_4_21_2</span> <span class="o">=</span> <span class="s1">&#39;P 4 21 2&#39;</span>
+    <span class="n">P_41</span> <span class="o">=</span> <span class="s1">&#39;P 41&#39;</span>
+    <span class="n">P_41_2_2</span> <span class="o">=</span> <span class="s1">&#39;P 41 2 2&#39;</span>
+    <span class="n">P_41_21_2</span> <span class="o">=</span> <span class="s1">&#39;P 41 21 2&#39;</span>
+    <span class="n">P_41_3_2</span> <span class="o">=</span> <span class="s1">&#39;P 41 3 2&#39;</span>
+    <span class="n">P_42</span> <span class="o">=</span> <span class="s1">&#39;P 42&#39;</span>
+    <span class="n">P_42_2_2</span> <span class="o">=</span> <span class="s1">&#39;P 42 2 2&#39;</span>
+    <span class="n">P_42_21_2</span> <span class="o">=</span> <span class="s1">&#39;P 42 21 2&#39;</span>
+    <span class="n">P_42_3_2</span> <span class="o">=</span> <span class="s1">&#39;P 42 3 2&#39;</span>
+    <span class="n">P_43</span> <span class="o">=</span> <span class="s1">&#39;P 43&#39;</span>
+    <span class="n">P_43_2_2</span> <span class="o">=</span> <span class="s1">&#39;P 43 2 2&#39;</span>
+    <span class="n">P_43_21_2</span> <span class="o">=</span> <span class="s1">&#39;P 43 21 2&#39;</span>
+    <span class="n">P_43_3_2</span> <span class="o">=</span> <span class="s1">&#39;P 43 3 2&#39;</span>
+    <span class="n">P_6</span> <span class="o">=</span> <span class="s1">&#39;P 6&#39;</span>
+    <span class="n">P_6_2_2</span> <span class="o">=</span> <span class="s1">&#39;P 6 2 2&#39;</span>
+    <span class="n">P_61</span> <span class="o">=</span> <span class="s1">&#39;P 61&#39;</span>
+    <span class="n">P_61_2_2</span> <span class="o">=</span> <span class="s1">&#39;P 61 2 2&#39;</span>
+    <span class="n">P_62</span> <span class="o">=</span> <span class="s1">&#39;P 62&#39;</span>
+    <span class="n">P_62_2_2</span> <span class="o">=</span> <span class="s1">&#39;P 62 2 2&#39;</span>
+    <span class="n">P_63</span> <span class="o">=</span> <span class="s1">&#39;P 63&#39;</span>
+    <span class="n">P_63_2_2</span> <span class="o">=</span> <span class="s1">&#39;P 63 2 2&#39;</span>
+    <span class="n">P_64</span> <span class="o">=</span> <span class="s1">&#39;P 64&#39;</span>
+    <span class="n">P_64_2_2</span> <span class="o">=</span> <span class="s1">&#39;P 64 2 2&#39;</span>
+    <span class="n">P_65</span> <span class="o">=</span> <span class="s1">&#39;P 65&#39;</span>
+    <span class="n">P_65_2_2</span> <span class="o">=</span> <span class="s1">&#39;P 65 2 2&#39;</span>
+    <span class="n">R_3_2</span> <span class="o">=</span> <span class="s1">&#39;R 3 2&#39;</span></div>
+
+
+<div class="viewcode-block" id="RFactor"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.enums.RFactor">[docs]</a><span class="k">class</span> <span class="nc">RFactor</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Enum to handle R-factor in query</span>
+
+<span class="sd">    :cvar Empty: empty value in query</span>
+<span class="sd">    :cvar R_10: 0.10 in query</span>
+<span class="sd">    :cvar R_15: 0.15 in query</span>
+<span class="sd">    :cvar R_20: 0.20 in query</span>
+<span class="sd">    :cvar R_25: 0.25 in query</span>
+<span class="sd">    :cvar R_30: 0.30 in query</span>
+<span class="sd">    :cvar R_35: 0.35 in query</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">Empty</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">R_10</span> <span class="o">=</span> <span class="s1">&#39;0.10&#39;</span>
+    <span class="n">R_15</span> <span class="o">=</span> <span class="s1">&#39;0.15&#39;</span>
+    <span class="n">R_20</span> <span class="o">=</span> <span class="s1">&#39;0.20&#39;</span>
+    <span class="n">R_25</span> <span class="o">=</span> <span class="s1">&#39;0.25&#39;</span>
+    <span class="n">R_30</span> <span class="o">=</span> <span class="s1">&#39;0.30&#39;</span>
+    <span class="n">R_35</span> <span class="o">=</span> <span class="s1">&#39;0.35&#39;</span></div>
+
+
+<div class="viewcode-block" id="BasePair"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.enums.BasePair">[docs]</a><span class="k">class</span> <span class="nc">BasePair</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Enum for base pair interaction options in query. More info: http://ndbserver.rutgers.edu/ndbmodule/ndb-help.html#bp</span>
+
+<span class="sd">    :cvar Empty: empty value in query</span>
+<span class="sd">    :cvar CWW: (cis Watson-Crick/Watson-Crick) in query</span>
+<span class="sd">    :cvar TWW: (trans Watson-Crick/Watson-Crick) in query</span>
+<span class="sd">    :cvar CWH: (cis Watson-Crick/Hoogsteen) in query</span>
+<span class="sd">    :cvar TWH: (trans Watson-Crick/Hoogsteen) in query</span>
+<span class="sd">    :cvar CWS: (cis Watson-Crick/Sugar Edge) in query</span>
+<span class="sd">    :cvar TWS: (trans Watson-Crick/Sugar Edge) in query</span>
+<span class="sd">    :cvar CHH: (cis Hoogsteen/Hoogsteen) in query</span>
+<span class="sd">    :cvar THH: (trans Hoogsteen/Hoogsteen) in query</span>
+<span class="sd">    :cvar CHS: (cis Hoogsteen/Sugar Edge) in query</span>
+<span class="sd">    :cvar THS: (trans Hoogsteen/Sugar Edge) in query</span>
+<span class="sd">    :cvar CSS: (cis Sugar Edge/Sugar Edge) in query</span>
+<span class="sd">    :cvar TSS: (trans Sugar Edge/Sugar Edge) in query</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">Empty</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">CWW</span> <span class="o">=</span> <span class="s1">&#39;cWW&#39;</span>
+    <span class="n">TWW</span> <span class="o">=</span> <span class="s1">&#39;tWW&#39;</span>
+    <span class="n">CWH</span> <span class="o">=</span> <span class="s1">&#39;cWH&#39;</span>
+    <span class="n">TWH</span> <span class="o">=</span> <span class="s1">&#39;tWH&#39;</span>
+    <span class="n">CWS</span> <span class="o">=</span> <span class="s1">&#39;cWS&#39;</span>
+    <span class="n">TWS</span> <span class="o">=</span> <span class="s1">&#39;tWS&#39;</span>
+    <span class="n">CHH</span> <span class="o">=</span> <span class="s1">&#39;cHH&#39;</span>
+    <span class="n">THH</span> <span class="o">=</span> <span class="s1">&#39;tHH&#39;</span>
+    <span class="n">CHS</span> <span class="o">=</span> <span class="s1">&#39;cHS&#39;</span>
+    <span class="n">THS</span> <span class="o">=</span> <span class="s1">&#39;tHS&#39;</span>
+    <span class="n">CSS</span> <span class="o">=</span> <span class="s1">&#39;cSS&#39;</span>
+    <span class="n">TSS</span> <span class="o">=</span> <span class="s1">&#39;tSS&#39;</span></div>
+
+
+<div class="viewcode-block" id="BasePhosphate"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.enums.BasePhosphate">[docs]</a><span class="k">class</span> <span class="nc">BasePhosphate</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Enum for base phosphate interaction in query. More info: http://ndbserver.rutgers.edu/ndbmodule/ndb-help.html#bph</span>
+
+<span class="sd">    :cvar Empty: empty values in query</span>
+<span class="sd">    :cvar BPh_1: 1BPh (base-phosphate position 1) in query</span>
+<span class="sd">    :cvar BPh_2: 2BPh (base-phosphate position 2) in query</span>
+<span class="sd">    :cvar BPh_3: 3BPh (base-phosphate position 3) in query</span>
+<span class="sd">    :cvar BPh_4: 4BPh (base-phosphate position 4) in query</span>
+<span class="sd">    :cvar BPh_5: 5BPh (base-phosphate position 5) in query</span>
+<span class="sd">    :cvar BPh_6: 6BPh (base-phosphate position 6) in query</span>
+<span class="sd">    :cvar BPh_7: 7BPh (base-phosphate position 7) in query</span>
+<span class="sd">    :cvar BPh_8: 8BPh (base-phosphate position 8) in query</span>
+<span class="sd">    :cvar BPh_9: 9BPh (base-phosphate position 9) in query</span>
+<span class="sd">    :cvar BPh_0: 0BPh (base-phosphate position 10) in query</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">Empty</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">BPh_1</span> <span class="o">=</span> <span class="s1">&#39;1BPh&#39;</span>
+    <span class="n">BPh_2</span> <span class="o">=</span> <span class="s1">&#39;2BPh&#39;</span>
+    <span class="n">BPh_3</span> <span class="o">=</span> <span class="s1">&#39;3BPh&#39;</span>
+    <span class="n">BPh_4</span> <span class="o">=</span> <span class="s1">&#39;4BPh&#39;</span>
+    <span class="n">BPh_5</span> <span class="o">=</span> <span class="s1">&#39;5BPh&#39;</span>
+    <span class="n">BPh_6</span> <span class="o">=</span> <span class="s1">&#39;6BPh&#39;</span>
+    <span class="n">BPh_7</span> <span class="o">=</span> <span class="s1">&#39;7BPh&#39;</span>
+    <span class="n">BPh_8</span> <span class="o">=</span> <span class="s1">&#39;8BPh&#39;</span>
+    <span class="n">BPh_9</span> <span class="o">=</span> <span class="s1">&#39;9BPh&#39;</span>
+    <span class="n">BPh_0</span> <span class="o">=</span> <span class="s1">&#39;0BPh&#39;</span></div>
+
+
+<div class="viewcode-block" id="BaseStack"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.enums.BaseStack">[docs]</a><span class="k">class</span> <span class="nc">BaseStack</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Enum for base stack interaction in query. More info: http://ndbserver.rutgers.edu/ndbmodule/ndb-help.html#bs</span>
+
+<span class="sd">    :cvar Empty: empty value in query</span>
+<span class="sd">    :cvar S_33: s33 (stack, 3′ face on 3′ face) in query</span>
+<span class="sd">    :cvar S_35: s35 (stack, 3′ face on 5′ face) in query</span>
+<span class="sd">    :cvar S_55: s55 (stack, 5′ face on 5′ face) in query</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">Empty</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">S_33</span> <span class="o">=</span> <span class="s1">&#39;s33&#39;</span>
+    <span class="n">S_35</span> <span class="o">=</span> <span class="s1">&#39;s35&#39;</span>
+    <span class="n">S_55</span> <span class="o">=</span> <span class="s1">&#39;s55&#39;</span></div>
+
+
+<div class="viewcode-block" id="InternalLoopMotif"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.enums.InternalLoopMotif">[docs]</a><span class="k">class</span> <span class="nc">InternalLoopMotif</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Enum for internal loop motif in query</span>
+
+<span class="sd">    :cvar Empty: empty value in query</span>
+<span class="sd">    :cvar All: all motifs in query</span>
+<span class="sd">    :cvar SarcinRicin: Sarcin-ricin motif in query</span>
+<span class="sd">    :cvar KinkTurn: Kink-turn motif in query</span>
+<span class="sd">    :cvar CLoop: C-loop motif in query</span>
+<span class="sd">    :cvar DoubleSheared: Double-sheared motif in query</span>
+<span class="sd">    :cvar TripleSheared: Triple-sheared motif in query</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">Empty</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">All</span> <span class="o">=</span> <span class="s1">&#39;All&#39;</span>
+    <span class="n">SarcinRicin</span> <span class="o">=</span> <span class="s1">&#39;Sarcin-ricin&#39;</span>
+    <span class="n">KinkTurn</span> <span class="o">=</span> <span class="s1">&#39;Kink-turn&#39;</span>
+    <span class="n">CLoop</span> <span class="o">=</span> <span class="s1">&#39;C-loop&#39;</span>
+    <span class="n">DoubleSheared</span> <span class="o">=</span> <span class="s1">&#39;Double-sheared&#39;</span>
+    <span class="n">TripleSheared</span> <span class="o">=</span> <span class="s1">&#39;Triple-sheared&#39;</span></div>
+
+
+<div class="viewcode-block" id="HairpinLoopMotif"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.enums.HairpinLoopMotif">[docs]</a><span class="k">class</span> <span class="nc">HairpinLoopMotif</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Enum for hairpin loop motif in query</span>
+
+<span class="sd">    :cvar Empty: empty value in query</span>
+<span class="sd">    :cvar All: all motifs in query</span>
+<span class="sd">    :cvar TLoop: T-loop motif in query</span>
+<span class="sd">    :cvar GNRA: GNRA motif in query</span>
+<span class="sd">    :cvar UNCG: UNCG motif in query</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">Empty</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">All</span> <span class="o">=</span> <span class="s1">&#39;All&#39;</span>
+    <span class="n">TLoop</span> <span class="o">=</span> <span class="s1">&#39;T-loop&#39;</span>
+    <span class="n">GNRA</span> <span class="o">=</span> <span class="s1">&#39;GNRA&#39;</span>
+    <span class="n">UNCG</span> <span class="o">=</span> <span class="s1">&#39;UNCG&#39;</span></div>
+
+
+<div class="viewcode-block" id="EnzymeFunction"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.enums.EnzymeFunction">[docs]</a><span class="k">class</span> <span class="nc">EnzymeFunction</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Enum for enzyme function in query</span>
+
+<span class="sd">    :cvar Empty: empty value in query</span>
+<span class="sd">    :cvar All: all functions in query</span>
+<span class="sd">    :cvar Topoisomerase: topoisomerase function in query</span>
+<span class="sd">    :cvar Synthetase: synthetase function in query</span>
+<span class="sd">    :cvar Thrombin: thrombin function in query</span>
+<span class="sd">    :cvar DNAPolymerase: DNA polymarase function in query</span>
+<span class="sd">    :cvar DNAReverseTranscriptase: DNA polymerase / reverse transcriptase function in query</span>
+<span class="sd">    :cvar DNAEndonuclease: DNA nuclease / endonucelase function in query</span>
+<span class="sd">    :cvar DNAExonuclease: DNA nuclease / exonucelase function in query</span>
+<span class="sd">    :cvar Glycosylase: glycosylase function in query</span>
+<span class="sd">    :cvar Helicase: helicase function in query</span>
+<span class="sd">    :cvar Kinase: kinase function in query</span>
+<span class="sd">    :cvar Ligase: ligase function in query</span>
+<span class="sd">    :cvar Lyase: lyase function in query</span>
+<span class="sd">    :cvar MethylaseMethytransferase: methylase or methyltransferase function in query</span>
+<span class="sd">    :cvar MRNACapping: mRNA capping function in query</span>
+<span class="sd">    :cvar Phosphatase: phosphatase function in query</span>
+<span class="sd">    :cvar Integrase: recombinase / integrase function in query</span>
+<span class="sd">    :cvar Invertase: recombinase / invertase function in query</span>
+<span class="sd">    :cvar Resolvase: recombinase / resolvase function in query</span>
+<span class="sd">    :cvar Transposase: recombinase / transposase function in query</span>
+<span class="sd">    :cvar RecombinaseOther: recombinase / other function in query</span>
+<span class="sd">    :cvar RNAPolymerase: RNA polymerase function in query</span>
+<span class="sd">    :cvar RNAEndonuclease: RNA nuclease / endonuclease function in query</span>
+<span class="sd">    :cvar RNAExonuclease: RNA nuclease / exdonuclease function in query</span>
+<span class="sd">    :cvar TRNAModifying: tRNA Modifying function in query</span>
+<span class="sd">    :cvar Other: other function in query</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">Empty</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">All</span> <span class="o">=</span> <span class="s1">&#39;ENZYME&#39;</span>
+    <span class="n">Topoisomerase</span> <span class="o">=</span> <span class="s1">&#39;TOPOISOMERASE&#39;</span>
+    <span class="n">Synthetase</span> <span class="o">=</span> <span class="s1">&#39;SYNTHETASE&#39;</span>
+    <span class="n">Thrombin</span> <span class="o">=</span> <span class="s1">&#39;THROMBIN&#39;</span>
+    <span class="n">DNAPolymerase</span> <span class="o">=</span> <span class="s1">&#39;DNA POLYMERASE&#39;</span>
+    <span class="n">DNAReverseTranscriptase</span> <span class="o">=</span> <span class="s1">&#39;DNA POLYMERASE/REVERSE TRANSCRIPTASE&#39;</span>
+    <span class="n">DNAEndonuclease</span> <span class="o">=</span> <span class="s1">&#39;DNA NUCLEASE/ENDONUCLEASE&#39;</span>
+    <span class="n">DNAExonuclease</span> <span class="o">=</span> <span class="s1">&#39;DNA NUCLEASE/EXONUCLEASE&#39;</span>
+    <span class="n">Glycosylase</span> <span class="o">=</span> <span class="s1">&#39;GLYCOSYLASE&#39;</span>
+    <span class="n">Helicase</span> <span class="o">=</span> <span class="s1">&#39;HELICASE&#39;</span>
+    <span class="n">Kinase</span> <span class="o">=</span> <span class="s1">&#39;KINASE&#39;</span>
+    <span class="n">Ligase</span> <span class="o">=</span> <span class="s1">&#39;LIGASE&#39;</span>
+    <span class="n">Lyase</span> <span class="o">=</span> <span class="s1">&#39;LYASE&#39;</span>
+    <span class="n">MethylaseMethytransferase</span> <span class="o">=</span> <span class="s1">&#39;METHYLASE OR METHYLTRANSFERASE&#39;</span>
+    <span class="n">MRNACapping</span> <span class="o">=</span> <span class="s1">&#39;MRNA CAPPING&#39;</span>
+    <span class="n">Phosphatase</span> <span class="o">=</span> <span class="s1">&#39;PHOSPHATASE&#39;</span>
+    <span class="n">Integrase</span> <span class="o">=</span> <span class="s1">&#39;RECOMBINASE/INTEGRASE&#39;</span>
+    <span class="n">Invertase</span> <span class="o">=</span> <span class="s1">&#39;RECOMBINASE/INVERTASE&#39;</span>
+    <span class="n">Resolvase</span> <span class="o">=</span> <span class="s1">&#39;RECOMBINASE/RESOLVASE&#39;</span>
+    <span class="n">Transposase</span> <span class="o">=</span> <span class="s1">&#39;RECOMBINASE/TRANSPOSASE&#39;</span>
+    <span class="n">RecombinaseOther</span> <span class="o">=</span> <span class="s1">&#39;RECOMBINASE/OTHER&#39;</span>
+    <span class="n">RNAPolymerase</span> <span class="o">=</span> <span class="s1">&#39;RNA POLYMERASE&#39;</span>
+    <span class="n">RNAEndonuclease</span> <span class="o">=</span> <span class="s1">&#39;RNA NUCLEASE/ENDONUCLEASE&#39;</span>
+    <span class="n">RNAExonuclease</span> <span class="o">=</span> <span class="s1">&#39;RNA NUCLEASE/EXONUCLEASE&#39;</span>
+    <span class="n">TRNAModifying</span> <span class="o">=</span> <span class="s1">&#39;TRNA MODIFYING&#39;</span>
+    <span class="n">Other</span> <span class="o">=</span> <span class="s1">&#39;OTHER&#39;</span></div>
+
+
+<div class="viewcode-block" id="RegulatoryFunction"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.enums.RegulatoryFunction">[docs]</a><span class="k">class</span> <span class="nc">RegulatoryFunction</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Enum for regulatory functions in query</span>
+
+<span class="sd">    :cvar Empty: empty value in query</span>
+<span class="sd">    :cvar All: all functions in query</span>
+<span class="sd">    :cvar DnaRepairActivator: DNA repair activator function in query</span>
+<span class="sd">    :cvar DnaRepairRepressor: DNA repair repressor function in query</span>
+<span class="sd">    :cvar RecombinationActivator: recombination activator function in query</span>
+<span class="sd">    :cvar RecombinationReporessor: recombination reporessor function in query</span>
+<span class="sd">    :cvar ReplicationActivator: replication factor / activator function in query</span>
+<span class="sd">    :cvar ReplicationReporessor: replication factor / reporessor function in query</span>
+<span class="sd">    :cvar SpliceosomalProtein: spliceosomal protein function in query</span>
+<span class="sd">    :cvar TranscriptionActivatorRepressor: transcription factor / activator and repressor function in query</span>
+<span class="sd">    :cvar TranscriptionActivator: transcription factor / activator function in query</span>
+<span class="sd">    :cvar TranscriptionCoactivator: transcription factor / coactivator function in query</span>
+<span class="sd">    :cvar TranscriptionCorepressor: transcription factor / corepressor function in query</span>
+<span class="sd">    :cvar TranscriptionElongation: transcription factor / elongation function in query</span>
+<span class="sd">    :cvar Transcription: transcription factor in general in query</span>
+<span class="sd">    :cvar TranscriptionReporessor: transcription factor / repressor function in query</span>
+<span class="sd">    :cvar TranscriptionTermination: transcription factor / termination function in query</span>
+<span class="sd">    :cvar TranslationElongation: translation factor / elongation function in query</span>
+<span class="sd">    :cvar TranslationInitiator: translation factor / initiator function in query</span>
+<span class="sd">    :cvar TranslationTermination: translation factor / termination function in query</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">Empty</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">All</span> <span class="o">=</span> <span class="s1">&#39;REGULATORY&#39;</span>
+    <span class="n">DnaRepairActivator</span> <span class="o">=</span> <span class="s1">&#39;DNA Repair Activator&#39;</span>
+    <span class="n">DnaRepairRepressor</span> <span class="o">=</span> <span class="s1">&#39;DNA Repair Repressor&#39;</span>
+    <span class="n">RecombinationActivator</span> <span class="o">=</span> <span class="s1">&#39;Recombination Activator&#39;</span>
+    <span class="n">RecombinationReporessor</span> <span class="o">=</span> <span class="s1">&#39;Recombination Repressor&#39;</span>
+    <span class="n">ReplicationActivator</span> <span class="o">=</span> <span class="s1">&#39;Replication Factor/Activator&#39;</span>
+    <span class="n">ReplicationReporessor</span> <span class="o">=</span> <span class="s1">&#39;Replication Factor/Repressor&#39;</span>
+    <span class="n">SpliceosomalProtein</span> <span class="o">=</span> <span class="s1">&#39;Spliceosomal Protein&#39;</span>
+    <span class="n">TranscriptionActivatorRepressor</span> <span class="o">=</span> <span class="s1">&#39;Transcription Factor/Activator And Repressor&#39;</span>
+    <span class="n">TranscriptionActivator</span> <span class="o">=</span> <span class="s1">&#39;Transcription Factor/Activator&#39;</span>
+    <span class="n">TranscriptionCoactivator</span> <span class="o">=</span> <span class="s1">&#39;Transcription Factor/Coactivator&#39;</span>
+    <span class="n">TranscriptionCorepressor</span> <span class="o">=</span> <span class="s1">&#39;Transcription Factor/Corepressor&#39;</span>
+    <span class="n">TranscriptionElongation</span> <span class="o">=</span> <span class="s1">&#39;Transcription Factor/Elongation&#39;</span>
+    <span class="n">Transcription</span> <span class="o">=</span> <span class="s1">&#39;Transcription Factor/General&#39;</span>
+    <span class="n">TranscriptionReporessor</span> <span class="o">=</span> <span class="s1">&#39;Transcription Factor/Repressor&#39;</span>
+    <span class="n">TranscriptionTermination</span> <span class="o">=</span> <span class="s1">&#39;Transcription Factor/Termination&#39;</span>
+    <span class="n">TranslationElongation</span> <span class="o">=</span> <span class="s1">&#39;Translation Factor/Elongation&#39;</span>
+    <span class="n">TranslationInitiator</span> <span class="o">=</span> <span class="s1">&#39;Translation Factor/Initiator&#39;</span>
+    <span class="n">TranslationTermination</span> <span class="o">=</span> <span class="s1">&#39;Translation Factor/Termination&#39;</span></div>
+
+
+<div class="viewcode-block" id="StructuralFunction"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.enums.StructuralFunction">[docs]</a><span class="k">class</span> <span class="nc">StructuralFunction</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Enum for structural functions in query</span>
+
+<span class="sd">    :cvar Empty: empty value in query</span>
+<span class="sd">    :cvar All: all functions in query</span>
+<span class="sd">    :cvar Chromosomal: chromosomal function in query</span>
+<span class="sd">    :cvar Histone: histone function in query</span>
+<span class="sd">    :cvar HMG: hmg function in query</span>
+<span class="sd">    :cvar Ribonucleoprotein: ribonucleoprotein function in query</span>
+<span class="sd">    :cvar RibosomalProtein: ribosomal protein function in query</span>
+<span class="sd">    :cvar SignalRecognitionParticle: signal recognition particle function in query</span>
+<span class="sd">    :cvar TelomereBinding: telomere binding function in query</span>
+<span class="sd">    :cvar ViralCoat: viral coat function in query</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">Empty</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">All</span> <span class="o">=</span> <span class="s1">&#39;STRUCTURAL&#39;</span>
+    <span class="n">Chromosomal</span> <span class="o">=</span> <span class="s1">&#39;Chromosomal&#39;</span>
+    <span class="n">Histone</span> <span class="o">=</span> <span class="s1">&#39;Histone&#39;</span>
+    <span class="n">HMG</span> <span class="o">=</span> <span class="s1">&#39;HMG&#39;</span>
+    <span class="n">Ribonucleoprotein</span> <span class="o">=</span> <span class="s1">&#39;Ribonucleoprotein&#39;</span>
+    <span class="n">RibosomalProtein</span> <span class="o">=</span> <span class="s1">&#39;Ribosomal Protein&#39;</span>
+    <span class="n">SignalRecognitionParticle</span> <span class="o">=</span> <span class="s1">&#39;Signal Recognition Particle&#39;</span>
+    <span class="n">TelomereBinding</span> <span class="o">=</span> <span class="s1">&#39;Telomere Binding&#39;</span>
+    <span class="n">ViralCoat</span> <span class="o">=</span> <span class="s1">&#39;Viral Coat&#39;</span></div>
+
+
+<div class="viewcode-block" id="OtherFunction"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.enums.OtherFunction">[docs]</a><span class="k">class</span> <span class="nc">OtherFunction</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Enum for other functions in query</span>
+
+<span class="sd">    :cvar Empty: empty value in query</span>
+<span class="sd">    :cvar All: all functions in query</span>
+<span class="sd">    :cvar Antibiotic: antibiotic function in query</span>
+<span class="sd">    :cvar Antibody: antibody function in query</span>
+<span class="sd">    :cvar Other: other function in query</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">Empty</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">All</span> <span class="o">=</span> <span class="s1">&#39;OTHER&#39;</span>
+    <span class="n">Antibiotic</span> <span class="o">=</span> <span class="s1">&#39;Antibiotic&#39;</span>
+    <span class="n">Antibody</span> <span class="o">=</span> <span class="s1">&#39;Antibody&#39;</span>
+    <span class="n">Other</span> <span class="o">=</span> <span class="s1">&#39;Other&#39;</span></div>
+
+
+<div class="viewcode-block" id="NaFeature"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.enums.NaFeature">[docs]</a><span class="k">class</span> <span class="nc">NaFeature</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Enum for nucleic acid feature in query</span>
+
+<span class="sd">    :cvar Empty: empty value in query</span>
+<span class="sd">    :cvar All: all features in query</span>
+<span class="sd">    :cvar HairpinLoop: hairpin loop in query</span>
+<span class="sd">    :cvar InternalLoop: internal loop in query</span>
+<span class="sd">    :cvar Bulge: bulge in query</span>
+<span class="sd">    :cvar Hammerhead: hammerhead in query</span>
+<span class="sd">    :cvar ThreeWayJunction: three way junction in query</span>
+<span class="sd">    :cvar FourWayJunction: four way (holliday) junction in query</span>
+<span class="sd">    :cvar NonWatsonCrickBaseParing: non watson crick base paring in query</span>
+<span class="sd">    :cvar MismatchBaseParing: mismatch base paring in query</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">Empty</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">All</span> <span class="o">=</span> <span class="s1">&#39;loop&#39;</span>
+    <span class="n">HairpinLoop</span> <span class="o">=</span> <span class="s1">&#39;hairpin loop&#39;</span>
+    <span class="n">InternalLoop</span> <span class="o">=</span> <span class="s1">&#39;internal loop&#39;</span>
+    <span class="n">Bulge</span> <span class="o">=</span> <span class="s1">&#39;bulge&#39;</span>
+    <span class="n">Hammerhead</span> <span class="o">=</span> <span class="s1">&#39;hammerhead&#39;</span>
+    <span class="n">ThreeWayJunction</span> <span class="o">=</span> <span class="s1">&#39;three_way_junction&#39;</span>
+    <span class="n">FourWayJunction</span> <span class="o">=</span> <span class="s1">&#39;holliday_junction&#39;</span>
+    <span class="n">NonWatsonCrickBaseParing</span> <span class="o">=</span> <span class="s1">&#39;type_11_pair&#39;</span>
+    <span class="n">MismatchBaseParing</span> <span class="o">=</span> <span class="s1">&#39;mismat&#39;</span></div>
+
+
+<div class="viewcode-block" id="StrandDescription"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.enums.StrandDescription">[docs]</a><span class="k">class</span> <span class="nc">StrandDescription</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Enum for strand description in query</span>
+
+<span class="sd">    :cvar Empty: empty value in query</span>
+<span class="sd">    :cvar DoubleHelix: double helix in query</span>
+<span class="sd">    :cvar TripleHelix: triple helix in query</span>
+<span class="sd">    :cvar QuadrupleHelix: quadruple helix in query</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">Empty</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">DoubleHelix</span> <span class="o">=</span> <span class="s1">&#39;double helix&#39;</span>
+    <span class="n">TripleHelix</span> <span class="o">=</span> <span class="s1">&#39;triple helix&#39;</span>
+    <span class="n">QuadrupleHelix</span> <span class="o">=</span> <span class="s1">&#39;quadruple helix&#39;</span></div>
+
+
+<div class="viewcode-block" id="ConformationType"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.enums.ConformationType">[docs]</a><span class="k">class</span> <span class="nc">ConformationType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Enum for conformation type in query</span>
+
+<span class="sd">    :cvar Empty: empty value in query</span>
+<span class="sd">    :cvar All: all conformations in query</span>
+<span class="sd">    :cvar A: A conformation in query</span>
+<span class="sd">    :cvar B: B conformation in query</span>
+<span class="sd">    :cvar RH: RH conformation in query</span>
+<span class="sd">    :cvar T: T conformation in query</span>
+<span class="sd">    :cvar U: U conformation in query</span>
+<span class="sd">    :cvar Z: Z conformation in query</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">Empty</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">All</span> <span class="o">=</span> <span class="s1">&#39;all&#39;</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="s1">&#39;A&#39;</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="s1">&#39;B&#39;</span>
+    <span class="n">RH</span> <span class="o">=</span> <span class="s1">&#39;RH&#39;</span>
+    <span class="n">T</span> <span class="o">=</span> <span class="s1">&#39;T&#39;</span>
+    <span class="n">U</span> <span class="o">=</span> <span class="s1">&#39;U&#39;</span>
+    <span class="n">Z</span> <span class="o">=</span> <span class="s1">&#39;Z&#39;</span></div>
+
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Michal Mrozek.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

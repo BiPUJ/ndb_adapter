@@ -1,0 +1,278 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>ndb_adapter.ndb_download &mdash; ndb_adapter 0.1b2 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1b2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="ndb_adapter 0.1b2 documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for ndb_adapter.ndb_download</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">zlib</span>
+<span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+<span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">BytesIO</span>
+
+<span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="kn">from</span> <span class="nn">ndb_adapter.ndb_base</span> <span class="kn">import</span> <span class="n">NDBBase</span>
+
+
+<span class="k">class</span> <span class="nc">_Pdb</span><span class="p">(</span><span class="n">NDBBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Helper class for pdb file download&quot;&quot;&quot;</span>
+    <span class="n">Url</span> <span class="o">=</span> <span class="n">NDBBase</span><span class="o">.</span><span class="n">_chiralCorrectUrl</span>
+    <span class="n">Ext</span> <span class="o">=</span> <span class="s2">&quot;.ent&quot;</span>
+    <span class="n">UrlExt</span> <span class="o">=</span> <span class="s2">&quot;.ent.gz&quot;</span>
+    <span class="n">PreName</span> <span class="o">=</span> <span class="s1">&#39;pdb&#39;</span>
+    <span class="n">PostName</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+
+<span class="k">class</span> <span class="nc">_PdbBioAssembly</span><span class="p">(</span><span class="n">NDBBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Helper class for pdb biological assembly file download&quot;&quot;&quot;</span>
+    <span class="n">Url</span> <span class="o">=</span> <span class="n">NDBBase</span><span class="o">.</span><span class="n">_bioAssemblyCoordinateUrl</span>
+    <span class="n">Ext</span> <span class="o">=</span> <span class="s2">&quot;.pdb&quot;</span>
+    <span class="n">UrlExt</span> <span class="o">=</span> <span class="s2">&quot;.pdb&quot;</span>
+    <span class="n">PreName</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">PostName</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+
+<span class="k">class</span> <span class="nc">_Cif</span><span class="p">(</span><span class="n">NDBBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Helper class for cif file download&quot;&quot;&quot;</span>
+    <span class="n">Url</span> <span class="o">=</span> <span class="n">NDBBase</span><span class="o">.</span><span class="n">_mmCifUrl</span>
+    <span class="n">Ext</span> <span class="o">=</span> <span class="s2">&quot;.cif&quot;</span>
+    <span class="n">UrlExt</span> <span class="o">=</span> <span class="s2">&quot;.cif.gz&quot;</span>
+    <span class="n">PreName</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">PostName</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+
+<span class="k">class</span> <span class="nc">_CifStructureFactors</span><span class="p">(</span><span class="n">_Pdb</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Helper class for cif structure factors file download&quot;&quot;&quot;</span>
+    <span class="n">Url</span> <span class="o">=</span> <span class="n">NDBBase</span><span class="o">.</span><span class="n">_structureFactorsUrl</span>
+    <span class="n">PreName</span> <span class="o">=</span> <span class="s1">&#39;r&#39;</span>
+    <span class="n">PostName</span> <span class="o">=</span> <span class="s1">&#39;st&#39;</span>
+
+
+<span class="k">class</span> <span class="nc">_XmlComplete</span><span class="p">(</span><span class="n">NDBBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Helper class for Xml complete file download&quot;&quot;&quot;</span>
+    <span class="n">Url</span> <span class="o">=</span> <span class="n">NDBBase</span><span class="o">.</span><span class="n">_xmlCompleteUrl</span>
+    <span class="n">Ext</span> <span class="o">=</span> <span class="s2">&quot;.xml&quot;</span>
+    <span class="n">UrlExt</span> <span class="o">=</span> <span class="s2">&quot;.xml.gz&quot;</span>
+    <span class="n">PreName</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">PostName</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+
+<span class="k">class</span> <span class="nc">_XmlCoordinates</span><span class="p">(</span><span class="n">_XmlComplete</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Helper class for Xml coordinates file download&quot;&quot;&quot;</span>
+    <span class="n">Url</span> <span class="o">=</span> <span class="n">NDBBase</span><span class="o">.</span><span class="n">_xmlCoordinatesUrl</span>
+    <span class="n">PostName</span> <span class="o">=</span> <span class="s1">&#39;-extatom&#39;</span>
+
+
+<span class="k">class</span> <span class="nc">_XmlHeader</span><span class="p">(</span><span class="n">_XmlComplete</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Helper class for Xml header file download&quot;&quot;&quot;</span>
+    <span class="n">Url</span> <span class="o">=</span> <span class="n">NDBBase</span><span class="o">.</span><span class="n">_xmlHeaderUrl</span>
+    <span class="n">PostName</span> <span class="o">=</span> <span class="s1">&#39;-noatom&#39;</span>
+
+
+<div class="viewcode-block" id="DownloadType"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.ndb_download.DownloadType">[docs]</a><span class="k">class</span> <span class="nc">DownloadType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Enum for file download format</span>
+
+<span class="sd">    :cvar Pdb: Asymmetric Unit coordinates (pdb format, Unix compressed(.gz))</span>
+<span class="sd">    :cvar PdbBioAssembly: Biological Assembly coordinates</span>
+<span class="sd">    :cvar Cif: Asymmetric Unit coordinates (cif format, Unix compressed(.gz))</span>
+<span class="sd">    :cvar CifStructureFactors: Structure Factors (cif format)</span>
+<span class="sd">    :cvar XmlComplete: XML | Complete with coordinates (xml format, GNU compressed(.gz))</span>
+<span class="sd">    :cvar XmlCoordinates: XML | Coordinates only (xml format, GNU compressed(.gz))</span>
+<span class="sd">    :cvar XmlHeader: XML | Header only (xml format, GNU compressed(.gz))</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">Pdb</span> <span class="o">=</span> <span class="n">_Pdb</span>
+    <span class="n">PdbBioAssembly</span> <span class="o">=</span> <span class="n">_PdbBioAssembly</span>
+    <span class="n">Cif</span> <span class="o">=</span> <span class="n">_Cif</span>
+    <span class="n">CifStructureFactors</span> <span class="o">=</span> <span class="n">_CifStructureFactors</span>
+    <span class="n">XmlComplete</span> <span class="o">=</span> <span class="n">_XmlComplete</span>
+    <span class="n">XmlCoordinates</span> <span class="o">=</span> <span class="n">_XmlCoordinates</span>
+    <span class="n">XmlHeader</span> <span class="o">=</span> <span class="n">_XmlHeader</span></div>
+
+
+<div class="viewcode-block" id="DownloadHelper"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.ndb_download.DownloadHelper">[docs]</a><span class="k">class</span> <span class="nc">DownloadHelper</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Helper class for downloading form NDB&quot;&quot;&quot;</span>
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="DownloadHelper.download"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.ndb_download.DownloadHelper.download">[docs]</a>    <span class="k">def</span> <span class="nf">download</span><span class="p">(</span><span class="n">structure_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">download_type</span><span class="p">:</span> <span class="n">DownloadType</span> <span class="o">=</span> <span class="n">DownloadType</span><span class="o">.</span><span class="n">Pdb</span><span class="p">,</span>
+                 <span class="n">save</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span> <span class="n">target_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Download PDB from NDB</span>
+
+<span class="sd">        :param download_type: file download type (default value is DownloadType.PDB)</span>
+<span class="sd">        :type download_type: DownloadType</span>
+<span class="sd">        :param target_dir: where to save file (default value is current dir)</span>
+<span class="sd">        :type target_dir: str</span>
+<span class="sd">        :param save: tells if file should be saved or not (default value = False)</span>
+<span class="sd">        :type save: bool</span>
+<span class="sd">        :param structure_id: structure NDB ID or PDB ID e.g. 4Z6C</span>
+<span class="sd">        :type structure_id: str</span>
+<span class="sd">        :return: string or None</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        :raise AttributeError: when structure id is empty</span>
+<span class="sd">        :raise FileNotFoundError: when file is not present on server</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">structure_id</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s2">&quot;structure id is empty&quot;</span><span class="p">)</span>
+
+        <span class="n">d_type</span> <span class="o">=</span> <span class="n">download_type</span><span class="o">.</span><span class="n">value</span>
+        <span class="n">file_name</span> <span class="o">=</span> <span class="n">d_type</span><span class="o">.</span><span class="n">PreName</span> <span class="o">+</span> <span class="n">structure_id</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">+</span> <span class="n">d_type</span><span class="o">.</span><span class="n">PostName</span>
+
+        <span class="k">if</span> <span class="n">d_type</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">DownloadType</span><span class="o">.</span><span class="n">PdbBioAssembly</span><span class="o">.</span><span class="n">value</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">proper_url</span> <span class="o">=</span> <span class="n">d_type</span><span class="o">.</span><span class="n">Url</span> <span class="o">+</span> <span class="n">file_name</span> <span class="o">+</span> <span class="n">d_type</span><span class="o">.</span><span class="n">UrlExt</span>
+                <span class="n">file_text</span> <span class="o">=</span> <span class="n">DownloadHelper</span><span class="o">.</span><span class="n">_download_prepare</span><span class="p">(</span><span class="n">proper_url</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">FileNotFoundError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">d_type</span> <span class="ow">is</span> <span class="n">DownloadType</span><span class="o">.</span><span class="n">Pdb</span><span class="o">.</span><span class="n">value</span><span class="p">:</span>
+                    <span class="n">file_name</span> <span class="o">=</span> <span class="n">structure_id</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">+</span> <span class="n">d_type</span><span class="o">.</span><span class="n">PostName</span>
+                    <span class="n">proper_url</span> <span class="o">=</span> <span class="n">d_type</span><span class="o">.</span><span class="n">Url</span> <span class="o">+</span> <span class="n">file_name</span> <span class="o">+</span> <span class="n">d_type</span><span class="o">.</span><span class="n">UrlExt</span>
+                    <span class="n">file_text</span> <span class="o">=</span> <span class="n">DownloadHelper</span><span class="o">.</span><span class="n">_download_prepare</span><span class="p">(</span><span class="n">proper_url</span><span class="p">)</span>
+                    <span class="k">pass</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="n">error</span>
+
+            <span class="k">if</span> <span class="n">save</span><span class="p">:</span>
+                <span class="n">target</span> <span class="o">=</span> <span class="n">target_dir</span> <span class="k">if</span> <span class="n">target_dir</span> <span class="k">else</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">target</span> <span class="o">+</span> <span class="n">file_name</span> <span class="o">+</span> <span class="n">d_type</span><span class="o">.</span><span class="n">Ext</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="nb">file</span><span class="p">:</span>
+                    <span class="nb">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">file_text</span><span class="p">)</span>
+
+                <span class="k">return</span> <span class="bp">None</span>
+            <span class="k">return</span> <span class="n">file_text</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">proper_url</span> <span class="o">=</span> <span class="n">d_type</span><span class="o">.</span><span class="n">Url</span> <span class="o">+</span> <span class="n">file_name</span> <span class="o">+</span> <span class="n">d_type</span><span class="o">.</span><span class="n">UrlExt</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+                    <span class="n">file_text</span> <span class="o">=</span> <span class="n">DownloadHelper</span><span class="o">.</span><span class="n">_download_prepare</span><span class="p">(</span><span class="n">proper_url</span><span class="p">,</span> <span class="n">decompress</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+                    <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">file_text</span><span class="p">)</span>
+                    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">except</span> <span class="n">FileNotFoundError</span><span class="p">:</span>
+                    <span class="k">break</span>
+
+            <span class="k">if</span> <span class="n">save</span><span class="p">:</span>
+                <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="n">target</span> <span class="o">=</span> <span class="n">target_dir</span> <span class="k">if</span> <span class="n">target_dir</span> <span class="k">else</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span>
+                <span class="k">for</span> <span class="n">text</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+                    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">target</span> <span class="o">+</span> <span class="n">file_name</span> <span class="o">+</span> <span class="n">d_type</span><span class="o">.</span><span class="n">Ext</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="nb">file</span><span class="p">:</span>
+                        <span class="nb">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+                    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">return</span> <span class="bp">None</span>
+
+            <span class="k">return</span> <span class="n">results</span></div>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_download_prepare</span><span class="p">(</span><span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">decompress</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;To download and prepare if needed</span>
+
+<span class="sd">        :param url: url to download from</span>
+<span class="sd">        :type url: str</span>
+<span class="sd">        :param decompress: tells if decompress (default value = True)</span>
+<span class="sd">        :type decompress: bool</span>
+<span class="sd">        :return: file string</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="nb">file</span> <span class="o">=</span> <span class="n">DownloadHelper</span><span class="o">.</span><span class="n">download_file</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">decompress</span><span class="p">:</span>
+                <span class="nb">file</span> <span class="o">=</span> <span class="n">zlib</span><span class="o">.</span><span class="n">decompress</span><span class="p">(</span><span class="nb">file</span><span class="o">.</span><span class="n">read</span><span class="p">(),</span> <span class="mi">32</span> <span class="o">+</span> <span class="n">zlib</span><span class="o">.</span><span class="n">MAX_WBITS</span><span class="p">)</span>  <span class="c1"># 32 to skip header of gz</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">file</span> <span class="o">=</span> <span class="nb">file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+            <span class="k">return</span> <span class="nb">file</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="n">zlib</span><span class="o">.</span><span class="n">error</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">BufferError</span><span class="p">(</span><span class="s2">&quot;File corrupted&quot;</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="DownloadHelper.download_file"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.ndb_download.DownloadHelper.download_file">[docs]</a>    <span class="k">def</span> <span class="nf">download_file</span><span class="p">(</span><span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BytesIO</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Function to download file and convert to BytesIO</span>
+
+<span class="sd">        :param url: file url</span>
+<span class="sd">        :type url: str</span>
+<span class="sd">        :return: file as BytesIO</span>
+<span class="sd">        :rtype: BytesIO</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="n">requests</span><span class="o">.</span><span class="n">session</span><span class="p">()</span> <span class="k">as</span> <span class="n">session</span><span class="p">:</span>
+            <span class="n">resp</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">resp</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">404</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">FileNotFoundError</span><span class="p">(</span><span class="s2">&quot;No file on server&quot;</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">BytesIO</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">None</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Michal Mrozek.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

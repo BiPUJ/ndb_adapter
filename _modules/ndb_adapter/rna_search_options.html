@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>ndb_adapter.rna_search_options &mdash; ndb_adapter 0.1b2 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1b2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="ndb_adapter 0.1b2 documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for ndb_adapter.rna_search_options</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">ndb_adapter.enums</span> <span class="kn">import</span> <span class="n">RnaType</span><span class="p">,</span> <span class="n">RnaStructures</span><span class="p">,</span> <span class="n">ResolutionCutoff</span>
+<span class="kn">from</span> <span class="nn">ndb_adapter.search_options</span> <span class="kn">import</span> <span class="n">SearchOptions</span>
+
+
+<div class="viewcode-block" id="RnaSearchOptions"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.rna_search_options.RnaSearchOptions">[docs]</a><span class="k">class</span> <span class="nc">RnaSearchOptions</span><span class="p">(</span><span class="n">SearchOptions</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Class for rna search options&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Default constructor&quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="s1">&#39;rna&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update</span><span class="p">({</span><span class="s1">&#39;rnaFunc&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;seqType&#39;</span><span class="p">:</span> <span class="n">RnaStructures</span><span class="o">.</span><span class="n">All</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+                      <span class="s1">&#39;nrResVal&#39;</span><span class="p">:</span> <span class="n">ResolutionCutoff</span><span class="o">.</span><span class="n">All</span><span class="o">.</span><span class="n">value</span><span class="p">})</span>
+
+<div class="viewcode-block" id="RnaSearchOptions.set_rna_type"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.rna_search_options.RnaSearchOptions.set_rna_type">[docs]</a>    <span class="k">def</span> <span class="nf">set_rna_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rna_type</span><span class="p">:</span> <span class="n">RnaType</span><span class="o">=</span> <span class="n">RnaType</span><span class="o">.</span><span class="n">All</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Sets rna type in options</span>
+
+<span class="sd">        :param rna_type: rna type (default value = RnaType.All)</span>
+<span class="sd">        :type rna_type: RnaType</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update</span><span class="p">({</span><span class="s1">&#39;rnaFunc&#39;</span><span class="p">:</span> <span class="n">rna_type</span><span class="o">.</span><span class="n">value</span><span class="p">})</span></div>
+
+<div class="viewcode-block" id="RnaSearchOptions.get_rna_type"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.rna_search_options.RnaSearchOptions.get_rna_type">[docs]</a>    <span class="k">def</span> <span class="nf">get_rna_type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RnaType</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Gets rna type options</span>
+
+<span class="sd">        :return: rna type</span>
+<span class="sd">        :rtype: RnaType</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">RnaType</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_options</span><span class="p">[</span><span class="s1">&#39;rnaFunc&#39;</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="RnaSearchOptions.set_non_redundant_list"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.rna_search_options.RnaSearchOptions.set_non_redundant_list">[docs]</a>    <span class="k">def</span> <span class="nf">set_non_redundant_list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">structures</span><span class="p">:</span> <span class="n">RnaStructures</span> <span class="o">=</span> <span class="n">RnaStructures</span><span class="o">.</span><span class="n">All</span><span class="p">,</span>
+                               <span class="n">resolution</span><span class="p">:</span> <span class="n">ResolutionCutoff</span> <span class="o">=</span> <span class="n">ResolutionCutoff</span><span class="o">.</span><span class="n">All</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Sets non redundant list in options. More info: http://ndbserver.rutgers.edu/ndbmodule/ndb-help.html#nrl</span>
+
+<span class="sd">        :param structures: rna structures type (default value = RnaStructures.All)</span>
+<span class="sd">        :type structures: RnaStructures</span>
+<span class="sd">        :param resolution: resolution cutoff (default value = ResolutionCutoff.All)</span>
+<span class="sd">        :type resolution: ResolutionCutoff</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update</span><span class="p">({</span><span class="s1">&#39;seqType&#39;</span><span class="p">:</span> <span class="n">structures</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+                      <span class="s1">&#39;nrResVal&#39;</span><span class="p">:</span> <span class="n">resolution</span><span class="o">.</span><span class="n">value</span><span class="p">})</span></div>
+
+<div class="viewcode-block" id="RnaSearchOptions.get_non_redundant_list"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.rna_search_options.RnaSearchOptions.get_non_redundant_list">[docs]</a>    <span class="k">def</span> <span class="nf">get_non_redundant_list</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="n">RnaStructures</span><span class="p">,</span> <span class="n">ResolutionCutoff</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Gets non redundant list options</span>
+
+<span class="sd">        :return: non redundant list</span>
+<span class="sd">        :rtype: (RnaStructures, ResolutionCutoff)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">RnaStructures</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_options</span><span class="p">[</span><span class="s1">&#39;seqType&#39;</span><span class="p">]),</span> <span class="n">ResolutionCutoff</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_options</span><span class="p">[</span><span class="s1">&#39;nrResVal&#39;</span><span class="p">])</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Michal Mrozek.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
