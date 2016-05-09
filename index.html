@@ -48,6 +48,9 @@
 <p>Adapter for easy access to NDB resources directly from python (3.*).</p>
 <div class="section" id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<p>Adapter offers 4 types of search: summary, advanced, dna and rna.</p>
+<div class="section" id="summary">
+<h3>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h3>
 <p>To get summary of structure, type:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ndb_adapter</span> <span class="kn">import</span> <span class="n">NDB</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">NDB</span><span class="o">.</span><span class="n">summary</span><span class="p">(</span><span class="s1">&#39;4Z4B&#39;</span><span class="p">)</span>
@@ -61,22 +64,128 @@
 <span class="go">{&#39;Molecular Description&#39;: &quot;DNA (5&#39;-D(*CP*GP*CP*AP*AP*AP*TP*TP*TP*GP*CP*G)-3&#39;)&quot;, ...}</span>
 </pre></div>
 </div>
-<p>As you see some properties are available for result. Full list of them is
-<a class="reference external" href="http://michsior14.github.io/ndb_adapter/ndb_adapter.html#module-ndb_adapter.summary_result">here</a>.
-Almost on every result of search you can download related files <a class="reference external" href="http://michsior14.github.io/ndb_adapter/ndb_adapter.html#ndb_adapter.ndb_download.DownloadType">(.pdb, .cif, .xml etc.)</a>
-to buffer or save on disc.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">download</span><span class="p">()</span> <span class="c1">#Pdb is default</span>
+<p>As you see some properties are available for summary result. Full list of them is
+<a class="reference external" href="http://michsior14.github.io/ndb_adapter/ndb_adapter.html#module-ndb_adapter.summary_result">here</a>.</p>
+</div>
+<div class="section" id="advanced-search">
+<h3>Advanced search<a class="headerlink" href="#advanced-search" title="Permalink to this headline">¶</a></h3>
+<p>To perform advanced search you should use <a class="reference external" href="http://michsior14.github.io/ndb_adapter/ndb_adapter.html#module-ndb_adapter.advanced_search_options">AdvancedOptions</a>
+object and pass it as argument to <a class="reference external" href="http://michsior14.github.io/ndb_adapter/ndb_adapter.html#ndb_adapter.ndb.NDB.advanced_search">advanced_search</a> function from NDB,
+however it&#8217;s not required. That object has a lot of <a class="reference external" href="http://michsior14.github.io/ndb_adapter/ndb_adapter.html#ndb_adapter.advanced_search_options.AdvancedSearchOptions.set_author">setters</a>
+for modify search query. Look at them to search what you want. It&#8217;s also possible to
+change result <a class="reference external" href="http://michsior14.github.io/ndb_adapter/ndb_adapter.html#ndb_adapter.enums.ReportType">report type</a>,
+just pass wanted type into constructor.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ndb_adapter</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="go"># options preparation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">opt</span> <span class="o">=</span> <span class="n">AdvancedSearchOptions</span><span class="p">()</span>   <span class="c1"># default report type NDBStatus</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">opt</span><span class="o">.</span><span class="n">set_crystal_structure</span><span class="p">(</span><span class="n">yes_no_ignore</span><span class="o">=</span><span class="n">YesNoIgnore</span><span class="o">.</span><span class="n">Yes</span><span class="p">)</span>    <span class="c1"># default and_or=AndOr.And</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">opt</span><span class="o">.</span><span class="n">set_dna</span><span class="p">(</span><span class="n">and_or</span><span class="o">=</span><span class="n">AndOr</span><span class="o">.</span><span class="n">Or</span><span class="p">,</span> <span class="n">yes_no_ignore</span><span class="o">=</span><span class="n">YesNoIgnore</span><span class="o">.</span><span class="n">Yes</span><span class="p">)</span>
+
+<span class="go"># search</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">NDB</span><span class="o">.</span><span class="n">advanced_search</span><span class="p">(</span><span class="n">opt</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">count</span><span class="p">)</span>
+<span class="go">4695</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">report</span><span class="p">)</span>
+<span class="go">[&lt;ndb_adapter.search_report.NDBStatusReport object at 0x00000248F9E02128&gt;, ...]</span>
+
+<span class="go"># working on result</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">first</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">report</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># first structure from search</span>
+<span class="go"># if you want have annotations in IDE (i.e. Pycharm) do something like this:</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">first</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">report</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># type: ReportType.NDBStatus</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">first</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
+<span class="go">&quot;2-Pyridyl Hoechst - a New Generation DNA-Binding Radioprotector&quot;</span>
+</pre></div>
+</div>
+<p>Every report type result is different - you can examine theirs <a class="reference external" href="http://michsior14.github.io/ndb_adapter/ndb_adapter.html#module-ndb_adapter.search_report">properties</a> or use typing.</p>
+<p>Some of them has <a class="reference external" href="http://michsior14.github.io/ndb_adapter/ndb_adapter.html#module-ndb_adapter.statistics">statistics</a>
+also, for example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ndb_adapter</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">opt</span> <span class="o">=</span> <span class="n">AdvancedSearchOptions</span><span class="p">(</span><span class="n">ReportType</span><span class="o">.</span><span class="n">RNABasePairRelFreq</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">opt</span><span class="o">.</span><span class="n">set_hybrid</span><span class="p">(</span><span class="n">yes_no_ignore</span><span class="o">=</span><span class="n">YesNoIgnore</span><span class="o">.</span><span class="n">Yes</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">NDB</span><span class="o">.</span><span class="n">advanced_search</span><span class="p">(</span><span class="n">opt</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">statistics</span><span class="p">)</span>
+<span class="go">Min: {&#39;Relative cWW&#39;: 0.5, &#39;Relative tWW&#39;: 0.0, &#39;Relative cHS&#39;: 0.0, &#39;Relative tWS&#39;: 0.0, ...}</span>
+<span class="go">Max: {&#39;Relative cWW&#39;: 1.0, &#39;Relative tWW&#39;: 0.05, &#39;Relative cHS&#39;: 0.06, &#39;Relative tWS&#39;: 0.06, ...}</span>
+<span class="go">Mean: {&#39;Relative cWW&#39;: 0.8, &#39;Relative tWW&#39;: 0.01, &#39;Relative cHS&#39;: 0.01, &#39;Relative tWS&#39;: 0.01, ...}</span>
+<span class="go">Standard Deviation: {&#39;Relative cWW&#39;: 0.12, &#39;Relative tWW&#39;: 0.01, &#39;Relative cHS&#39;: 0.02, &#39;Relative tWS&#39;: 0.02, ...}</span>
+<span class="go">&gt;&gt; print(res.statistics.min)</span>
+<span class="go">{&#39;Relative tWS&#39;: 0.0, &#39;Relative tWW&#39;: 0.0, &#39;Relative cHH&#39;: 0.0, &#39;Relative cWW&#39;: 0.5, ...}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="dna-search">
+<h3>Dna search<a class="headerlink" href="#dna-search" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="http://michsior14.github.io/ndb_adapter/ndb_adapter.html#ndb_adapter.ndb.NDB.dna_search">Dna search</a>
+is very similar to advanced search, but with <a class="reference external" href="http://michsior14.github.io/ndb_adapter/ndb_adapter.html#module-ndb_adapter.dna_search_options">DnaSearchOptions</a> and smaller
+amount of setters.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ndb_adapter</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="go"># options preparation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">opt</span> <span class="o">=</span> <span class="n">DnaSearchOptions</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">opt</span><span class="o">.</span><span class="n">set_structural_features</span><span class="p">(</span><span class="n">StructuralFeatures</span><span class="o">.</span><span class="n">A_DNA</span><span class="p">)</span>
+
+<span class="go"># search</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">NDB</span><span class="o">.</span><span class="n">dna_search</span><span class="p">(</span><span class="n">opt</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">count</span><span class="p">)</span>
+<span class="go">393</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">str</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">report</span><span class="p">)</span>
+<span class="go">[&lt;ndb_adapter.search_report.SimpleReport object at 0x00000152D0FCB438&gt;, ...]</span>
+
+<span class="go"># working on result</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">first</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">report</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>   <span class="c1"># type: SimpleReport</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">first</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
+<span class="go">&quot;Crystal structure of 60-mer BFDV Capsid Protein ...&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="rna-search">
+<h3>Rna search<a class="headerlink" href="#rna-search" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="http://michsior14.github.io/ndb_adapter/ndb_adapter.html#ndb_adapter.ndb.NDB.rna_search">Rna search</a>
+is just like dna search. Options: <a class="reference external" href="http://michsior14.github.io/ndb_adapter/ndb_adapter.html#ndb-adapter-rna-search-options-module">RnaSearchOptions</a>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ndb_adapter</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="go"># search</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">NDB</span><span class="o">.</span><span class="n">rna_search</span><span class="p">()</span>   <span class="c1"># default is empty RnaSearchOptions object</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">count</span><span class="p">)</span>
+<span class="go">3014</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">str</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">report</span><span class="p">)</span>
+<span class="go">[&lt;ndb_adapter.search_report.SimpleReport object at 0x0000018B3C877E48&gt;, ...]</span>
+
+<span class="go"># working on result</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">first</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">report</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>   <span class="c1"># type: SimpleReport</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">first</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
+<span class="go">&quot;Crystal structure of the bacterial A1408C-mutant ...&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="structure-download">
+<h3>Structure Download<a class="headerlink" href="#structure-download" title="Permalink to this headline">¶</a></h3>
+<p>Almost on every result of search you can download related files <a class="reference external" href="http://michsior14.github.io/ndb_adapter/ndb_adapter.html#ndb_adapter.ndb_download.DownloadType">(.pdb, .cif, .xml etc.)</a>
+to buffer or save.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ndb_adapter</span> <span class="kn">import</span> <span class="n">NDB</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">NDB</span><span class="o">.</span><span class="n">summary</span><span class="p">(</span><span class="s1">&#39;4Z4B&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">download</span><span class="p">()</span>  <span class="c1"># .pdb is default</span>
 <span class="go">&quot;HEADER DNA 01-APR-15 4Z4B ...&quot;</span>
 
-<span class="go">from ndb_adapter import DownloadType</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ndb_adapter</span> <span class="kn">import</span> <span class="n">DownloadType</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">download_type</span><span class="o">=</span><span class="n">DownloadType</span><span class="o">.</span><span class="n">Cif</span><span class="p">)</span>
 <span class="go">&#39;data_4Z4B\n# \n_entry.id   4Z4B ...&#39;</span>
 
-<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">save</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="c1">#saves in current directory</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">save</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">target_dir</span><span class="o">=</span><span class="s1">&#39;~/Downloads/&#39;</span><span class="p">)</span> <span class="c1">#saves in /Downloads/</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">NDB</span><span class="o">.</span><span class="n">advanced_search</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">save</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="c1"># saves n files in current directory</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">save</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">target_dir</span><span class="o">=</span><span class="s1">&#39;~/Downloads/&#39;</span><span class="p">)</span>  <span class="c1"># saves n files in /Downloads/</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">report</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">save</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="c1"># saves first structure file in current directory</span>
 </pre></div>
 </div>
-<p>To be continued...</p>
+<p>You can also search and download in one line:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ndb_adapter</span> <span class="kn">import</span> <span class="n">NDB</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">NDB</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s1">&#39;4Z4B&#39;</span><span class="p">)</span>   <span class="c1"># like above .pdb is default</span>
+<span class="go">&quot;HEADER DNA 01-APR-15 4Z4B ...&quot;</span>
+<span class="go"># save and target dir is also available</span>
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="requirements">
 <h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
@@ -96,6 +205,10 @@ to buffer or save on disc.</p>
 <div class="section" id="documentation">
 <h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
 <p>Documentation is available at <a class="reference external" href="https://michsior14.github.io/ndb_adapter/">https://michsior14.github.io/ndb_adapter/</a>.</p>
+</div>
+<div class="section" id="licence">
+<h2>Licence<a class="headerlink" href="#licence" title="Permalink to this headline">¶</a></h2>
+<p>Software is distributed under the MIT Licence.</p>
 <p>Contents:</p>
 <div class="toctree-wrapper compound">
 <ul class="simple">
@@ -121,10 +234,18 @@ to buffer or save on disc.</p>
   <h3><a href="#">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Adapter for Nucleic Acid Database</a><ul>
-<li><a class="reference internal" href="#usage">Usage</a></li>
+<li><a class="reference internal" href="#usage">Usage</a><ul>
+<li><a class="reference internal" href="#summary">Summary</a></li>
+<li><a class="reference internal" href="#advanced-search">Advanced search</a></li>
+<li><a class="reference internal" href="#dna-search">Dna search</a></li>
+<li><a class="reference internal" href="#rna-search">Rna search</a></li>
+<li><a class="reference internal" href="#structure-download">Structure Download</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#requirements">Requirements</a></li>
 <li><a class="reference internal" href="#installation">Installation</a></li>
 <li><a class="reference internal" href="#documentation">Documentation</a></li>
+<li><a class="reference internal" href="#licence">Licence</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
