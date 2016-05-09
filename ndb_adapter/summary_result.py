@@ -261,11 +261,11 @@ class SummaryResult(object):
         """
         self._report.update(report)
 
-    def download(self, file_type: DownloadType=DownloadType.Pdb, save: bool = False, target_dir: str = '') -> str:
+    def download(self, download_type: DownloadType=DownloadType.Pdb, save: bool = False, target_dir: str = '') -> str:
         """Download PDB from NDB
 
-        :param file_type: file download type (default value is DownloadType.PDB)
-        :type file_type: DownloadType
+        :param download_type: file download type (default value is DownloadType.PDB)
+        :type download_type: DownloadType
         :param target_dir: where to save file (default value is current dir)
         :type target_dir: str
         :param save: tells if file should be saved or not (default value = False)
@@ -278,7 +278,7 @@ class SummaryResult(object):
             print("No pdb_id trying ndb_id")
             id_structure = self.ndb_id
 
-        return DownloadHelper.download(id_structure, file_type, save, target_dir)
+        return DownloadHelper.download(id_structure, download_type, save, target_dir)
 
     def get_dict(self) -> dict:
         """Gets internal report dict

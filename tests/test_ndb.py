@@ -140,7 +140,7 @@ class NDBTest(unittest.TestCase):
     def test_summary(self) -> None:
         report = NDB.summary('5F8K')
         print("Report: " + str(report))
-        print(report.download(file_type=DownloadType.Cif))
+        print(report.download(download_type=DownloadType.Cif))
 
         self.assertTrue(report)
 
