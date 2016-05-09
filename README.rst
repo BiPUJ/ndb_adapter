@@ -36,8 +36,11 @@ To get summary of structure, type:
     >>> res.get_dict()
     {'Molecular Description': "DNA (5'-D(*CP*GP*CP*AP*AP*AP*TP*TP*TP*GP*CP*G)-3')", ...}
 
-As you see some properties are available for result. Full list of them is `here <http://michsior14.github.io/ndb_adapter/ndb_adapter.html#module-ndb_adapter.summary_result>`_
-Almost on every result of search you can download related files `(.pdb, .cif, .xml etc.) <http://michsior14.github.io/ndb_adapter/ndb_adapter.html#ndb_adapter.ndb_download.DownloadType>`_ to buffer or save on disc.
+As you see some properties are available for result. Full list of them is
+`here <http://michsior14.github.io/ndb_adapter/ndb_adapter.html#module-ndb_adapter.summary_result>`_.
+Almost on every result of search you can download related files `(.pdb, .cif, .xml etc.)
+<http://michsior14.github.io/ndb_adapter/ndb_adapter.html#ndb_adapter.ndb_download.DownloadType>`_
+to buffer or save on disc.
 
 .. code-block:: python
 
@@ -45,7 +48,7 @@ Almost on every result of search you can download related files `(.pdb, .cif, .x
     "HEADER DNA 01-APR-15 4Z4B ..."
     from ndb_adapter import DownloadType
     >>> res.download(download_type=DownloadType.Cif)
-    'data_4Z4B\n# \n_entry.id   4Z4B ..."
+    'data_4Z4B\n# \n_entry.id   4Z4B ...'
     >>> res.download(save=True) #saves in current directory
     >>> res.download(save=True, target_dir='~/Downloads/') #saves in /Downloads/
 
