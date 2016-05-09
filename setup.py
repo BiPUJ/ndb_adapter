@@ -8,7 +8,7 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 
 setup(
     name='ndb_adapter',
-    version="0.1b3",
+    version="0.1",
     author='Michal Mrozek',
     author_email='michau.mrozek@student.uj.edu.pl',
     url='https://github.com/Michsior14/ndb_adapter',
@@ -19,7 +19,7 @@ setup(
     keywords=['ndbserver', 'ndb', 'nucleic acid database', 'adapter'],
     install_requires=['requests', 'xlrd'],
     classifiers=[
-            'Development Status :: 4 - Beta',
+            'Development Status :: 5 - Production/Stable',
             'Environment :: Console',
             'Intended Audience :: End Users/Desktop',
             'Intended Audience :: Developers',
