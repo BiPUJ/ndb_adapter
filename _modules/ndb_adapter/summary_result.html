@@ -303,11 +303,11 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_report</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">report</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="SummaryResult.download"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.summary_result.SummaryResult.download">[docs]</a>    <span class="k">def</span> <span class="nf">download</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_type</span><span class="p">:</span> <span class="n">DownloadType</span><span class="o">=</span><span class="n">DownloadType</span><span class="o">.</span><span class="n">Pdb</span><span class="p">,</span> <span class="n">save</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span> <span class="n">target_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<div class="viewcode-block" id="SummaryResult.download"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.summary_result.SummaryResult.download">[docs]</a>    <span class="k">def</span> <span class="nf">download</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">download_type</span><span class="p">:</span> <span class="n">DownloadType</span><span class="o">=</span><span class="n">DownloadType</span><span class="o">.</span><span class="n">Pdb</span><span class="p">,</span> <span class="n">save</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span> <span class="n">target_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Download PDB from NDB</span>
 
-<span class="sd">        :param file_type: file download type (default value is DownloadType.PDB)</span>
-<span class="sd">        :type file_type: DownloadType</span>
+<span class="sd">        :param download_type: file download type (default value is DownloadType.PDB)</span>
+<span class="sd">        :type download_type: DownloadType</span>
 <span class="sd">        :param target_dir: where to save file (default value is current dir)</span>
 <span class="sd">        :type target_dir: str</span>
 <span class="sd">        :param save: tells if file should be saved or not (default value = False)</span>
@@ -320,7 +320,7 @@
             <span class="k">print</span><span class="p">(</span><span class="s2">&quot;No pdb_id trying ndb_id&quot;</span><span class="p">)</span>
             <span class="n">id_structure</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndb_id</span>
 
-        <span class="k">return</span> <span class="n">DownloadHelper</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">id_structure</span><span class="p">,</span> <span class="n">file_type</span><span class="p">,</span> <span class="n">save</span><span class="p">,</span> <span class="n">target_dir</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">DownloadHelper</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">id_structure</span><span class="p">,</span> <span class="n">download_type</span><span class="p">,</span> <span class="n">save</span><span class="p">,</span> <span class="n">target_dir</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="SummaryResult.get_dict"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.summary_result.SummaryResult.get_dict">[docs]</a>    <span class="k">def</span> <span class="nf">get_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Gets internal report dict</span>

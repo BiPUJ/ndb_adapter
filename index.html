@@ -40,11 +40,67 @@
             
   <div class="section" id="adapter-for-nucleic-acid-database">
 <h1>Adapter for <a class="reference external" href="http://ndbserver.rutgers.edu/">Nucleic Acid Database</a><a class="headerlink" href="#adapter-for-nucleic-acid-database" title="Permalink to this headline">¶</a></h1>
+<a class="reference external image-reference" href="https://pypi.python.org/pypi/ndb_adapter"><img src="https://img.shields.io/pypi/status/ndb_adapter.svg" /></a>
+<a class="reference external image-reference" href="https://pypi.python.org/pypi/ndb_adapter"><img src="https://img.shields.io/pypi/v/ndb_adapter.svg" /></a>
+<a class="reference external image-reference" href="https://pypi.python.org/pypi/ndb_adapter"><img src="https://img.shields.io/pypi/dm/ndb_adapter.svg" /></a>
+<a class="reference external image-reference" href="https://pypi.python.org/pypi/ndb_adapter"><img src="https://img.shields.io/pypi/l/ndb_adapter.svg" /></a>
+<a class="reference external image-reference" href="https://pypi.python.org/pypi/ndb_adapter"><img src="https://img.shields.io/pypi/pyversions/ndb_adapter.svg" /></a>
 <p>Adapter for easy access to NDB resources directly from python (3.*).</p>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<p>To get summary of structure, type:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ndb_adapter</span> <span class="kn">import</span> <span class="n">NDB</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">NDB</span><span class="o">.</span><span class="n">summary</span><span class="p">(</span><span class="s1">&#39;4Z4B&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">ndb_id</span>
+<span class="go">&#39;4Z4B&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">title</span>
+<span class="go">&#39;2-PYRIDYL HOECHST - A NEW GENERATION DNA-BINDING RADIOPROTECTOR&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">description</span>
+<span class="go">&quot;DNA (5&#39;-D(*CP*GP*CP*AP*AP*AP*TP*TP*TP*GP*CP*G)-3&#39;)&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">get_dict</span><span class="p">()</span>
+<span class="go">{&#39;Molecular Description&#39;: &quot;DNA (5&#39;-D(*CP*GP*CP*AP*AP*AP*TP*TP*TP*GP*CP*G)-3&#39;)&quot;, ...}</span>
+</pre></div>
+</div>
+<p>As you see some properties are available for result. Full list of them is
+<a class="reference external" href="http://michsior14.github.io/ndb_adapter/ndb_adapter.html#module-ndb_adapter.summary_result">here</a>.
+Almost on every result of search you can download related files <a class="reference external" href="http://michsior14.github.io/ndb_adapter/ndb_adapter.html#ndb_adapter.ndb_download.DownloadType">(.pdb, .cif, .xml etc.)</a>
+to buffer or save on disc.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">download</span><span class="p">()</span> <span class="c1">#Pdb is default</span>
+<span class="go">&quot;HEADER DNA 01-APR-15 4Z4B ...&quot;</span>
+
+<span class="go">from ndb_adapter import DownloadType</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">download_type</span><span class="o">=</span><span class="n">DownloadType</span><span class="o">.</span><span class="n">Cif</span><span class="p">)</span>
+<span class="go">&#39;data_4Z4B\n# \n_entry.id   4Z4B ...&#39;</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">save</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="c1">#saves in current directory</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">save</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">target_dir</span><span class="o">=</span><span class="s1">&#39;~/Downloads/&#39;</span><span class="p">)</span> <span class="c1">#saves in /Downloads/</span>
+</pre></div>
+</div>
+<p>To be continued...</p>
+</div>
+<div class="section" id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>python 3.*</li>
+<li><a class="reference external" href="https://pypi.python.org/pypi/requests">requests</a></li>
+<li><a class="reference external" href="https://pypi.python.org/pypi/xlrd">xlrd</a></li>
+</ul>
+</div>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>To install, simply:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ pip install ndb_adapter
+</pre></div>
+</div>
+</div>
+<div class="section" id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
+<p>Documentation is available at <a class="reference external" href="https://michsior14.github.io/ndb_adapter/">https://michsior14.github.io/ndb_adapter/</a>.</p>
 <p>Contents:</p>
 <div class="toctree-wrapper compound">
 <ul class="simple">
 </ul>
+</div>
 </div>
 </div>
 <div class="section" id="indices-and-tables">
@@ -64,7 +120,13 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="#">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Adapter for Nucleic Acid Database</a></li>
+<li><a class="reference internal" href="#">Adapter for Nucleic Acid Database</a><ul>
+<li><a class="reference internal" href="#usage">Usage</a></li>
+<li><a class="reference internal" href="#requirements">Requirements</a></li>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#documentation">Documentation</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
 </ul>
 <div class="relations">
