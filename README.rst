@@ -44,20 +44,24 @@ to buffer or save on disc.
 
 .. code-block:: python
 
-    >>> res.download()
+    >>> res.download() #Pdb is default
     "HEADER DNA 01-APR-15 4Z4B ..."
+
     from ndb_adapter import DownloadType
     >>> res.download(download_type=DownloadType.Cif)
     'data_4Z4B\n# \n_entry.id   4Z4B ...'
+
     >>> res.download(save=True) #saves in current directory
     >>> res.download(save=True, target_dir='~/Downloads/') #saves in /Downloads/
+
+To be continued...
 
 Requirements
 ------------
 
 - python 3.*
-- requests
-- xlrd
+- `requests <https://pypi.python.org/pypi/requests>`_
+- `xlrd <https://pypi.python.org/pypi/xlrd>`_
 
 Installation
 ------------
