@@ -9,7 +9,14 @@ from ndb_adapter.ndb_base import NDBBase
 
 
 class _Pdb(NDBBase):
-    """Helper class for pdb file download"""
+    """Helper class for pdb file download
+
+    :cvar Url: url to file ftp
+    :cvar Ext: file extension
+    :cvar UrlExt: url file extension
+    :cvar PreName: url name prefix
+    :cvar PostName: url name postfix
+    """
     Url = NDBBase._chiralCorrectUrl
     Ext = ".ent"
     UrlExt = ".ent.gz"
@@ -123,7 +130,7 @@ class DownloadHelper(object):
                     raise error
 
             if save:
-                target = target_dir if target_dir else os.getcwd() + "\\"
+                target = target_dir if target_dir else os.getcwd() + os.path.sep
                 with open(target + file_name + d_type.Ext, 'w') as file:
                     file.write(file_text)
 
@@ -143,7 +150,7 @@ class DownloadHelper(object):
 
             if save:
                 i = 1
-                target = target_dir if target_dir else os.getcwd() + "\\"
+                target = target_dir if target_dir else os.getcwd() + os.path.sep
                 for text in results:
                     with open(target + file_name + d_type.Ext + str(i), 'w') as file:
                         file.write(text)

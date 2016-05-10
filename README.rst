@@ -170,7 +170,7 @@ to buffer or save.
 
     >>> res = NDB.advanced_search()
     >>> res.download(save=True) # saves n files in current directory
-    >>> res.download(save=True, target_dir='~/Downloads/')  # saves n files in /Downloads/
+    >>> res.download(save=True, target_dir='/home/user/Downloads/')  # saves n files in ~/Downloads/
 
     >>> res.report[0].download(save=True) # saves first structure file in current directory
 
