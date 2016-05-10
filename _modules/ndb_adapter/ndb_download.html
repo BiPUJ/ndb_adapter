@@ -51,7 +51,14 @@
 
 
 <span class="k">class</span> <span class="nc">_Pdb</span><span class="p">(</span><span class="n">NDBBase</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Helper class for pdb file download&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Helper class for pdb file download</span>
+
+<span class="sd">    :cvar Url: url to file ftp</span>
+<span class="sd">    :cvar Ext: file extension</span>
+<span class="sd">    :cvar UrlExt: url file extension</span>
+<span class="sd">    :cvar PreName: url name prefix</span>
+<span class="sd">    :cvar PostName: url name postfix</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">Url</span> <span class="o">=</span> <span class="n">NDBBase</span><span class="o">.</span><span class="n">_chiralCorrectUrl</span>
     <span class="n">Ext</span> <span class="o">=</span> <span class="s2">&quot;.ent&quot;</span>
     <span class="n">UrlExt</span> <span class="o">=</span> <span class="s2">&quot;.ent.gz&quot;</span>
@@ -165,7 +172,7 @@
                     <span class="k">raise</span> <span class="n">error</span>
 
             <span class="k">if</span> <span class="n">save</span><span class="p">:</span>
-                <span class="n">target</span> <span class="o">=</span> <span class="n">target_dir</span> <span class="k">if</span> <span class="n">target_dir</span> <span class="k">else</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span>
+                <span class="n">target</span> <span class="o">=</span> <span class="n">target_dir</span> <span class="k">if</span> <span class="n">target_dir</span> <span class="k">else</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">sep</span>
                 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">target</span> <span class="o">+</span> <span class="n">file_name</span> <span class="o">+</span> <span class="n">d_type</span><span class="o">.</span><span class="n">Ext</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="nb">file</span><span class="p">:</span>
                     <span class="nb">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">file_text</span><span class="p">)</span>
 
@@ -185,7 +192,7 @@
 
             <span class="k">if</span> <span class="n">save</span><span class="p">:</span>
                 <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span>
-                <span class="n">target</span> <span class="o">=</span> <span class="n">target_dir</span> <span class="k">if</span> <span class="n">target_dir</span> <span class="k">else</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span>
+                <span class="n">target</span> <span class="o">=</span> <span class="n">target_dir</span> <span class="k">if</span> <span class="n">target_dir</span> <span class="k">else</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">sep</span>
                 <span class="k">for</span> <span class="n">text</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
                     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">target</span> <span class="o">+</span> <span class="n">file_name</span> <span class="o">+</span> <span class="n">d_type</span><span class="o">.</span><span class="n">Ext</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="nb">file</span><span class="p">:</span>
                         <span class="nb">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
