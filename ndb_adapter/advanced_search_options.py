@@ -1,10 +1,9 @@
 from datetime import date, datetime
 from typing import List, Optional
-
-from ndb_adapter.enums import ReportType, YesNoIgnore, AndOr, DnaRnaEither, GreaterLowerEqual, DrugBinding, SpaceGroup, \
-    RFactor, BasePair, BasePhosphate, BaseStack, GreaterLower, InternalLoopMotif, HairpinLoopMotif, ResolutionCutoff, \
-    EnzymeFunction, RegulatoryFunction, StructuralFunction, OtherFunction, NaFeature, StrandDescription, \
-    ConformationType
+from ndb_adapter.enums import ReportType, YesNoIgnore, AndOr, DnaRnaEither, GreaterLowerEqual, DrugBinding, \
+    SpaceGroup, RFactor, BasePair, BasePhosphate, BaseStack, GreaterLower, InternalLoopMotif, HairpinLoopMotif,\
+    ResolutionCutoff, EnzymeFunction, RegulatoryFunction, StructuralFunction, OtherFunction, NaFeature,\
+    StrandDescription, ConformationType
 
 
 class AdvancedSearchOptions(object):

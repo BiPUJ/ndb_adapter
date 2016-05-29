@@ -1,5 +1,4 @@
 import requests
-
 import ndb_adapter.report_parser as parser
 from ndb_adapter.advanced_search_options import AdvancedSearchOptions
 from ndb_adapter.dna_search_options import DnaSearchOptions

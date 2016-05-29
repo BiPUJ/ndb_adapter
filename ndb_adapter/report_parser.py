@@ -1,9 +1,7 @@
 import re
 from io import BytesIO
 from typing import List, Callable
-
 import xlrd
-
 from ndb_adapter.enums import ReportType
 from ndb_adapter.html_parser import NDBHtmlParser
 from ndb_adapter.ndb_base import NDBBase
@@ -166,7 +164,6 @@ def parse_summary(html: str) -> SummaryResult:
     result = SummaryResult()
     parser = NDBHtmlParser()
     parser.analyze(html)
-#    print(parser.get_tree())
 
     summary_tag = parser.find_one('div', params={'id': 'summary'})
     if summary_tag:

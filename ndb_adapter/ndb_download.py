@@ -130,7 +130,8 @@ class DownloadHelper(object):
                     raise error
 
             if save:
-                target = target_dir if target_dir else os.getcwd() + os.path.sep
+                target = target_dir if target_dir else os.getcwd()
+                target = target + os.path.sep if target[-1] != os.path.sep else target
                 with open(target + file_name + d_type.Ext, 'w') as file:
                     file.write(file_text)
 
@@ -150,7 +151,8 @@ class DownloadHelper(object):
 
             if save:
                 i = 1
-                target = target_dir if target_dir else os.getcwd() + os.path.sep
+                target = target_dir if target_dir else os.getcwd()
+                target = target + os.path.sep if target[-1] != os.path.sep else target
                 for text in results:
                     with open(target + file_name + d_type.Ext + str(i), 'w') as file:
                         file.write(text)

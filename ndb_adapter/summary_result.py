@@ -1,5 +1,4 @@
 from typing import List, Dict
-
 from ndb_adapter.ndb_download import DownloadHelper
 from ndb_adapter.ndb_download import DownloadType
 

@@ -1,5 +1,4 @@
 from typing import List, Dict
-
 from ndb_adapter.search_report import StatisticReport
 
 
