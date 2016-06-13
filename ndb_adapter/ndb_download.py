@@ -24,6 +24,11 @@ class _Pdb(NDBBase):
     PostName = ''
 
 
+class _PdbNmr(_Pdb):
+    """Helper class for pdb nmr file download"""
+    Url = NDBBase._nmrUrl
+
+
 class _PdbBioAssembly(NDBBase):
     """Helper class for pdb biological assembly file download"""
     Url = NDBBase._bioAssemblyCoordinateUrl
@@ -42,11 +47,25 @@ class _Cif(NDBBase):
     PostName = ''
 
 
+class _CifNmr(_Cif):
+    """Helper class for cif nmr file download"""
+    Url = NDBBase._nmrMmCifUrl
+
+
 class _CifStructureFactors(_Pdb):
     """Helper class for cif structure factors file download"""
     Url = NDBBase._structureFactorsUrl
     PreName = 'r'
-    PostName = 'st'
+    PostName = 'sf'
+
+
+class _CifNmrRestraints(NDBBase):
+    """Helper class for nmr restraints file download"""
+    Url = NDBBase._nmrRestraintsUrl
+    Ext = ".mr"
+    UrlExt = ".mr.gz"
+    PreName = ''
+    PostName = ''
 
 
 class _XmlComplete(NDBBase):
@@ -74,17 +93,23 @@ class DownloadType(Enum):
     """Enum for file download format
 
     :cvar Pdb: Asymmetric Unit coordinates (pdb format, Unix compressed(.gz))
-    :cvar PdbBioAssembly: Biological Assembly coordinates
     :cvar Cif: Asymmetric Unit coordinates (cif format, Unix compressed(.gz))
+    :cvar PdbBioAssembly: Biological Assembly coordinates
+    :cvar PdbNmr: Coordinates (pdb format, Unix compressed(.gz))
+    :cvar CifNmr: Coordinates (cif format, Unix compressed(.gz))
     :cvar CifStructureFactors: Structure Factors (cif format)
+    :cvar CifNmrRestraints: NMR Restraints (cif format, Unix compressed(.gz))
     :cvar XmlComplete: XML | Complete with coordinates (xml format, GNU compressed(.gz))
     :cvar XmlCoordinates: XML | Coordinates only (xml format, GNU compressed(.gz))
     :cvar XmlHeader: XML | Header only (xml format, GNU compressed(.gz))
     """
     Pdb = _Pdb
+    PdbNmr = _PdbNmr
     PdbBioAssembly = _PdbBioAssembly
     Cif = _Cif
+    CifNmr = _CifNmr
     CifStructureFactors = _CifStructureFactors
+    CifNmrRestraints = _CifNmrRestraints
     XmlComplete = _XmlComplete
     XmlCoordinates = _XmlCoordinates
     XmlHeader = _XmlHeader
