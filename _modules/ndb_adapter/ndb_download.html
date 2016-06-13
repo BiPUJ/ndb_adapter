@@ -66,6 +66,11 @@
     <span class="n">PostName</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
 
 
+<span class="k">class</span> <span class="nc">_PdbNmr</span><span class="p">(</span><span class="n">_Pdb</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Helper class for pdb nmr file download&quot;&quot;&quot;</span>
+    <span class="n">Url</span> <span class="o">=</span> <span class="n">NDBBase</span><span class="o">.</span><span class="n">_nmrUrl</span>
+
+
 <span class="k">class</span> <span class="nc">_PdbBioAssembly</span><span class="p">(</span><span class="n">NDBBase</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Helper class for pdb biological assembly file download&quot;&quot;&quot;</span>
     <span class="n">Url</span> <span class="o">=</span> <span class="n">NDBBase</span><span class="o">.</span><span class="n">_bioAssemblyCoordinateUrl</span>
@@ -84,11 +89,25 @@
     <span class="n">PostName</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
 
 
+<span class="k">class</span> <span class="nc">_CifNmr</span><span class="p">(</span><span class="n">_Cif</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Helper class for cif nmr file download&quot;&quot;&quot;</span>
+    <span class="n">Url</span> <span class="o">=</span> <span class="n">NDBBase</span><span class="o">.</span><span class="n">_nmrMmCifUrl</span>
+
+
 <span class="k">class</span> <span class="nc">_CifStructureFactors</span><span class="p">(</span><span class="n">_Pdb</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Helper class for cif structure factors file download&quot;&quot;&quot;</span>
     <span class="n">Url</span> <span class="o">=</span> <span class="n">NDBBase</span><span class="o">.</span><span class="n">_structureFactorsUrl</span>
     <span class="n">PreName</span> <span class="o">=</span> <span class="s1">&#39;r&#39;</span>
-    <span class="n">PostName</span> <span class="o">=</span> <span class="s1">&#39;st&#39;</span>
+    <span class="n">PostName</span> <span class="o">=</span> <span class="s1">&#39;sf&#39;</span>
+
+
+<span class="k">class</span> <span class="nc">_CifNmrRestraints</span><span class="p">(</span><span class="n">NDBBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Helper class for nmr restraints file download&quot;&quot;&quot;</span>
+    <span class="n">Url</span> <span class="o">=</span> <span class="n">NDBBase</span><span class="o">.</span><span class="n">_nmrRestraintsUrl</span>
+    <span class="n">Ext</span> <span class="o">=</span> <span class="s2">&quot;.mr&quot;</span>
+    <span class="n">UrlExt</span> <span class="o">=</span> <span class="s2">&quot;.mr.gz&quot;</span>
+    <span class="n">PreName</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">PostName</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
 
 
 <span class="k">class</span> <span class="nc">_XmlComplete</span><span class="p">(</span><span class="n">NDBBase</span><span class="p">):</span>
@@ -116,17 +135,23 @@
     <span class="sd">&quot;&quot;&quot;Enum for file download format</span>
 
 <span class="sd">    :cvar Pdb: Asymmetric Unit coordinates (pdb format, Unix compressed(.gz))</span>
-<span class="sd">    :cvar PdbBioAssembly: Biological Assembly coordinates</span>
 <span class="sd">    :cvar Cif: Asymmetric Unit coordinates (cif format, Unix compressed(.gz))</span>
+<span class="sd">    :cvar PdbBioAssembly: Biological Assembly coordinates</span>
+<span class="sd">    :cvar PdbNmr: Coordinates (pdb format, Unix compressed(.gz))</span>
+<span class="sd">    :cvar CifNmr: Coordinates (cif format, Unix compressed(.gz))</span>
 <span class="sd">    :cvar CifStructureFactors: Structure Factors (cif format)</span>
+<span class="sd">    :cvar CifNmrRestraints: NMR Restraints (cif format, Unix compressed(.gz))</span>
 <span class="sd">    :cvar XmlComplete: XML | Complete with coordinates (xml format, GNU compressed(.gz))</span>
 <span class="sd">    :cvar XmlCoordinates: XML | Coordinates only (xml format, GNU compressed(.gz))</span>
 <span class="sd">    :cvar XmlHeader: XML | Header only (xml format, GNU compressed(.gz))</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">Pdb</span> <span class="o">=</span> <span class="n">_Pdb</span>
+    <span class="n">PdbNmr</span> <span class="o">=</span> <span class="n">_PdbNmr</span>
     <span class="n">PdbBioAssembly</span> <span class="o">=</span> <span class="n">_PdbBioAssembly</span>
     <span class="n">Cif</span> <span class="o">=</span> <span class="n">_Cif</span>
+    <span class="n">CifNmr</span> <span class="o">=</span> <span class="n">_CifNmr</span>
     <span class="n">CifStructureFactors</span> <span class="o">=</span> <span class="n">_CifStructureFactors</span>
+    <span class="n">CifNmrRestraints</span> <span class="o">=</span> <span class="n">_CifNmrRestraints</span>
     <span class="n">XmlComplete</span> <span class="o">=</span> <span class="n">_XmlComplete</span>
     <span class="n">XmlCoordinates</span> <span class="o">=</span> <span class="n">_XmlCoordinates</span>
     <span class="n">XmlHeader</span> <span class="o">=</span> <span class="n">_XmlHeader</span></div>
@@ -172,7 +197,8 @@
                     <span class="k">raise</span> <span class="n">error</span>
 
             <span class="k">if</span> <span class="n">save</span><span class="p">:</span>
-                <span class="n">target</span> <span class="o">=</span> <span class="n">target_dir</span> <span class="k">if</span> <span class="n">target_dir</span> <span class="k">else</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">sep</span>
+                <span class="n">target</span> <span class="o">=</span> <span class="n">target_dir</span> <span class="k">if</span> <span class="n">target_dir</span> <span class="k">else</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+                <span class="n">target</span> <span class="o">=</span> <span class="n">target</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">sep</span> <span class="k">if</span> <span class="n">target</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">sep</span> <span class="k">else</span> <span class="n">target</span>
                 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">target</span> <span class="o">+</span> <span class="n">file_name</span> <span class="o">+</span> <span class="n">d_type</span><span class="o">.</span><span class="n">Ext</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="nb">file</span><span class="p">:</span>
                     <span class="nb">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">file_text</span><span class="p">)</span>
 
@@ -192,7 +218,8 @@
 
             <span class="k">if</span> <span class="n">save</span><span class="p">:</span>
                 <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span>
-                <span class="n">target</span> <span class="o">=</span> <span class="n">target_dir</span> <span class="k">if</span> <span class="n">target_dir</span> <span class="k">else</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">sep</span>
+                <span class="n">target</span> <span class="o">=</span> <span class="n">target_dir</span> <span class="k">if</span> <span class="n">target_dir</span> <span class="k">else</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+                <span class="n">target</span> <span class="o">=</span> <span class="n">target</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">sep</span> <span class="k">if</span> <span class="n">target</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">sep</span> <span class="k">else</span> <span class="n">target</span>
                 <span class="k">for</span> <span class="n">text</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
                     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">target</span> <span class="o">+</span> <span class="n">file_name</span> <span class="o">+</span> <span class="n">d_type</span><span class="o">.</span><span class="n">Ext</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="nb">file</span><span class="p">:</span>
                         <span class="nb">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>

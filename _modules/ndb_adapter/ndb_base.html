@@ -50,6 +50,16 @@
 <span class="sd">    :cvar _summaryUrl: private summary url</span>
 <span class="sd">    :cvar _dnaUrl: private dna search url</span>
 <span class="sd">    :cvar _rnaUrl: private rna search url</span>
+<span class="sd">    :cvar _chiralCorrectUrl: private chiral correct coordinates download url</span>
+<span class="sd">    :cvar _nmrUrl: private nmr pdb coordinates download url</span>
+<span class="sd">    :cvar _nmrMmCifUrl: private nmr mmcif coordinates download url</span>
+<span class="sd">    :cvar _bioAssemblyCoordinateUrl: private bio assembly coordinates download url</span>
+<span class="sd">    :cvar _mmCifUrl: private mmCIF coordinates download url</span>
+<span class="sd">    :cvar _structureFactorsUrl: private structure factors download url</span>
+<span class="sd">    :cvar _nmrRestraintsUrl: private nmr restraints download url</span>
+<span class="sd">    :cvar _xmlCompleteUrl: private complete xml download url</span>
+<span class="sd">    :cvar _xmlCoordinatesUrl: private coordinates only xml download url</span>
+<span class="sd">    :cvar _xmlHeaderUrl: private header only xml download url</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">siteUrl</span> <span class="o">=</span> <span class="s1">&#39;http://ndbserver.rutgers.edu&#39;</span>
     <span class="n">_advancedUrl</span> <span class="o">=</span> <span class="n">siteUrl</span> <span class="o">+</span> <span class="s1">&#39;/service/ndb/report/advSearchReport&#39;</span>
@@ -57,9 +67,12 @@
     <span class="n">_dnaUrl</span> <span class="o">=</span> <span class="n">siteUrl</span> <span class="o">+</span> <span class="s1">&#39;/service/ndb/atlas/gallery/dna&#39;</span>
     <span class="n">_rnaUrl</span> <span class="o">=</span> <span class="n">siteUrl</span> <span class="o">+</span> <span class="s1">&#39;/service/ndb/atlas/gallery/rna&#39;</span>
     <span class="n">_chiralCorrectUrl</span> <span class="o">=</span> <span class="n">siteUrl</span> <span class="o">+</span> <span class="s1">&#39;/files/ftp/NDB/coordinates/na-chiral-correct/&#39;</span>
+    <span class="n">_nmrUrl</span> <span class="o">=</span> <span class="n">siteUrl</span> <span class="o">+</span> <span class="s1">&#39;/files/ftp/NDB/coordinates/na-nmr/&#39;</span>
+    <span class="n">_nmrMmCifUrl</span> <span class="o">=</span> <span class="n">siteUrl</span> <span class="o">+</span> <span class="s1">&#39;/files/ftp/NDB/coordinates/na-nmr-mmcif/&#39;</span>
     <span class="n">_bioAssemblyCoordinateUrl</span> <span class="o">=</span> <span class="n">siteUrl</span> <span class="o">+</span> <span class="s1">&#39;/files/ftp/NDB/coordinates/na-biol/&#39;</span>
     <span class="n">_mmCifUrl</span> <span class="o">=</span> <span class="n">siteUrl</span> <span class="o">+</span> <span class="s1">&#39;/files/ftp/NDB/coordinates/na-mmcif/&#39;</span>
     <span class="n">_structureFactorsUrl</span> <span class="o">=</span> <span class="n">siteUrl</span> <span class="o">+</span> <span class="s1">&#39;/files/ftp/NDB/structure-factors/&#39;</span>
+    <span class="n">_nmrRestraintsUrl</span> <span class="o">=</span> <span class="n">siteUrl</span> <span class="o">+</span> <span class="s1">&#39;/files/ftp/NDB/nmr-restraints/&#39;</span>
     <span class="n">_xmlCompleteUrl</span> <span class="o">=</span> <span class="n">siteUrl</span> <span class="o">+</span> <span class="s1">&#39;/files/ftp/NDB/coordinates/xml/&#39;</span>
     <span class="n">_xmlCoordinatesUrl</span> <span class="o">=</span> <span class="n">siteUrl</span> <span class="o">+</span> <span class="s1">&#39;/files/ftp/NDB/coordinates/xml-extatom/&#39;</span>
     <span class="n">_xmlHeaderUrl</span> <span class="o">=</span> <span class="n">siteUrl</span> <span class="o">+</span> <span class="s1">&#39;/files/ftp/NDB/coordinates/xml-noatom/&#39;</span></div>
