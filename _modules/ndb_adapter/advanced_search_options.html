@@ -204,6 +204,16 @@
             <span class="s1">&#39;repType&#39;</span><span class="p">:</span> <span class="s1">&#39;csv&#39;</span>
         <span class="p">})</span></div>
 
+<div class="viewcode-block" id="AdvancedSearchOptions.set_report_type"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.advanced_search_options.AdvancedSearchOptions.set_report_type">[docs]</a>    <span class="k">def</span> <span class="nf">set_report_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">report</span><span class="p">:</span> <span class="n">ReportType</span> <span class="o">=</span> <span class="n">ReportType</span><span class="o">.</span><span class="n">NDBStatus</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Sets report type in search object</span>
+
+<span class="sd">        :param report: report type to set</span>
+<span class="sd">        :type report: ReportType</span>
+
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_report_type</span> <span class="o">=</span> <span class="n">report</span><span class="o">.</span><span class="n">value</span></div>
+
 <div class="viewcode-block" id="AdvancedSearchOptions.set_dna"><a class="viewcode-back" href="../../ndb_adapter.html#ndb_adapter.advanced_search_options.AdvancedSearchOptions.set_dna">[docs]</a>    <span class="k">def</span> <span class="nf">set_dna</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">and_or</span><span class="p">:</span> <span class="n">AndOr</span> <span class="o">=</span> <span class="n">AndOr</span><span class="o">.</span><span class="n">And</span><span class="p">,</span> <span class="n">yes_no_ignore</span><span class="p">:</span> <span class="n">YesNoIgnore</span> <span class="o">=</span> <span class="n">YesNoIgnore</span><span class="o">.</span><span class="n">Ignore</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Sets dna in options</span>
 
