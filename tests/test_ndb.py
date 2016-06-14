@@ -17,6 +17,17 @@ class NDBTest(unittest.TestCase):
         self.assertGreater(count, 7955)
         self.assertIsNot(result.report, [])
 
+        opt = AdvancedSearchOptions()
+        opt.set_rna(yes_no_ignore=YesNoIgnore.Yes)
+        opt.set_crystal_structure(yes_no_ignore=YesNoIgnore.Yes)
+        opt.set_space_group(space_group=SpaceGroup.I_2_2_2)
+
+        for t in ReportType:
+            opt.set_report_type(t)
+            result = NDB.advanced_search(opt)
+            self.assertTrue(result)
+            self.assertGreater(result.count, 0)
+
     def test_advanced_search_statistic(self) -> None:
         opt = AdvancedSearchOptions(ReportType.RNABasePairRelFreq)
         opt.set_hybrid(yes_no_ignore=YesNoIgnore.Yes)
@@ -97,16 +108,16 @@ class NDBTest(unittest.TestCase):
     def test_report_search(self) -> None:
         result = NDB.dna_search()
         first = result.report[0]
-        self.assertIsNotNone(first)
-        self.assertIsNotNone(first.pdb_id)
+        self.assertTrue(first)
+        self.assertTrue(first.pdb_id)
 
     def test_summary(self) -> None:
         report = NDB.summary('5F8K')
         file = report.download(download_type=DownloadType.Cif)
         self.assertTrue(report)
-        self.assertIsNotNone(file)
+        self.assertTrue(file)
 
-    def test_download_search(self) -> None:
+    def test_ndb_download_search(self) -> None:
         opt = AdvancedSearchOptions()
         opt.set_drug(yes_no_ignore=YesNoIgnore.Yes)
         opt.set_drug_binding(AndOr.And, DrugBinding.Intercalation)
@@ -115,11 +126,11 @@ class NDBTest(unittest.TestCase):
         files = result.download(download_type=DownloadType.Pdb)
         self.assertGreaterEqual(len(files), 23)
 
-    def test_download(self) -> None:
+    def test_ndb_download(self) -> None:
         report = NDB.download('1kog')
         self.assertTrue(report)
 
-    def test_download_bio_assembly(self) -> None:
+    def test_ndb_download_bio_assembly(self) -> None:
         files = NDB.download('4ZM0', download_type=DownloadType.PdbBioAssembly)     # type: List[str]
         self.assertGreaterEqual(len(files), 2)
 

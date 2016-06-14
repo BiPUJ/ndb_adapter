@@ -20,10 +20,10 @@ class DownloadTests(unittest.TestCase):
 
         for download_type in filter(lambda w: w is not DownloadType.CifStructureFactors, DownloadType):
                 file = DownloadHelper.download("5j0m", download_type)
-                self.assertIsNotNone(file)
+                self.assertTrue(file)
 
         file = DownloadHelper.download("5DC3", DownloadType.CifStructureFactors)
-        self.assertIsNotNone(file)
+        self.assertTrue(file)
 
     def test_download_file(self):
         url = "http://ndbserver.rutgers.edu/files/ftp/NDB/coordinates/na-chiral-correct/pdb5dg7.ent.gz"

@@ -162,6 +162,16 @@ class AdvancedSearchOptions(object):
             'repType': 'csv'
         })
 
+    def set_report_type(self, report: ReportType = ReportType.NDBStatus) -> None:
+        """Sets report type in search object
+
+        :param report: report type to set
+        :type report: ReportType
+
+        :return: None
+        """
+        self._report_type = report.value
+
     def set_dna(self, and_or: AndOr = AndOr.And, yes_no_ignore: YesNoIgnore = YesNoIgnore.Ignore) -> None:
         """Sets dna in options
 
